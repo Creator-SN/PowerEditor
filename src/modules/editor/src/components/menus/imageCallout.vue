@@ -1,58 +1,22 @@
 <template>
-    <fv-callout
-        :visible.sync="show"
-        :lockScroll="true"
-        :position="'bottomCenter'"
-        :beak="12"
-        :space="0"
-        :theme="theme"
-        :popperClass="'power-editor-image-callout'"
-    >
+    <fv-callout :visible.sync="show" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-image-callout'">
         <slot></slot>
         <header>
-            <p style="font-size: 13.8px;">Insert Image</p>
+            <p style="font-size: 13.8px">Insert Image</p>
         </header>
         <main>
-            <div
-                class="power-editor-i-c-block"
-                :class="[{ dark: theme === 'dark' }]"
-            >
+            <div class="power-editor-i-c-block" :class="[{ dark: theme === 'dark' }]">
                 <p class="power-editor-i-c-title">Method 1</p>
-                <i
-                    class="ms-Icon ms-Icon--Photo2Add power-editor-i-c-icon-1"
-                    @click="$refs.img_local.click()"
-                ></i>
-                <p
-                    class="power-editor-i-c-t2"
-                >Choose Local Image as Base64 (multiple).</p>
-                <input
-                    type="file"
-                    accept="image/gif,image/png,image/jpeg,image/x-png"
-                    multiple="true"
-                    style="display: none;"
-                    ref="img_local"
-                    @change="insertLocal"
-                />
+                <i class="ms-Icon ms-Icon--Photo2Add power-editor-i-c-icon-1" @click="$refs.img_local.click()"></i>
+                <p class="power-editor-i-c-t2">Choose Local Image as Base64 (multiple).</p>
+                <input type="file" accept="image/gif,image/png,image/jpeg,image/x-png" multiple="true" style="display: none" ref="img_local" @change="insertLocal" />
             </div>
-            <div
-                class="power-editor-i-c-block"
-                :class="[{ dark: theme === 'dark' }]"
-            >
+            <div class="power-editor-i-c-block" :class="[{ dark: theme === 'dark' }]">
                 <p class="power-editor-i-c-title">Method 2</p>
-                <fv-text-box
-                    v-model="url"
-                    placeholder="Insert Image Url."
-                    style="width: 90%; border: thin; outline: none;"
-                    ref="img_link"
-                />
+                <fv-text-box v-model="url" placeholder="Insert Image Url." style="width: 90%; border: thin; outline: none" ref="img_link" />
             </div>
             <div class="power-editor-i-c-control-block">
-                <fv-button
-                    theme="dark"
-                    :disabled="url === ''"
-                    background="rgba(65, 74, 90, 1)"
-                    @click="insert"
-                >Insert</fv-button>
+                <fv-button theme="dark" :disabled="url === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>
             </div>
         </main>
     </fv-callout>
@@ -62,28 +26,27 @@
 export default {
     props: {
         theme: {
-            default: "light",
+            default: 'light',
         },
     },
     data() {
         return {
-            url: "",
+            url: '',
             show: false,
         };
     },
     watch: {
         show(val) {
             if (!val) {
-                this.url = "";
-                this.$refs.img_local.value = "";
+                this.url = '';
+                this.$refs.img_local.value = '';
             }
         },
     },
     methods: {
         insert() {
-            if(this.url === '')
-                return 0;
-            this.$emit("insert-image", [this.url]);
+            if (this.url === '') return 0;
+            this.$emit('insert-image', [this.url]);
             this.show = false;
         },
         async insertLocal() {
@@ -100,7 +63,7 @@ export default {
                 });
                 base64_list.push(base64);
             }
-            this.$emit("insert-image", base64_list);
+            this.$emit('insert-image', base64_list);
             this.show = false;
         },
     },

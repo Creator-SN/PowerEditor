@@ -1,12 +1,39 @@
 {
   "name": "@creatorsn/powereditor",
   "version": "0.0.1",
-  "private": true,
+  "private": false,
+  "author": {
+    "name": "Creator-SN",
+    "url": "https://github.com/Creator-SN"
+  },
+  "bugs": {
+    "url": "https://github.com/Creator-SN/PowerEditor/issues"
+  },
+  "homepage": "https://creator-sn.github.io/PowerEditor/",
+  "repository": {
+    "url": "https://github.com/Creator-SN/PowerEditor"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "description": "Power by tiptap (Prosemirror toolkit)",
+  "keywords": [
+    "tiptap",
+    "vue2",
+    "vue",
+    "prosemirror",
+    "fluent",
+    "creatorsn"
+  ],
+  "main": "lib/index.umd.min.js",
+  "license": "MIT",
   "scripts": {
     "serve": "vuepress dev docs",
     "build": "vuepress build docs",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name powereditor --dest lib src/index.js",
     "bin:i18n": "ts-node ./build/i18n.ts"
   },
   "dependencies": {

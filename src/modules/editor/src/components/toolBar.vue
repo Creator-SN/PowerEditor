@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="power-editor-tool-bar-container"
-        :class="[{ dark: thisTheme === 'dark' }]"
-    >
+    <div class="power-editor-tool-bar-container" :class="[{ dark: thisTheme === 'dark' }]">
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -47,7 +44,7 @@
         >
             <i class="ms-Icon ms-Icon--Underline"></i>
         </fv-button>
-        <hr>
+        <hr />
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -70,21 +67,8 @@
         >
             <i class="ms-Icon ms-Icon--ChromeMinimize"></i>
         </fv-button>
-        <heading-callout
-            :theme="thisTheme"
-            :editor="editor"
-            :getBackground="getBackground"
-            :getForeground="getForeground"
-            :execMore="execMore"
-        >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false)"
-                :title="getTitle('Header')"
-            >
+        <heading-callout :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :execMore="execMore">
+            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Header')">
                 <i class="ms-Icon ms-Icon--Header1"></i>
             </fv-button>
         </heading-callout>
@@ -110,7 +94,7 @@
         >
             <i class="ms-Icon ms-Icon--ClearFormatting"></i>
         </fv-button>
-        <hr>
+        <hr />
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -133,7 +117,7 @@
         >
             <i class="ms-Icon ms-Icon--NumberedList"></i>
         </fv-button>
-        <hr>
+        <hr />
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -178,7 +162,7 @@
         >
             <i class="ms-Icon ms-Icon--AlignJustify"></i>
         </fv-button>
-        <hr v-if="false">
+        <hr v-if="false" />
         <fv-button
             v-if="false"
             class="power-editor-cmd-btn"
@@ -203,15 +187,8 @@
         >
             <i class="ms-Icon ms-Icon--DecreaseIndentLegacy"></i>
         </fv-button>
-        <hr>
-        <color-callout
-            :theme="thisTheme"
-            :editor="editor"
-            :getBackground="getBackground"
-            :getForeground="getForeground"
-            :exec="exec"
-            :execMore="execMore"
-        >
+        <hr />
+        <color-callout :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :exec="exec" :execMore="execMore">
             <fv-button
                 class="power-editor-cmd-btn"
                 :theme="thisTheme"
@@ -267,33 +244,13 @@
         >
             <i class="ms-Icon ms-Icon--Variable"></i>
         </fv-button>
-        <image-callout
-            :theme="thisTheme"
-            @insert-image="insertImg"
-        >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false)"
-                :title="getTitle('Image')"
-            >
+        <image-callout :theme="thisTheme" @insert-image="insertImg">
+            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Image')">
                 <i class="ms-Icon ms-Icon--Photo2"></i>
             </fv-button>
         </image-callout>
-        <link-callout
-            :theme="thisTheme"
-            @insert-link="insertLink"
-        >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false)"
-                :title="getTitle('Link')"
-            >
+        <link-callout :theme="thisTheme" @insert-link="insertLink">
+            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Link')">
                 <i class="ms-Icon ms-Icon--Link"></i>
             </fv-button>
         </link-callout>
@@ -345,10 +302,10 @@
 </template>
 
 <script>
-import linkCallout from "./menus/linkCallout.vue";
-import colorCallout from "./menus/colorCallout.vue";
-import imageCallout from "./menus/imageCallout.vue";
-import headingCallout from "./menus/headingCallout.vue";
+import linkCallout from './menus/linkCallout.vue';
+import colorCallout from './menus/colorCallout.vue';
+import imageCallout from './menus/imageCallout.vue';
+import headingCallout from './menus/headingCallout.vue';
 
 export default {
     components: {
@@ -364,7 +321,7 @@ export default {
             },
         },
         theme: {
-            default: "light",
+            default: 'light',
         },
     },
     data() {
@@ -377,19 +334,19 @@ export default {
             this.thisTheme = val;
         },
         thisTheme(val) {
-            this.$emit("update:theme", val);
+            this.$emit('update:theme', val);
         },
     },
     computed: {
         highlightColor() {
-            if (this.thisTheme === "dark")
+            if (this.thisTheme === 'dark')
                 return {
-                    f: "rgba(36, 36, 36, 1)",
-                    b: "whitesmoke",
+                    f: 'rgba(36, 36, 36, 1)',
+                    b: 'whitesmoke',
                 };
             return {
-                f: "whitesmoke",
-                b: "rgba(36, 36, 36, 1)",
+                f: 'whitesmoke',
+                b: 'rgba(36, 36, 36, 1)',
             };
         },
     },
@@ -403,17 +360,17 @@ export default {
         getForeground(
             state,
             color = {
-                light: "rgba(65, 74, 90, 1)",
-                dark: "rgba(245, 245, 245, 1)",
+                light: 'rgba(65, 74, 90, 1)',
+                dark: 'rgba(245, 245, 245, 1)',
             }
         ) {
             if (state) return this.highlightColor.f;
-            if (typeof color === "string") return color;
+            if (typeof color === 'string') return color;
             return color[this.thisTheme];
         },
         getBackground(state) {
             if (state) return this.highlightColor.b;
-            return "";
+            return '';
         },
         exec(cmd) {
             if (cmd) this.editor.chain().focus()[cmd]().run();
@@ -432,18 +389,18 @@ export default {
         insertLink(link) {
             this.editor.chain().focus().insertContent(link).run();
         },
-        insertInlineEquation () {
+        insertInlineEquation() {
             this.editor.chain().focus().insertContent(`<inline-equation></inline-equation>`).run();
         },
-        insertEquationBlock () {
+        insertEquationBlock() {
             this.editor.chain().focus().insertContent(`<equation-block></equation-block>`).run();
-        }
+        },
     },
 };
 </script>
 
 <style lang="scss">
-@import "office-ui-fabric-core/src/sass/_References.scss";
+@import 'office-ui-fabric-core/src/sass/_References.scss';
 
 .power-editor-tool-bar-container {
     position: absolute;

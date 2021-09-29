@@ -1,24 +1,22 @@
-
-import Editor from '@/modules/editor/index.js'
-import VueFluent from "vfluentdesign";
-import "vfluentdesign/lib/index.css";
+import Editor from '@/modules/editor/index.js';
+import VueFluent from 'vfluentdesign';
+import 'vfluentdesign/lib/index.css';
 
 import katex from 'katex';
-import "katex/dist/katex.min.css";
+import 'katex/dist/katex.min.css';
 
-let components = [
-    Editor
-]
+let components = [Editor];
 
 const install = (Vue) => {
-    if (install.installed) return
+    if (install.installed) return;
     Vue.use(VueFluent);
-    components.map(component => Vue.use(component))
-}
+    Vue.prototype.$katex = katex;
+    components.map((component) => Vue.use(component));
+};
 
 export default {
     install,
-    Editor
-}
+    Editor,
+};
 
-export { Editor }
+export { Editor };

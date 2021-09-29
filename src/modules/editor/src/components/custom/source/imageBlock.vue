@@ -1,26 +1,14 @@
 <template>
-    <node-view-wrapper
-        v-if="node"
-        class="power-editor-image-container"
-        :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }"
-    >
-        <media-container
-            :width.sync="node.attrs.width"
-            :caption.sync="node.attrs.caption"
-            :alignCenter.sync="node.attrs.alignCenter"
-            :theme="node.attrs.theme"
-        >
-            <fv-image
-                :src="node.attrs.src"
-                style="width: 100%; height: auto;"
-            ></fv-image>
+    <node-view-wrapper v-if="node" class="power-editor-image-container" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
+        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :theme="node.attrs.theme">
+            <fv-image :src="node.attrs.src" style="width: 100%; height: auto"></fv-image>
         </media-container>
     </node-view-wrapper>
 </template>
 
 <script>
-import { NodeViewWrapper } from "@tiptap/vue-2";
-import mediaContainer from "./mediaContainer.vue";
+import { NodeViewWrapper } from '@tiptap/vue-2';
+import mediaContainer from './mediaContainer.vue';
 
 export default {
     components: {

@@ -1,4 +1,4 @@
-import { Node, mergeAttributes } from '@tiptap/core'
+import { Node, mergeAttributes } from '@tiptap/core';
 
 export default Node.create({
     name: 'powerTaskList',
@@ -12,25 +12,27 @@ export default Node.create({
             {
                 tag: 'ul[data-type="powerTaskList"]',
             },
-        ]
+        ];
     },
 
     renderHTML({ HTMLAttributes }) {
         // https://prosemirror.net/docs/ref/#model.DOMOutputSpec //
-        return ['ul', mergeAttributes(HTMLAttributes, { 'data-type': 'powerTaskList' }), 0]
+        return ['ul', mergeAttributes(HTMLAttributes, { 'data-type': 'powerTaskList' }), 0];
     },
 
     addCommands() {
         return {
-            togglePowerTaskList: () => ({ commands }) => {
-                return commands.toggleList('powerTaskList', 'powerTaskItem')
-            }
-        }
+            togglePowerTaskList:
+                () =>
+                ({ commands }) => {
+                    return commands.toggleList('powerTaskList', 'powerTaskItem');
+                },
+        };
     },
 
     addKeyboardShortcuts() {
         return {
             'Mod-Shift-9': () => this.editor.commands.togglePowerTaskList(),
-        }
-    }
-})
+        };
+    },
+});

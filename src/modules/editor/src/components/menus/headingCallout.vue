@@ -1,16 +1,8 @@
 <template>
-    <fv-callout
-        v-if="editor"
-        :lockScroll="true"
-        :position="'bottomCenter'"
-        :beak="12"
-        :space="0"
-        :theme="theme"
-        :popperClass="'power-editor-header-callout'"
-    >
+    <fv-callout v-if="editor" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-header-callout'">
         <slot></slot>
         <header>
-            <p style="font-size: 13.8px;">Headers</p>
+            <p style="font-size: 13.8px">Headers</p>
         </header>
         <main>
             <fv-button
@@ -23,7 +15,8 @@
                 :foreground="getForeground(editor.isActive('heading', { level: i }))"
                 :title="getTitle('Horizontal Rule')"
                 @click="execMore('toggleHeading', { level: i })"
-            >H{{i}}</fv-button>
+                >H{{ i }}</fv-button
+            >
         </main>
     </fv-callout>
 </template>
@@ -32,42 +25,36 @@
 export default {
     props: {
         getBackground: {
-            default: () => {}
+            default: () => {},
         },
         getForeground: {
-            default: () => {}
+            default: () => {},
         },
         execMore: {
-            default: () => {}
+            default: () => {},
         },
         editor: {
-            default: null
+            default: null,
         },
         theme: {
-            default: "light",
+            default: 'light',
         },
     },
     data() {
-        return {
-            
-        };
+        return {};
     },
-    watch: {
-        
-    },
+    watch: {},
     methods: {
         getTitle(name) {
             return name;
-        }
+        },
     },
 };
 </script>
 
 <style lang="scss">
-.power-editor-header-callout
-{
-    div.main
-    {
+.power-editor-header-callout {
+    div.main {
         height: auto;
         padding: 5px 0px;
         display: flex;

@@ -1,18 +1,18 @@
 <template>
-<node-view-wrapper v-if="node" as="li" class="power-editor-task-item-container">
-    <fv-check-box :value="node.attrs.checked" :disabled="!editor.isEditable"></fv-check-box>
-    <node-view-content ref="n" class="content"></node-view-content>
-    <p v-show="show" class="placeholder">{{node.attrs.placeholder}}</p>
-</node-view-wrapper>
+    <node-view-wrapper v-if="node" as="li" class="power-editor-task-item-container">
+        <fv-check-box :value="node.attrs.checked" :disabled="!editor.isEditable"></fv-check-box>
+        <node-view-content ref="n" class="content"></node-view-content>
+        <p v-show="show" class="placeholder">{{ node.attrs.placeholder }}</p>
+    </node-view-wrapper>
 </template>
 
 <script>
-import { NodeViewWrapper, NodeViewContent } from "@tiptap/vue-2";
+import { NodeViewWrapper, NodeViewContent } from '@tiptap/vue-2';
 
 export default {
     components: {
         NodeViewWrapper,
-        NodeViewContent
+        NodeViewContent,
     },
     props: {
         // the editor instance
@@ -55,43 +55,40 @@ export default {
             type: Function,
         },
     },
-    data () {
+    data() {
         return {
             show: true,
-            timer: {}
-        }
+            timer: {},
+        };
     },
-    mounted () {
+    mounted() {
         this.timerInit();
     },
     methods: {
-        timerInit () {
+        timerInit() {
             this.timer = setInterval(() => {
                 this.show = this.$refs.n.$el.innerText.replace(/\n/g, '') === '';
             }, 50);
-        }
+        },
     },
-    beforeDestroy () {
+    beforeDestroy() {
         clearInterval(this.timer);
-    }
-}
+    },
+};
 </script>
 
 <style lang="scss">
-.power-editor-task-item-container
-{
+.power-editor-task-item-container {
     position: relative;
     display: flex;
     align-items: center;
 
-    .content
-    {
+    .content {
         min-width: 10px;
         margin-left: 5px;
     }
 
-    .placeholder
-    {
+    .placeholder {
         position: absolute;
         left: 32px;
         color: rgba(200, 200, 200, 1);

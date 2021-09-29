@@ -1,46 +1,17 @@
 <template>
-    <fv-callout
-        :visible.sync="show"
-        :lockScroll="true"
-        :position="'bottomCenter'"
-        :beak="12"
-        :space="0"
-        :theme="theme"
-        :popperClass="'power-editor-link-callout'"
-    >
+    <fv-callout :visible.sync="show" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-link-callout'">
         <slot></slot>
         <header>
-            <p style="font-size: 13.8px;">Insert Link</p>
+            <p style="font-size: 13.8px">Insert Link</p>
         </header>
         <main>
-            <div
-                class="power-editor-l-c-block"
-                :class="[{ dark: theme === 'dark' }]"
-            >
-                <p
-                    v-if="false"
-                    class="power-editor-l-c-title"
-                >Fill the Form</p>
-                <fv-text-box
-                    v-model="caption"
-                    placeholder="Caption"
-                    icon="TextField"
-                    style="width: 90%; margin-top: 5px;"
-                />
-                <fv-text-box
-                    v-model="link"
-                    icon="Link"
-                    placeholder="Insert link Url..."
-                    style="width: 90%; margin-top: 5px;"
-                />
+            <div class="power-editor-l-c-block" :class="[{ dark: theme === 'dark' }]">
+                <p v-if="false" class="power-editor-l-c-title">Fill the Form</p>
+                <fv-text-box v-model="caption" placeholder="Caption" icon="TextField" style="width: 90%; margin-top: 5px" />
+                <fv-text-box v-model="link" icon="Link" placeholder="Insert link Url..." style="width: 90%; margin-top: 5px" />
             </div>
             <div class="power-editor-l-c-control-block">
-                <fv-button
-                    theme="dark"
-                    :disabled="link === ''"
-                    background="rgba(65, 74, 90, 1)"
-                    @click="insert"
-                >Insert</fv-button>
+                <fv-button theme="dark" :disabled="link === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>
             </div>
         </main>
     </fv-callout>
@@ -50,32 +21,29 @@
 export default {
     props: {
         theme: {
-            default: "light",
+            default: 'light',
         },
     },
     data() {
         return {
-            link: "",
-            caption: "",
+            link: '',
+            caption: '',
             show: false,
         };
     },
     watch: {
         show(val) {
             if (!val) {
-                this.link = "";
-                this.caption = "";
+                this.link = '';
+                this.caption = '';
             } else this.getSelection();
         },
     },
     methods: {
         insert() {
-            if (this.link === "") return 0;
-            this.caption = this.caption == "" ? this.link : this.caption;
-            this.$emit(
-                "insert-link",
-                `<a href="${this.link}">${this.caption}</a>`
-            );
+            if (this.link === '') return 0;
+            this.caption = this.caption == '' ? this.link : this.caption;
+            this.$emit('insert-link', `<a href="${this.link}">${this.caption}</a>`);
             this.show = false;
         },
         getSelection() {

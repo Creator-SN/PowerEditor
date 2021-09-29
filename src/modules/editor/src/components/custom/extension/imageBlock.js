@@ -1,6 +1,6 @@
-import { Node, mergeAttributes } from '@tiptap/core'
-import { VueNodeViewRenderer } from '@tiptap/vue-2'
-import imageBlock from '../source/imageBlock.vue'
+import { Node, mergeAttributes } from '@tiptap/core';
+import { VueNodeViewRenderer } from '@tiptap/vue-2';
+import imageBlock from '../source/imageBlock.vue';
 
 export default Node.create({
     name: 'imageblock',
@@ -14,21 +14,21 @@ export default Node.create({
     addAttributes() {
         return {
             src: {
-                default: ""
+                default: '',
             },
             width: {
-                default: 100
+                default: 100,
             },
             caption: {
-                default: ''
+                default: '',
             },
             alignCenter: {
-                default: true
+                default: true,
             },
             theme: {
-                default: 'light'
-            }
-        }
+                default: 'light',
+            },
+        };
     },
 
     parseHTML() {
@@ -36,14 +36,14 @@ export default Node.create({
             {
                 tag: 'image-block',
             },
-        ]
+        ];
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['image-block', mergeAttributes(HTMLAttributes)]
+        return ['image-block', mergeAttributes(HTMLAttributes)];
     },
 
     addNodeView() {
-        return VueNodeViewRenderer(imageBlock)
+        return VueNodeViewRenderer(imageBlock);
     },
-})
+});

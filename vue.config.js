@@ -1,9 +1,3 @@
-const path = require('path')
-function resolve(dir) {
-    return path.join(__dirname, dir)
-}
-const debug = process.env.NODE_ENV != "production";
-
 module.exports = {
     pages: {
         index: {
@@ -13,8 +7,13 @@ module.exports = {
     css: {
         // Separate StyleSheet
         extract: true,
-        modules: false,
+        requireModuleExtension: false,
         sourceMap: false,
     },
+    configureWebpack: {
+        output: {
+            libraryExport: 'default',
+        },
+    },
     lintOnSave: true,
-}
+};

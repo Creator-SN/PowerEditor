@@ -1,6 +1,6 @@
-import { Node, mergeAttributes, nodeInputRule } from '@tiptap/core'
-import { VueNodeViewRenderer } from '@tiptap/vue-2'
-import equationBlock from '../source/equationBase.vue'
+import { Node, mergeAttributes, nodeInputRule } from '@tiptap/core';
+import { VueNodeViewRenderer } from '@tiptap/vue-2';
+import equationBlock from '../source/equationBase.vue';
 
 const inputRegex = /^\${2}\s$/;
 
@@ -16,24 +16,24 @@ export default Node.create({
     addAttributes() {
         return {
             value: {
-                default: ""
+                default: '',
             },
             tag: {
-                default: "div"
+                default: 'div',
             },
             placeholder: {
-                default: "Y=WX^T+b"
+                default: 'Y=WX^T+b',
             },
             emptyPlaceholder: {
-                default: "New Equation"
+                default: 'New Equation',
             },
             showPopper: {
-                default: false
+                default: false,
             },
             theme: {
-                default: 'light'
-            }
-        }
+                default: 'light',
+            },
+        };
     },
 
     parseHTML() {
@@ -41,22 +41,18 @@ export default Node.create({
             {
                 tag: 'equation-block',
             },
-        ]
+        ];
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['equation-block', mergeAttributes(HTMLAttributes)]
+        return ['equation-block', mergeAttributes(HTMLAttributes)];
     },
 
     addNodeView() {
-        return VueNodeViewRenderer(equationBlock)
+        return VueNodeViewRenderer(equationBlock);
     },
 
     addInputRules() {
-        return [
-            nodeInputRule(
-                inputRegex,
-                this.type)
-        ]
-    }
-})
+        return [nodeInputRule(inputRegex, this.type)];
+    },
+});

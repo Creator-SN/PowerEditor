@@ -1,7 +1,7 @@
-import { Node, mergeAttributes } from '@tiptap/core'
-import { VueNodeViewRenderer } from '@tiptap/vue-2'
-import taskItem from '../source/taskItem.vue'
-import { wrappingInputRule } from 'prosemirror-inputrules'
+import { Node, mergeAttributes } from '@tiptap/core';
+import { VueNodeViewRenderer } from '@tiptap/vue-2';
+import taskItem from '../source/taskItem.vue';
+import { wrappingInputRule } from 'prosemirror-inputrules';
 
 const inputRegex = /^\s*(\[([ |x])\])\s$/;
 
@@ -19,12 +19,12 @@ export default Node.create({
     addAttributes() {
         return {
             checked: {
-                default: false
+                default: false,
             },
             placeholder: {
-                default: 'To-Do'
-            }
-        }
+                default: 'To-Do',
+            },
+        };
     },
 
     parseHTML() {
@@ -32,42 +32,38 @@ export default Node.create({
             {
                 tag: 'power-task-item',
             },
-        ]
+        ];
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['power-task-item', mergeAttributes(HTMLAttributes)]
+        return ['power-task-item', mergeAttributes(HTMLAttributes)];
     },
 
     addKeyboardShortcuts() {
         const shortcuts = {
             Enter: () => this.editor.commands.splitListItem('powerTaskItem'),
             'Shift-Tab': () => this.editor.commands.liftListItem('powerTaskItem'),
-        }
+        };
 
         if (!this.options.nested) {
-            return shortcuts
+            return shortcuts;
         }
 
         return {
             ...shortcuts,
             Tab: () => this.editor.commands.sinkListItem('powerTaskItem'),
-        }
+        };
     },
 
     addNodeView() {
-        return VueNodeViewRenderer(taskItem)
+        return VueNodeViewRenderer(taskItem);
     },
 
     addInputRules() {
         return [
-            wrappingInputRule(
-                inputRegex,
-                this.type,
-                match => ({
-                    checked: match[match.length - 1] === 'x',
-                }),
-            ),
-        ]
-    }
-})
+            wrappingInputRule(inputRegex, this.type, (match) => ({
+                checked: match[match.length - 1] === 'x',
+            })),
+        ];
+    },
+});

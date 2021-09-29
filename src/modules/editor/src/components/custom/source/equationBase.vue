@@ -1,44 +1,25 @@
 <template>
-    <node-view-wrapper
-        v-if="node"
-        :as="node.attrs.tag"
-        class="power-editor-equation-container"
-        :class="{div:node.attrs.tag == 'div'}"
-    >
+    <node-view-wrapper v-if="node" :as="node.attrs.tag" class="power-editor-equation-container" :class="{ div: node.attrs.tag == 'div' }">
         <transition name="power-editor-equation-popper-fade">
-            <div
-                v-show="node.attrs.showPopper"
-                class="power-editor-equation-popper-container"
-                :style="{left: `${left}px`, top: `${top}%`}"
-                @keyup.enter="!lock ? close() : ''"
-            >
-                <input
-                    v-model="node.attrs.value"
-                    class="power-editor-equation-popper-input"
-                    :placeholder="node.attrs.placeholder"
-                    ref="input"
-                />
-                <fv-button
-                    class="power-editor-equation-popper-btn"
-                    :disabled="lock"
-                    @click="close"
-                >Confirm</fv-button>
+            <div v-show="node.attrs.showPopper" class="power-editor-equation-popper-container" :style="{ left: `${left}px`, top: `${top}%` }" @keyup.enter="!lock ? close() : ''">
+                <input v-model="node.attrs.value" class="power-editor-equation-popper-input" :placeholder="node.attrs.placeholder" ref="input" />
+                <fv-button class="power-editor-equation-popper-btn" :disabled="lock" @click="close">Confirm</fv-button>
             </div>
         </transition>
         <span
             class="power-editor-equation-target"
             :placeholder="node.attrs.emptyPlaceholder"
-            :class="{empty:node.attrs.value === ''}"
+            :class="{ empty: node.attrs.value === '' }"
             v-html="node.attrs.value === '' ? node.attrs.emptyPlaceholder : equationString"
             ref="target"
-            :style="{color: `${lock ? 'red' : ''}`}"
+            :style="{ color: `${lock ? 'red' : ''}` }"
             @click="show"
         ></span>
     </node-view-wrapper>
 </template>
 
 <script>
-import { NodeViewWrapper } from "@tiptap/vue-2";
+import { NodeViewWrapper } from '@tiptap/vue-2';
 
 export default {
     components: {
@@ -89,22 +70,22 @@ export default {
         return {
             left: 0,
             top: 100,
-            backup: "",
-            equationString: "",
-            errorMsg: "",
+            backup: '',
+            equationString: '',
+            errorMsg: '',
             lock: false,
         };
     },
     watch: {
-        "node.attrs.showPopper"(val) {
+        'node.attrs.showPopper'(val) {
             if (val) {
                 this.showPos();
                 this.backup = this.node.attrs.value;
             }
         },
-        "node.attrs.value"(val) {
-            if (val === "") {
-                this.equationString = "";
+        'node.attrs.value'(val) {
+            if (val === '') {
+                this.equationString = '';
                 this.lock = false;
             } else this.render();
         },
@@ -113,17 +94,16 @@ export default {
         this.outSideClickInit();
         this.render();
         setTimeout(() => {
-            if(this.node.attrs.value === '')
-                this.show();
+            if (this.node.attrs.value === '') this.show();
         }, 300);
     },
     methods: {
         outSideClickInit() {
-            window.addEventListener("click", (event) => {
+            window.addEventListener('click', (event) => {
                 if (!this.node.attrs.showPopper) return 0;
                 let x = event.target;
                 let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != "body") {
+                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
                     if (x == this.$el) {
                         _self = true;
                         break;
@@ -135,25 +115,14 @@ export default {
         },
         render() {
             try {
-                this.equationString = this.$katex.renderToString(
-                    this.node.attrs.value,
-                    {
-                        throwOnError: true,
-                    }
-                );
+                this.equationString = this.$katex.renderToString(this.node.attrs.value, {
+                    throwOnError: true,
+                });
                 this.lock = false;
             } catch (e) {
                 if (e instanceof this.$katex.ParseError) {
                     // KaTeX can't parse the expression
-                    this.errorMsg = (
-                        "Error in LaTeX '" +
-                        this.node.attrs.value +
-                        "': " +
-                        e.message
-                    )
-                        .replace(/&/g, "&amp;")
-                        .replace(/</g, "&lt;")
-                        .replace(/>/g, "&gt;");
+                    this.errorMsg = ("Error in LaTeX '" + this.node.attrs.value + "': " + e.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 } else {
                     throw e; // other error
                 }
@@ -166,8 +135,7 @@ export default {
             let left = el.getBoundingClientRect().left;
             if (bottom < 50) this.top = -100;
             else this.top = 100;
-            if (left + 300 > document.body.clientWidth)
-                this.left = document.body - 300 - left;
+            if (left + 300 > document.body.clientWidth) this.left = document.body - 300 - left;
             else this.left = 0;
         },
         show() {
@@ -199,8 +167,7 @@ export default {
     width: auto;
     height: auto;
 
-    &.div
-    {
+    &.div {
         display: flex;
         justify-content: center;
         align-items: center;
