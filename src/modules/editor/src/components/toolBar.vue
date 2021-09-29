@@ -207,7 +207,7 @@
             :background="getBackground(false)"
             :foreground="getForeground(false, 'rgba(222, 81, 140, 1)')"
             :title="getTitle('Draw')"
-            @click="exec('')"
+            @click="insertDrawingBlock"
         >
             <i class="ms-Icon ms-Icon--PenWorkspace"></i>
         </fv-button>
@@ -237,8 +237,8 @@
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
-            :background="getBackground(editor.isActive('codeBlock'))"
-            :foreground="getForeground(editor.isActive('codeBlock'))"
+            :background="getBackground(editor.isActive('equationBlock'))"
+            :foreground="getForeground(editor.isActive('equationBlock'))"
             :title="getTitle('Code')"
             @click="insertEquationBlock"
         >

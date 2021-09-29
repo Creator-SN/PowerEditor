@@ -50,6 +50,7 @@ export default {
             elWidthStart: 0,
             elWidthEnd: 0,
             ppi: 0,
+            active: false,
             moveable: false,
             direction: 1,
             disX: 0,

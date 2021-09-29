@@ -1,8 +1,18 @@
 <template>
     <div class="power-editor-container">
-        <tool-bar v-if="editor" :editor="editor"></tool-bar>
-        <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
-            <editor-content class="tip-tap-editor" :editor="editor" :style="{ 'max-width': contentMaxWidth }" />
+        <tool-bar
+            v-if="editor"
+            :editor="editor"
+        ></tool-bar>
+        <div
+            class="tip-tap-editor-container"
+            :style="{ background: editorOutSideBackground }"
+        >
+            <editor-content
+                class="tip-tap-editor"
+                :editor="editor"
+                :style="{ 'max-width': contentMaxWidth }"
+            />
         </div>
     </div>
 </template>
@@ -25,6 +35,7 @@ import PowerTaskList from './components/custom/extension/taskList.js';
 import PowerTaskItem from './components/custom/extension/taskItem.js';
 import InlineEquation from './components/custom/extension/inlineEquation.js';
 import EquationBlock from './components/custom/extension/equationBlock.js';
+import DrawingBlock from './components/custom/extension/drawingBlock.js';
 
 import toolBar from './components/toolBar.vue';
 
@@ -74,6 +85,7 @@ export default {
                 PowerTaskItem,
                 InlineEquation,
                 EquationBlock,
+                DrawingBlock,
             ],
             editorProps: {
                 //ProseMirror Editor Props//
