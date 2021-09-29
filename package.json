@@ -1,6 +1,6 @@
 {
   "name": "@creatorsn/powereditor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "author": {
     "name": "Creator-SN",
@@ -49,12 +49,12 @@
     "@tiptap/starter-kit": "^2.0.0-beta.111",
     "@tiptap/vue-2": "^2.0.0-beta.55",
     "core-js": "^3.6.5",
+    "d3": "^7.0.4",
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
-    "vfluentdesign": "^0.1.38",
-    "vue": "^2.6.11",
     "simplify-js": "^1.2.4",
-    "d3": "^7.0.4"
+    "vfluentdesign": "^0.1.38",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -68,9 +68,9 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
+    "prettier": "^2.2.1",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
-    "prettier": "^2.2.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3",
     "vue-template-compiler": "^2.6.11",
