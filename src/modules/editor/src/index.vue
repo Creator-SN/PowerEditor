@@ -1,8 +1,8 @@
 <template>
-    <div class="power-editor-container">
-        <tool-bar v-if="editor" :editor="editor"></tool-bar>
+    <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
+        <tool-bar v-if="editor" :editor="editor" :theme="theme" @save="save"></tool-bar>
         <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
-            <editor-content class="tip-tap-editor" :editor="editor" :style="{ 'max-width': contentMaxWidth }" />
+            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" :style="{ 'max-width': contentMaxWidth }" />
         </div>
     </div>
 </template>
@@ -21,6 +21,7 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import lowlight from 'lowlight';
 
 import ImageBlock from './components/custom/extension/imageBlock.js';
+import EmbedBlock from './components/custom/extension/embedBlock.js';
 import PowerTaskList from './components/custom/extension/taskList.js';
 import PowerTaskItem from './components/custom/extension/taskItem.js';
 import InlineEquation from './components/custom/extension/inlineEquation.js';
@@ -71,6 +72,7 @@ export default {
                     lowlight,
                 }),
                 ImageBlock,
+                EmbedBlock,
                 PowerTaskList,
                 PowerTaskItem,
                 InlineEquation,
@@ -163,6 +165,9 @@ export default {
                     this.insertImg(data);
                 });
         },
+        save(json) {
+            this.$emit('save-click', json);
+        },
     },
     beforeDestroy() {
         this.editor.destroy();
@@ -175,7 +180,7 @@ export default {
     position: relative;
     width: 300px;
     height: 600px;
-    background: rgba(240, 240, 240, 2);
+    background: rgba(240, 240, 240, 1);
     border-radius: 8px;
     box-sizing: border-box;
     display: flex;
@@ -319,6 +324,36 @@ export default {
                 border: none;
                 border-top: 2px solid rgba(#0d0d0d, 0.1);
                 margin: 2rem 0;
+            }
+        }
+    }
+
+    &.dark {
+        background: rgba(47, 52, 55, 1);
+
+        .tip-tap-editor-container {
+            .tip-tap-editor {
+                background: rgba(47, 52, 55, 1);
+            }
+        }
+
+        .ProseMirror {
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: whitesmoke;
+            }
+
+            hr {
+                border-top: 2px solid rgba(228, 227, 226, 1);
+            }
+
+            blockquote {
+                border-left: 2px solid rgba(228, 227, 226, 1);
             }
         }
     }

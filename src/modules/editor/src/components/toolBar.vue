@@ -254,17 +254,12 @@
                 <i class="ms-Icon ms-Icon--Link"></i>
             </fv-button>
         </link-callout>
-        <fv-button
-            class="power-editor-cmd-btn"
-            :theme="thisTheme"
-            :isBoxShadow="true"
-            :background="getBackground(false)"
-            :foreground="getForeground(false)"
-            :title="getTitle('Video')"
-            @click="exec('')"
-        >
-            <i class="ms-Icon ms-Icon--Video"></i>
-        </fv-button>
+        <embed-callout :theme="thisTheme" @insert-embed="insertEmbed">
+            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Embed')">
+                <i class="ms-Icon ms-Icon--FileHTML"></i>
+            </fv-button>
+        </embed-callout>
+
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -294,7 +289,7 @@
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('Save')"
-            @click="exec('')"
+            @click="$emit('save', editor.getJSON())"
         >
             <i class="ms-Icon ms-Icon--Save"></i>
         </fv-button>
@@ -303,6 +298,7 @@
 
 <script>
 import linkCallout from './menus/linkCallout.vue';
+import embedCallout from './menus/embedCallout.vue';
 import colorCallout from './menus/colorCallout.vue';
 import imageCallout from './menus/imageCallout.vue';
 import headingCallout from './menus/headingCallout.vue';
@@ -310,6 +306,7 @@ import headingCallout from './menus/headingCallout.vue';
 export default {
     components: {
         linkCallout,
+        embedCallout,
         colorCallout,
         imageCallout,
         headingCallout,
@@ -387,6 +384,9 @@ export default {
             });
         },
         insertLink(link) {
+            this.editor.chain().focus().insertContent(link).run();
+        },
+        insertEmbed(link) {
             this.editor.chain().focus().insertContent(link).run();
         },
         insertInlineEquation() {

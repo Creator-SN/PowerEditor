@@ -1,16 +1,16 @@
 <template>
-    <fv-callout :visible.sync="show" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-link-callout'">
+    <fv-callout :visible.sync="show" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-embed-callout'">
         <slot></slot>
         <header>
-            <p style="font-size: 13.8px">Insert Link</p>
+            <p style="font-size: 13.8px">Insert Embed</p>
         </header>
         <main>
-            <div class="power-editor-l-c-block" :class="[{ dark: theme === 'dark' }]">
-                <p v-if="false" class="power-editor-l-c-title">Fill the Form</p>
+            <div class="power-editor-e-c-block" :class="[{ dark: theme === 'dark' }]">
+                <p v-if="false" class="power-editor-e-c-title">Fill the Form</p>
                 <fv-text-box v-model="caption" placeholder="Caption" icon="TextField" style="width: 90%; margin-top: 5px" />
-                <fv-text-box v-model="link" icon="Link" placeholder="Insert Link Url..." style="width: 90%; margin-top: 5px" />
+                <fv-text-box v-model="link" icon="Link" placeholder="Insert Embed Url..." style="width: 90%; margin-top: 5px" />
             </div>
-            <div class="power-editor-l-c-control-block">
+            <div class="power-editor-e-c-control-block">
                 <fv-button theme="dark" :disabled="link === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>
             </div>
         </main>
@@ -36,29 +36,21 @@ export default {
             if (!val) {
                 this.link = '';
                 this.caption = '';
-            } else this.getSelection();
+            }
         },
     },
     methods: {
         insert() {
             if (this.link === '') return 0;
-            this.caption = this.caption == '' ? this.link : this.caption;
-            this.$emit('insert-link', `<a href="${this.link}">${this.caption}</a>`);
+            this.$emit('insert-embed', `<embed-block src="${this.link}" caption="${this.caption}"></embed-block>`);
             this.show = false;
-        },
-        getSelection() {
-            try {
-                this.caption = window.getSelection().toString();
-            } catch (e) {
-                console.log(e);
-            }
         },
     },
 };
 </script>
 
 <style lang="scss">
-.power-editor-link-callout {
+.power-editor-embed-callout {
     div.main {
         width: 300px;
         height: auto;
@@ -68,7 +60,7 @@ export default {
         align-items: center;
         overflow: auto;
 
-        .power-editor-l-c-block {
+        .power-editor-e-c-block {
             position: relative;
             width: 100%;
             height: auto;
@@ -81,7 +73,7 @@ export default {
             &.dark {
             }
 
-            .power-editor-l-c-title {
+            .power-editor-e-c-title {
                 position: relative;
                 width: 100%;
                 flex-shrink: 0;
@@ -92,7 +84,7 @@ export default {
             }
         }
 
-        .power-editor-l-c-control-block {
+        .power-editor-e-c-control-block {
             position: relative;
             width: 300px;
             margin-top: 15px;

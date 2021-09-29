@@ -23,6 +23,7 @@
                 <i class="ms-Icon ms-Icon--AlignCenter"></i>
             </fv-button>
         </div>
+        <div v-show="active" class="power-editor-media-mask-block"></div>
         <fv-text-box v-show="thisCaption !== '' || show.captionBox" v-model="thisCaption" class="power-editor-media-caption-block" :placeholder="getTitle('Write a caption...')"></fv-text-box>
     </div>
 </template>
@@ -263,6 +264,15 @@ export default {
     .power-editor-media-caption-block {
         position: relative;
         width: 100%;
+    }
+
+    .power-editor-media-mask-block {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.01);
     }
 }
 </style>
