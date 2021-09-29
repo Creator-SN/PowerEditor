@@ -23,9 +23,6 @@ jobs:
 
       - name: 🚓loading denpendencies
         run: yarn  
-        
-      - name: 🚗build the json file of vetur helper
-        run: yarn bin:vetur
 
       - name: 🚕build library
         run: yarn lib
