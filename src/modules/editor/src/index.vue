@@ -1,18 +1,8 @@
 <template>
     <div class="power-editor-container">
-        <tool-bar
-            v-if="editor"
-            :editor="editor"
-        ></tool-bar>
-        <div
-            class="tip-tap-editor-container"
-            :style="{ background: editorOutSideBackground }"
-        >
-            <editor-content
-                class="tip-tap-editor"
-                :editor="editor"
-                :style="{ 'max-width': contentMaxWidth }"
-            />
+        <tool-bar v-if="editor" :editor="editor"></tool-bar>
+        <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
+            <editor-content class="tip-tap-editor" :editor="editor" :style="{ 'max-width': contentMaxWidth }" />
         </div>
     </div>
 </template>

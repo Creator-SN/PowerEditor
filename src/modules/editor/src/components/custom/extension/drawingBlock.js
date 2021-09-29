@@ -1,5 +1,5 @@
-import { VueNodeViewRenderer, Node, mergeAttributes } from '@tiptap/vue-2'
-import Component from '../source/drawingBlock.vue'
+import { VueNodeViewRenderer, Node, mergeAttributes } from '@tiptap/vue-2';
+import Component from '../source/drawingBlock.vue';
 
 export default Node.create({
     name: 'drawingBlock',
@@ -14,18 +14,18 @@ export default Node.create({
                 default: [],
             },
             width: {
-                default: 100
+                default: 100,
             },
             caption: {
-                default: ''
+                default: '',
             },
             alignCenter: {
-                default: true
+                default: true,
             },
             theme: {
-                default: 'light'
-            }
-        }
+                default: 'light',
+            },
+        };
     },
 
     parseHTML() {
@@ -33,14 +33,14 @@ export default Node.create({
             {
                 tag: 'drawing-block',
             },
-        ]
+        ];
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['drawing-block', mergeAttributes(HTMLAttributes)]
+        return ['drawing-block', mergeAttributes(HTMLAttributes)];
     },
 
     addNodeView() {
-        return VueNodeViewRenderer(Component)
+        return VueNodeViewRenderer(Component);
     },
-})
+});

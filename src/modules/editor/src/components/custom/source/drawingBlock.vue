@@ -1,36 +1,18 @@
 <template>
-    <node-view-wrapper
-        class="power-editor-drawing-block-container"
-        :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }"
-    >
+    <node-view-wrapper class="power-editor-drawing-block-container" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
         <div class="power-editor-d-b-container">
             <div class="power-editor-d-b-block l1">
-                <fv-button
-                    :theme="node.attrs.theme"
-                    :borderRadius="50"
-                    :disabled="size <= 1"
-                    class="power-editor-d-b-btn __size"
-                    @click="size = size > 1 ? size - 1 : size"
-                ><i class="ms-Icon ms-Icon--Remove"></i></fv-button>
-                <fv-slider
-                    v-model="size"
-                    :theme="node.attrs.theme"
-                    :mininum="1"
-                    :maxinum="10"
-                    :showLabel="true"
-                    style="width: 150px; margin-left: 5px;"
-                >
+                <fv-button :theme="node.attrs.theme" :borderRadius="50" :disabled="size <= 1" class="power-editor-d-b-btn __size" @click="size = size > 1 ? size - 1 : size"
+                    ><i class="ms-Icon ms-Icon--Remove"></i
+                ></fv-button>
+                <fv-slider v-model="size" :theme="node.attrs.theme" :mininum="1" :maxinum="10" :showLabel="true" style="width: 150px; margin-left: 5px">
                     <template slot-scope="prop">
-                        <span style="height: 100%; margin-left: 5px; font-size: 12px; display: flex; align-items: center;">{{prop.value}}</span>
+                        <span style="height: 100%; margin-left: 5px; font-size: 12px; display: flex; align-items: center">{{ prop.value }}</span>
                     </template>
                 </fv-slider>
-                <fv-button
-                    :theme="node.attrs.theme"
-                    :borderRadius="50"
-                    :disabled="size >= 10"
-                    class="power-editor-d-b-btn __size"
-                    @click="size = size < 10 ? size + 1 : size"
-                ><i class="ms-Icon ms-Icon--Add"></i></fv-button>
+                <fv-button :theme="node.attrs.theme" :borderRadius="50" :disabled="size >= 10" class="power-editor-d-b-btn __size" @click="size = size < 10 ? size + 1 : size"
+                    ><i class="ms-Icon ms-Icon--Add"></i
+                ></fv-button>
             </div>
             <div class="power-editor-d-b-block">
                 <fv-button
@@ -42,52 +24,32 @@
                     :background="item.color"
                     :isBoxShadow="color !== item.color"
                     @click="color = item.color"
-                >{{''}}</fv-button>
+                    >{{ '' }}</fv-button
+                >
             </div>
             <div class="power-editor-d-b-block">
-                <fv-button
-                    class="power-editor-d-b-btn __clear"
-                    :borderRadius="50"
-                    :theme="node.attrs.theme"
-                    @click="clear"
-                ><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
+                <fv-button class="power-editor-d-b-btn __clear" :borderRadius="50" :theme="node.attrs.theme" @click="clear"><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
             </div>
         </div>
-        <media-container
-            :width.sync="node.attrs.width"
-            :caption.sync="node.attrs.caption"
-            :alignCenter.sync="node.attrs.alignCenter"
-            :theme="node.attrs.theme"
-        >
-            <svg
-                viewBox="0 0 500 250"
-                ref="canvas"
-            >
+        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :theme="node.attrs.theme">
+            <svg viewBox="0 0 500 250" ref="canvas">
                 <template v-for="item in node.attrs.lines">
-                    <path
-                        v-if="item.id !== id"
-                        :key="item.id"
-                        :d="item.path"
-                        :id="`id-${item.id}`"
-                        :stroke="item.color"
-                        :stroke-width="item.size"
-                    />
+                    <path v-if="item.id !== id" :key="item.id" :d="item.path" :id="`id-${item.id}`" :stroke="item.color" :stroke-width="item.size" />
                 </template>
             </svg>
         </media-container>
-
     </node-view-wrapper>
 </template>
 
 <script>
-import { NodeViewWrapper } from "@tiptap/vue-2";
-import * as d3 from "d3";
-import simplify from "simplify-js";
+import { NodeViewWrapper } from '@tiptap/vue-2';
+import * as d3 from 'd3';
+import simplify from 'simplify-js';
 
-import mediaContainer from "./mediaContainer.vue";
+import mediaContainer from './mediaContainer.vue';
 
 export default {
-    name: "drawingBlock",
+    name: 'drawingBlock',
 
     components: {
         NodeViewWrapper,
@@ -138,7 +100,7 @@ export default {
 
     data() {
         return {
-            color: "#000000",
+            color: '#000000',
             size: 3,
             svg: null,
             path: null,
@@ -146,13 +108,13 @@ export default {
             drawing: false,
             id: this.$SUtility.Guid(),
             colorList: [
-                { name: "purple", color: "#958DF1" },
-                { name: "red", color: "#F98181" },
-                { name: "orange", color: "#FBBC88" },
-                { name: "yellow", color: "#FAF594" },
-                { name: "blue", color: "#70CFF8" },
-                { name: "teal", color: "#94FADB" },
-                { name: "green", color: "#B9F18D" },
+                { name: 'purple', color: '#958DF1' },
+                { name: 'red', color: '#F98181' },
+                { name: 'orange', color: '#FBBC88' },
+                { name: 'yellow', color: '#FAF594' },
+                { name: 'blue', color: '#70CFF8' },
+                { name: 'teal', color: '#94FADB' },
+                { name: 'green', color: '#B9F18D' },
             ],
         };
     },
@@ -161,15 +123,9 @@ export default {
         onStartDrawing(event) {
             this.drawing = true;
             this.points = [];
-            this.path = this.svg
-                .append("path")
-                .data([this.points])
-                .attr("id", `id-${this.id}`)
-                .attr("stroke", this.color)
-                .attr("stroke-width", this.size);
+            this.path = this.svg.append('path').data([this.points]).attr('id', `id-${this.id}`).attr('stroke', this.color).attr('stroke-width', this.size);
 
-            const moveEvent =
-                event.type === "mousedown" ? "mousemove" : "touchmove";
+            const moveEvent = event.type === 'mousedown' ? 'mousemove' : 'touchmove';
 
             this.svg.on(moveEvent, this.onMove);
         },
@@ -181,8 +137,8 @@ export default {
         },
 
         onEndDrawing() {
-            this.svg.on("mousemove", null);
-            this.svg.on("touchmove", null);
+            this.svg.on('mousemove', null);
+            this.svg.on('touchmove', null);
 
             if (!this.drawing) {
                 return;
@@ -194,19 +150,15 @@ export default {
         },
 
         simplifyPoints(points) {
-            return simplify(
-                points.map((point) => ({ x: point[0], y: point[1] }))
-            ).map((point) => [point.x, point.y]);
+            return simplify(points.map((point) => ({ x: point[0], y: point[1] }))).map((point) => [point.x, point.y]);
         },
 
         tick() {
             requestAnimationFrame(() => {
-                this.path.attr("d", (points) => {
+                this.path.attr('d', (points) => {
                     const path = d3.line().curve(d3.curveBasis)(points);
                     // const simplifiedPath = d3.line().curve(d3.curveBasis)(this.simplifyPoints(points))
-                    const lines = this.node.attrs.lines.filter(
-                        (item) => item.id !== this.id
-                    );
+                    const lines = this.node.attrs.lines.filter((item) => item.id !== this.id);
 
                     this.updateAttributes({
                         lines: [
@@ -237,12 +189,12 @@ export default {
         this.svg = d3.select(this.$refs.canvas);
 
         this.svg
-            .on("mousedown", this.onStartDrawing)
-            .on("mouseup", this.onEndDrawing)
-            .on("mouseleave", this.onEndDrawing)
-            .on("touchstart", this.onStartDrawing)
-            .on("touchend", this.onEndDrawing)
-            .on("touchleave", this.onEndDrawing);
+            .on('mousedown', this.onStartDrawing)
+            .on('mouseup', this.onEndDrawing)
+            .on('mouseleave', this.onEndDrawing)
+            .on('touchstart', this.onStartDrawing)
+            .on('touchend', this.onEndDrawing)
+            .on('touchleave', this.onEndDrawing);
     },
 };
 </script>
