@@ -1,9 +1,10 @@
 {
   "name": "@creatorsn/powereditor",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vuepress dev docs",
+    "build": "vuepress build docs",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "bin:i18n": "ts-node ./build/i18n.ts"
