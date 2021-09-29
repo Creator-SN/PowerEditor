@@ -52,7 +52,9 @@
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
     "vfluentdesign": "^0.1.38",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "simplify-js": "^1.2.4",
+    "d3": "^7.0.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
