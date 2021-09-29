@@ -395,6 +395,9 @@ export default {
         insertEquationBlock() {
             this.editor.chain().focus().insertContent(`<equation-block></equation-block>`).run();
         },
+        insertDrawingBlock() {
+            this.editor.chain().focus().insertContent(`<drawing-block></drawing-block>`).run();
+        },
     },
 };
 </script>

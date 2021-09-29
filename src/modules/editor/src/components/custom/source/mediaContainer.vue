@@ -1,5 +1,5 @@
 <template>
-    <div class="power-editor-media-container" :class="[{ dark: theme === 'dark' }]" :style="{ width: moveable ? `${elWidthEnd}px` : `${currentWidth}%` }">
+    <div class="power-editor-media-container" :class="[{ dark: theme === 'dark' }, { 'active-effects': active }]" :style="{ width: moveable ? `${elWidthEnd}px` : `${currentWidth}%` }">
         <div v-show="alignCenter" class="power-editor-media-control-resize-block" @mousedown="forward($event, -1)" @mouseup="stop" @touchstart="forward($event.targetTouches[0], -1)" @touchend="stop">
             <i></i>
         </div>
@@ -9,7 +9,7 @@
         <div class="power-editor-media-control-resize-block sec" @mousedown="forward" @mouseup="stop" @touchstart="forward($event.targetTouches[0])" @touchend="stop">
             <i></i>
         </div>
-        <div draggable="true" data-drag-handle class="power-editor-media-drag-btn">
+        <div draggable="true" data-drag-handle class="power-editor-media-drag-btn" @mousedown="active = true" @mouseup="active = false" @touchstart="active = true" @touchend="active = false">
             <i class="ms-Icon ms-Icon--GripperDotsVertical"></i>
         </div>
         <div class="power-editor-media-control-btn-block">
@@ -114,6 +114,7 @@ export default {
             });
         },
         forward(event, direction = 1) {
+            this.active = true;
             this.moveable = true;
             this.disX = event.clientX;
             this.direction = direction;
@@ -122,6 +123,7 @@ export default {
             this.ppi = this.currentWidth / this.elWidthStart;
         },
         stop() {
+            this.active = false;
             this.moveable = false;
             if (this.elWidthEnd < 50) this.elWidthEnd = 50;
             this.currentWidth = this.elWidthEnd * this.ppi;
@@ -179,7 +181,7 @@ export default {
         }
     }
 
-    &:active {
+    &.active-effects:active {
         .power-editor-media-slot-container {
             transform: scale(1.02);
             box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.1);
