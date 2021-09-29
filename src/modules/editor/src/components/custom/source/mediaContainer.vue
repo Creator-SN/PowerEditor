@@ -101,12 +101,14 @@ export default {
                 }
             });
             window.addEventListener('mouseup', (event) => {
+                this.active = false;
                 if (this.moveable) {
                     this.stop();
                 }
                 return event;
             });
             window.addEventListener('touchup', (event) => {
+                this.active = false;
                 if (this.moveable) {
                     this.stop();
                 }
