@@ -24,7 +24,7 @@
             </fv-button>
         </div>
         <div v-show="active" class="power-editor-media-mask-block"></div>
-        <fv-text-box v-show="thisCaption !== '' || show.captionBox" v-model="thisCaption" class="power-editor-media-caption-block" :placeholder="getTitle('Write a caption...')"></fv-text-box>
+        <fv-text-box v-show="thisCaption !== '' || show.captionBox" v-model="thisCaption" :theme="theme" class="power-editor-media-caption-block" :placeholder="getTitle('Write a caption...')"></fv-text-box>
     </div>
 </template>
 

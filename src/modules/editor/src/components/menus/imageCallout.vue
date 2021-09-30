@@ -13,7 +13,7 @@
             </div>
             <div class="power-editor-i-c-block" :class="[{ dark: theme === 'dark' }]">
                 <p class="power-editor-i-c-title">Method 2</p>
-                <fv-text-box v-model="url" placeholder="Insert Image Url." style="width: 90%; border: thin; outline: none" ref="img_link" />
+                <fv-text-box v-model="url" placeholder="Insert Image Url." :theme="theme" style="width: 90%; border: thin; outline: none" ref="img_link" />
             </div>
             <div class="power-editor-i-c-control-block">
                 <fv-button theme="dark" :disabled="url === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>

@@ -12,7 +12,7 @@
         <header>
             <div class="power-editor-emoji-banner">
                 <p style="font-size: 13.8px">Emoji</p>
-                <fv-button @click="insertRandom">Random</fv-button>
+                <fv-button :theme="theme" @click="insertRandom">Random</fv-button>
             </div>
         </header>
         <main>
@@ -115,6 +115,8 @@ export default {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    user-select: none;
+                    cursor: default;
 
                     &:hover
                     {

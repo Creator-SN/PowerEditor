@@ -1,6 +1,5 @@
 <template>
     <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
-        <fv-button @click="themeSync">Test</fv-button>
         <tool-bar v-if="editor" :editor="editor" :theme="theme" @save-click="save"></tool-bar>
         <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
             <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" ref="editor" :style="{ 'max-width': contentMaxWidth }" />
@@ -46,7 +45,7 @@ export default {
             default: '',
         },
         theme: {
-            default: 'dark',
+            default: 'light',
         },
     },
     data() {

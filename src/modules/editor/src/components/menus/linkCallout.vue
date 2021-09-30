@@ -7,8 +7,8 @@
         <main>
             <div class="power-editor-l-c-block" :class="[{ dark: theme === 'dark' }]">
                 <p v-if="false" class="power-editor-l-c-title">Fill the Form</p>
-                <fv-text-box v-model="caption" placeholder="Caption" icon="TextField" style="width: 90%; margin-top: 5px" />
-                <fv-text-box v-model="link" icon="Link" placeholder="Insert Link Url..." style="width: 90%; margin-top: 5px" />
+                <fv-text-box v-model="caption" placeholder="Caption" :theme="theme" icon="TextField" style="width: 90%; margin-top: 5px" />
+                <fv-text-box v-model="link" icon="Link" placeholder="Insert Link Url..." :theme="theme" style="width: 90%; margin-top: 5px" />
             </div>
             <div class="power-editor-l-c-control-block">
                 <fv-button theme="dark" :disabled="link === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>
