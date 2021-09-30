@@ -24,6 +24,9 @@ export default Node.create({
             placeholder: {
                 default: 'To-Do',
             },
+            theme: {
+                default: 'light',
+            }
         };
     },
 
@@ -63,6 +66,7 @@ export default Node.create({
         return [
             wrappingInputRule(inputRegex, this.type, (match) => ({
                 checked: match[match.length - 1] === 'x',
+                theme: this.editor.$PowerEditorTheme()
             })),
         ];
     },

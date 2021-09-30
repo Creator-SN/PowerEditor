@@ -218,7 +218,7 @@
                 :isBoxShadow="true"
                 :background="getBackground(false)"
                 :foreground="getForeground(false, 'rgba(239, 107, 87, 1)')"
-                :title="getTitle('Foreground')"
+                :title="getTitle('Color')"
             >
                 <i class="ms-Icon ms-Icon--Eyedropper"></i>
             </fv-button>
@@ -245,7 +245,7 @@
                 :isBoxShadow="true"
                 :background="getBackground(false)"
                 :foreground="getForeground(false, 'rgba(255, 180, 0, 1)')"
-                :title="getTitle('Emoji2')"
+                :title="getTitle('Emoji')"
                 @click="exec('')"
             >
                 <i class="ms-Icon ms-Icon--Emoji2"></i>
@@ -268,7 +268,7 @@
             :isBoxShadow="true"
             :background="getBackground(editor.isActive('equationBlock'))"
             :foreground="getForeground(editor.isActive('equationBlock'))"
-            :title="getTitle('Code')"
+            :title="getTitle('Equation')"
             @click="insertEquationBlock"
         >
             <i class="ms-Icon ms-Icon--Variable"></i>
@@ -342,13 +342,14 @@
             <i class="ms-Icon ms-Icon--Redo"></i>
         </fv-button>
         <fv-button
+            v-show="showSave"
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('Save')"
-            @click="$emit('save', editor.getJSON())"
+            @click="save"
         >
             <i class="ms-Icon ms-Icon--Save"></i>
         </fv-button>
@@ -377,6 +378,9 @@ export default {
             default: () => {
                 return {};
             },
+        },
+        showSave: {
+            default: true
         },
         theme: {
             default: 'light',
@@ -444,7 +448,7 @@ export default {
         },
         insertImg(base64_list) {
             base64_list.forEach((el) => {
-                this.insert(`<image-block src="${el}"></image-block>\n`);
+                this.insert(`<image-block src="${el}" theme="${this.theme}"></image-block>\n`);
             });
         },
         insertLink(link) {
@@ -454,14 +458,17 @@ export default {
             this.editor.chain().focus().insertContent(link).run();
         },
         insertInlineEquation() {
-            this.editor.chain().focus().insertContent(`<inline-equation></inline-equation>`).run();
+            this.editor.chain().focus().insertContent(`<inline-equation theme="${this.theme}"></inline-equation>`).run();
         },
         insertEquationBlock() {
-            this.editor.chain().focus().insertContent(`<equation-block></equation-block>`).run();
+            this.editor.chain().focus().insertContent(`<equation-block theme="${this.theme}"></equation-block>`).run();
         },
         insertDrawingBlock() {
-            this.editor.chain().focus().insertContent(`<drawing-block></drawing-block>`).run();
+            this.editor.chain().focus().insertContent(`<drawing-block theme="${this.theme}"></drawing-block>`).run();
         },
+        save () {
+            this.$emit("save-click");
+        }
     },
 };
 </script>

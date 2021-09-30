@@ -32,7 +32,7 @@ export default Node.create({
             },
             theme: {
                 default: 'light',
-            },
+            }
         };
     },
 
@@ -53,6 +53,10 @@ export default Node.create({
     },
 
     addInputRules() {
-        return [nodeInputRule(inputRegex, this.type)];
+        return [nodeInputRule(inputRegex, this.type, () => {
+            return {
+                theme: this.editor.$PowerEditorTheme()
+            }
+        })];
     },
 });

@@ -26,7 +26,7 @@ export default Node.create({
             },
             theme: {
                 default: 'light',
-            },
+            }
         };
     },
 

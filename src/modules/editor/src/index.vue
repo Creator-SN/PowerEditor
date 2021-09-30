@@ -1,8 +1,9 @@
 <template>
     <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
-        <tool-bar v-if="editor" :editor="editor" :theme="theme" @save="save"></tool-bar>
+        <fv-button @click="themeSync">Test</fv-button>
+        <tool-bar v-if="editor" :editor="editor" :theme="theme" @save-click="save"></tool-bar>
         <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
-            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" :style="{ 'max-width': contentMaxWidth }" />
+            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" ref="editor" :style="{ 'max-width': contentMaxWidth }" />
         </div>
     </div>
 </template>
@@ -45,7 +46,7 @@ export default {
             default: '',
         },
         theme: {
-            default: 'light',
+            default: 'dark',
         },
     },
     data() {
@@ -53,7 +54,11 @@ export default {
             editor: null,
         };
     },
-
+    watch: {
+        theme () {
+            this.themeSync();
+        }
+    },
     mounted() {
         let el = this;
         this.editor = new Editor({
@@ -95,6 +100,13 @@ export default {
                 },
             },
         });
+        // For the extensions can use this function to get the current theme.//
+        this.editor.$PowerEditorTheme = () => {
+            return this.theme;
+        };
+        // For the extensions can use this function to sync theme.//
+        this.editor.$PowerEditorTheme = this.themeSync;
+        this.themeSync();
     },
     methods: {
         insert(html) {
@@ -102,8 +114,17 @@ export default {
         },
         insertImg(base64_list) {
             base64_list.forEach((el) => {
-                this.insert(`<image-block src="${el}"></image-block>\n`);
+                this.insert(`<image-block src="${el}" theme="${this.theme}"></image-block>\n`);
             });
+        },
+        themeSync () {
+            let children = this.$refs.editor.$children;
+            for(let component of children) {
+                if(component.$props.node.attrs.theme)
+                    component.$props.updateAttributes({
+                        theme: this.theme
+                    });
+            }
         },
         async customPaste(event) {
             //rewrite paste event//
@@ -165,8 +186,9 @@ export default {
                     this.insertImg(data);
                 });
         },
-        save(json) {
-            this.$emit('save-click', json);
+        save() {
+            this.$emit('save-json', this.editor.getJSON());
+            this.$emit('save-html', this.editor.getHTML());
         },
     },
     beforeDestroy() {

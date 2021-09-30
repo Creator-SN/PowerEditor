@@ -25,6 +25,9 @@ export default Node.create({
             togglePowerTaskList:
                 () =>
                 ({ commands }) => {
+                    setTimeout(() => {
+                        this.editor.$PowerEditorTheme();
+                    }, 300);
                     return commands.toggleList('powerTaskList', 'powerTaskItem');
                 },
         };
