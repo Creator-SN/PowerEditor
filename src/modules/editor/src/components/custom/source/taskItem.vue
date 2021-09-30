@@ -70,6 +70,9 @@ export default {
                 this.show = this.$refs.n.$el.innerText.replace(/\n/g, '') === '';
             }, 50);
         },
+        preventEnter (event) {
+            console.log(event)
+        }
     },
     beforeDestroy() {
         clearInterval(this.timer);
@@ -86,11 +89,13 @@ export default {
     .content {
         min-width: 10px;
         margin-left: 5px;
+        white-space: nowrap;
     }
 
     .placeholder {
         position: absolute;
         left: 32px;
+        top: 0px;
         color: rgba(200, 200, 200, 1);
         user-select: none;
         cursor: text;

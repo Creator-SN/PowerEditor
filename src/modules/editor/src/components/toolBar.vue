@@ -1,5 +1,8 @@
 <template>
-    <div class="power-editor-tool-bar-container" :class="[{ dark: thisTheme === 'dark' }]">
+    <div
+        class="power-editor-tool-bar-container"
+        :class="[{ dark: thisTheme === 'dark' }]"
+    >
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -67,8 +70,21 @@
         >
             <i class="ms-Icon ms-Icon--ChromeMinimize"></i>
         </fv-button>
-        <heading-callout :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :execMore="execMore">
-            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Header')">
+        <heading-callout
+            :theme="thisTheme"
+            :editor="editor"
+            :getBackground="getBackground"
+            :getForeground="getForeground"
+            :execMore="execMore"
+        >
+            <fv-button
+                class="power-editor-cmd-btn"
+                :theme="thisTheme"
+                :isBoxShadow="true"
+                :background="getBackground(false)"
+                :foreground="getForeground(false)"
+                :title="getTitle('Header')"
+            >
                 <i class="ms-Icon ms-Icon--Header1"></i>
             </fv-button>
         </heading-callout>
@@ -188,7 +204,14 @@
             <i class="ms-Icon ms-Icon--DecreaseIndentLegacy"></i>
         </fv-button>
         <hr />
-        <color-callout :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :exec="exec" :execMore="execMore">
+        <color-callout
+            :theme="thisTheme"
+            :editor="editor"
+            :getBackground="getBackground"
+            :getForeground="getForeground"
+            :exec="exec"
+            :execMore="execMore"
+        >
             <fv-button
                 class="power-editor-cmd-btn"
                 :theme="thisTheme"
@@ -211,17 +234,23 @@
         >
             <i class="ms-Icon ms-Icon--PenWorkspace"></i>
         </fv-button>
-        <fv-button
-            class="power-editor-cmd-btn"
+        <emoji-callout
             :theme="thisTheme"
-            :isBoxShadow="true"
-            :background="getBackground(false)"
-            :foreground="getForeground(false, 'rgba(255, 180, 0, 1)')"
-            :title="getTitle('Emoji2')"
-            @click="exec('')"
+            :editor="editor"
+            @insert-emoji="insertEmoji"
         >
-            <i class="ms-Icon ms-Icon--Emoji2"></i>
-        </fv-button>
+            <fv-button
+                class="power-editor-cmd-btn"
+                :theme="thisTheme"
+                :isBoxShadow="true"
+                :background="getBackground(false)"
+                :foreground="getForeground(false, 'rgba(255, 180, 0, 1)')"
+                :title="getTitle('Emoji2')"
+                @click="exec('')"
+            >
+                <i class="ms-Icon ms-Icon--Emoji2"></i>
+            </fv-button>
+        </emoji-callout>
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -244,18 +273,48 @@
         >
             <i class="ms-Icon ms-Icon--Variable"></i>
         </fv-button>
-        <image-callout :theme="thisTheme" @insert-image="insertImg">
-            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Image')">
+        <image-callout
+            :theme="thisTheme"
+            @insert-image="insertImg"
+        >
+            <fv-button
+                class="power-editor-cmd-btn"
+                :theme="thisTheme"
+                :isBoxShadow="true"
+                :background="getBackground(false)"
+                :foreground="getForeground(false)"
+                :title="getTitle('Image')"
+            >
                 <i class="ms-Icon ms-Icon--Photo2"></i>
             </fv-button>
         </image-callout>
-        <link-callout :theme="thisTheme" @insert-link="insertLink">
-            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Link')">
+        <link-callout
+            :theme="thisTheme"
+            @insert-link="insertLink"
+        >
+            <fv-button
+                class="power-editor-cmd-btn"
+                :theme="thisTheme"
+                :isBoxShadow="true"
+                :background="getBackground(false)"
+                :foreground="getForeground(false)"
+                :title="getTitle('Link')"
+            >
                 <i class="ms-Icon ms-Icon--Link"></i>
             </fv-button>
         </link-callout>
-        <embed-callout :theme="thisTheme" @insert-embed="insertEmbed">
-            <fv-button class="power-editor-cmd-btn" :theme="thisTheme" :isBoxShadow="true" :background="getBackground(false)" :foreground="getForeground(false)" :title="getTitle('Embed')">
+        <embed-callout
+            :theme="thisTheme"
+            @insert-embed="insertEmbed"
+        >
+            <fv-button
+                class="power-editor-cmd-btn"
+                :theme="thisTheme"
+                :isBoxShadow="true"
+                :background="getBackground(false)"
+                :foreground="getForeground(false)"
+                :title="getTitle('Embed')"
+            >
                 <i class="ms-Icon ms-Icon--FileHTML"></i>
             </fv-button>
         </embed-callout>
@@ -300,6 +359,7 @@
 import linkCallout from './menus/linkCallout.vue';
 import embedCallout from './menus/embedCallout.vue';
 import colorCallout from './menus/colorCallout.vue';
+import emojiCallout from './menus/emojiCallout.vue';
 import imageCallout from './menus/imageCallout.vue';
 import headingCallout from './menus/headingCallout.vue';
 
@@ -308,6 +368,7 @@ export default {
         linkCallout,
         embedCallout,
         colorCallout,
+        emojiCallout,
         imageCallout,
         headingCallout,
     },
@@ -377,6 +438,9 @@ export default {
         },
         insert(html) {
             this.editor.commands.insertContent(html);
+        },
+        insertEmoji (emoji) {
+            this.editor.chain().focus().insertContent(emoji).run();
         },
         insertImg(base64_list) {
             base64_list.forEach((el) => {
