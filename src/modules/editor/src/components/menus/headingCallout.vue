@@ -1,10 +1,15 @@
 <template>
-    <fv-callout v-if="editor" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-header-callout'">
-        <slot></slot>
-        <header>
-            <p style="font-size: 13.8px">Headers</p>
-        </header>
-        <main>
+    <callout-base
+        :show.sync="show"
+        :mobileMode="mobileMode"
+        :title="'Headers'"
+        :theme="theme"
+        :popperClass="['power-editor-header-callout']"
+    >
+        <template v-slot:trigger="x">
+            <slot :show="x.show"></slot>
+        </template>
+        <template v-slot:content>
             <fv-button
                 v-for="i in 6"
                 :key="i"
@@ -15,15 +20,22 @@
                 :foreground="getForeground(editor.isActive('heading', { level: i }))"
                 :title="getTitle('Horizontal Rule')"
                 @click="execMore('toggleHeading', { level: i })"
-                >H{{ i }}</fv-button
-            >
-        </main>
-    </fv-callout>
+            >H{{ i }}</fv-button>
+        </template>
+    </callout-base>
 </template>
 
 <script>
+import calloutBase from './calloutBase.vue';
+
 export default {
+    components: {
+        calloutBase,
+    },
     props: {
+        mobileMode: {
+            default: false,
+        },
         getBackground: {
             default: () => {},
         },
@@ -41,7 +53,9 @@ export default {
         },
     },
     data() {
-        return {};
+        return {
+            show: false
+        };
     },
     watch: {},
     methods: {

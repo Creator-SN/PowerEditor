@@ -1,30 +1,70 @@
 <template>
-    <fv-callout :visible.sync="show" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-image-callout'">
-        <slot></slot>
-        <header>
-            <p style="font-size: 13.8px">Insert Image</p>
-        </header>
-        <main>
-            <div class="power-editor-i-c-block" :class="[{ dark: theme === 'dark' }]">
+    <callout-base
+        :show.sync="show"
+        :mobileMode="mobileMode"
+        :title="'Insert Image'"
+        :theme="theme"
+        :popperClass="['power-editor-image-callout']"
+    >
+        <template v-slot:trigger="x">
+            <slot :show="x.show"></slot>
+        </template>
+        <template v-slot:content="x">
+            <div
+                class="power-editor-i-c-block"
+                :class="[{ dark: theme === 'dark' }]"
+            >
                 <p class="power-editor-i-c-title">Method 1</p>
-                <i class="ms-Icon ms-Icon--Photo2Add power-editor-i-c-icon-1" @click="$refs.img_local.click()"></i>
+                <i
+                    class="ms-Icon ms-Icon--Photo2Add power-editor-i-c-icon-1"
+                    @click="$refs[`img_local_${x.index}`].click()"
+                ></i>
                 <p class="power-editor-i-c-t2">Choose Local Image as Base64 (multiple).</p>
-                <input type="file" accept="image/gif,image/png,image/jpeg,image/x-png" multiple="true" style="display: none" ref="img_local" @change="insertLocal" />
+                <input
+                    type="file"
+                    accept="image/gif,image/png,image/jpeg,image/x-png"
+                    multiple="true"
+                    style="display: none"
+                    :ref="`img_local_${x.index}`"
+                    @change="insertLocal(x.index)"
+                />
             </div>
-            <div class="power-editor-i-c-block" :class="[{ dark: theme === 'dark' }]">
+            <div
+                class="power-editor-i-c-block"
+                :class="[{ dark: theme === 'dark' }]"
+            >
                 <p class="power-editor-i-c-title">Method 2</p>
-                <fv-text-box v-model="url" placeholder="Insert Image Url." :theme="theme" style="width: 90%; border: thin; outline: none" ref="img_link" />
+                <fv-text-box
+                    v-model="url"
+                    placeholder="Insert Image Url."
+                    :theme="theme"
+                    style="width: 90%; border: thin; outline: none"
+                    ref="img_link"
+                />
             </div>
             <div class="power-editor-i-c-control-block">
-                <fv-button theme="dark" :disabled="url === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>
+                <fv-button
+                    theme="dark"
+                    :disabled="url === ''"
+                    background="rgba(65, 74, 90, 1)"
+                    @click="insert"
+                >Insert</fv-button>
             </div>
-        </main>
-    </fv-callout>
+        </template>
+    </callout-base>
 </template>
 
 <script>
+import calloutBase from './calloutBase.vue';
+
 export default {
+    components: {
+        calloutBase,
+    },
     props: {
+        mobileMode: {
+            default: false,
+        },
         theme: {
             default: 'light',
         },
@@ -33,13 +73,15 @@ export default {
         return {
             url: '',
             show: false,
+            contentName: ['content-1', 'content-2'],
         };
     },
     watch: {
         show(val) {
             if (!val) {
                 this.url = '';
-                this.$refs.img_local.value = '';
+                if (!this.mobileMode) this.$refs.img_local_1.value = '';
+                else this.$refs.img_local_2.value = '';
             }
         },
     },
@@ -49,8 +91,8 @@ export default {
             this.$emit('insert-image', [this.url]);
             this.show = false;
         },
-        async insertLocal() {
-            let files = this.$refs.img_local.files;
+        async insertLocal(index) {
+            let files = this.$refs[`img_local_${index}`].files;
             if (files.length < 1) return 0;
             let base64_list = [];
             for (let file of files) {
@@ -91,6 +133,10 @@ export default {
             align-items: center;
 
             &.dark {
+                .power-editor-i-c-title {
+                    color: whitesmoke;
+                }
+
                 .power-editor-i-c-t2 {
                     color: whitesmoke;
                 }

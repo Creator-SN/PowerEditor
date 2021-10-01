@@ -150,6 +150,7 @@ export default {
             this.updateAttributes({
                 showPopper: false,
             });
+            this.editor.commands.focus();
         },
         closeWithBackup() {
             this.close();

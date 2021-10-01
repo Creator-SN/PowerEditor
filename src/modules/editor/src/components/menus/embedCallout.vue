@@ -1,25 +1,62 @@
 <template>
-    <fv-callout :visible.sync="show" :lockScroll="true" :position="'bottomCenter'" :beak="12" :space="0" :theme="theme" :popperClass="'power-editor-embed-callout'">
-        <slot></slot>
-        <header>
-            <p style="font-size: 13.8px">Insert Embed</p>
-        </header>
-        <main>
-            <div class="power-editor-e-c-block" :class="[{ dark: theme === 'dark' }]">
-                <p v-if="false" class="power-editor-e-c-title">Fill the Form</p>
-                <fv-text-box v-model="caption" placeholder="Caption" :theme="theme" icon="TextField" style="width: 90%; margin-top: 5px" />
-                <fv-text-box v-model="link" icon="Link" placeholder="Insert Embed Url..." :theme="theme" style="width: 90%; margin-top: 5px" />
+    <callout-base
+        :show.sync="show"
+        :mobileMode="mobileMode"
+        :title="'Insert Embed'"
+        :theme="theme"
+        :popperClass="['power-editor-embed-callout']"
+    >
+        <template v-slot:trigger="x">
+            <slot :show="x.show"></slot>
+        </template>
+        <template v-slot:content>
+            <div
+                class="power-editor-e-c-block"
+                :class="[{ dark: theme === 'dark' }]"
+            >
+                <p
+                    v-if="false"
+                    class="power-editor-e-c-title"
+                >Fill the Form</p>
+                <fv-text-box
+                    v-model="caption"
+                    placeholder="Caption"
+                    :theme="theme"
+                    icon="TextField"
+                    style="width: 90%; margin-top: 5px"
+                />
+                <fv-text-box
+                    v-model="link"
+                    icon="Link"
+                    placeholder="Insert Embed Url..."
+                    :theme="theme"
+                    style="width: 90%; margin-top: 5px"
+                />
             </div>
             <div class="power-editor-e-c-control-block">
-                <fv-button theme="dark" :disabled="link === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>
+                <fv-button
+                    theme="dark"
+                    :disabled="link === ''"
+                    background="rgba(65, 74, 90, 1)"
+                    @click="insert"
+                >Insert</fv-button>
             </div>
-        </main>
-    </fv-callout>
+        </template>
+
+    </callout-base>
 </template>
 
 <script>
+import calloutBase from './calloutBase.vue';
+
 export default {
+    components: {
+        calloutBase,
+    },
     props: {
+        mobileMode: {
+            default: false,
+        },
         theme: {
             default: 'light',
         },
@@ -42,7 +79,7 @@ export default {
     methods: {
         insert() {
             if (this.link === '') return 0;
-            this.$emit('insert-embed', `<embed-block src="${this.link}" caption="${this.caption}"></embed-block>`);
+            this.$emit('insert-embed', `<embed-block src="${this.link}" caption="${this.caption}" theme="${this.theme}"></embed-block>`);
             this.show = false;
         },
     },
@@ -55,6 +92,7 @@ export default {
         width: 300px;
         height: auto;
         padding: 5px 0px;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;

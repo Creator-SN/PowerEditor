@@ -1,8 +1,27 @@
 <template>
-    <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
-        <tool-bar v-if="editor" :editor="editor" :theme="theme" @save-click="save"></tool-bar>
-        <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
-            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" ref="editor" :style="{ 'max-width': contentMaxWidth }" />
+    <div
+        class="power-editor-container"
+        :class="[{ dark: theme === 'dark' }]"
+    >
+        <tool-bar
+            v-if="editor"
+            :editor="editor"
+            :theme="theme"
+            :mobileMode="mobileMode"
+            @save-click="save"
+        ></tool-bar>
+        <div class="power-editor-tool-bar-acrylic-background"></div>
+        <div
+            class="tip-tap-editor-container"
+            :style="{ background: editorOutSideBackground }"
+        >
+            <editor-content
+                class="tip-tap-editor"
+                :editor="editor"
+                :theme="theme"
+                ref="editor"
+                :style="{ 'max-width': contentMaxWidth }"
+            />
         </div>
     </div>
 </template>
@@ -37,12 +56,18 @@ export default {
         toolBar,
     },
     props: {
+        value: {
+            default: `<p>I’m running PowerEditor with Vue.js. 🎉</p>`,
+        },
         contentMaxWidth: {
             default: '900px',
             type: String,
         },
         editorOutSideBackground: {
             default: '',
+        },
+        mobileDisplayWidth: {
+            default: 768,
         },
         theme: {
             default: 'light',
@@ -51,17 +76,24 @@ export default {
     data() {
         return {
             editor: null,
+            mobileMode: false,
+            timer: {
+                widthTimer: {},
+            },
         };
     },
     watch: {
-        theme () {
+        value(val) {
+            this.editor.commands.setContent(val);
+        },
+        theme() {
             this.themeSync();
-        }
+        },
     },
     mounted() {
         let el = this;
         this.editor = new Editor({
-            content: `<p>I’m running tiptap with Vue.js. 🎉</p>`,
+            content: this.value,
             extensions: [
                 StarterKit,
                 Underline,
@@ -104,8 +136,9 @@ export default {
             return this.theme;
         };
         // For the extensions can use this function to sync theme.//
-        this.editor.$PowerEditorTheme = this.themeSync;
+        this.editor.$PowerEditorThemeSync = this.themeSync;
         this.themeSync();
+        this.widthTimerInit();
     },
     methods: {
         insert(html) {
@@ -116,14 +149,20 @@ export default {
                 this.insert(`<image-block src="${el}" theme="${this.theme}"></image-block>\n`);
             });
         },
-        themeSync () {
+        themeSync() {
             let children = this.$refs.editor.$children;
-            for(let component of children) {
-                if(component.$props.node.attrs.theme)
+            for (let component of children) {
+                if (component.$props.node.attrs.theme)
                     component.$props.updateAttributes({
-                        theme: this.theme
+                        theme: this.theme,
                     });
             }
+        },
+        widthTimerInit() {
+            this.timer.widthTimer = setInterval(() => {
+                if (this.$el.clientWidth < this.mobileDisplayWidth) this.mobileMode = true;
+                else this.mobileMode = false;
+            }, 300);
         },
         async customPaste(event) {
             //rewrite paste event//
@@ -192,6 +231,9 @@ export default {
     },
     beforeDestroy() {
         this.editor.destroy();
+        for (let key in this.timer) {
+            clearInterval(this.timer[key]);
+        }
     },
 };
 </script>
@@ -207,6 +249,18 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .power-editor-tool-bar-acrylic-background {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: calc(100% - 10px);
+        height: 60px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(50px);
+        -webkit-backdrop-filter: blur(50px);
+        z-index: 1;
+    }
 
     .tip-tap-editor-container {
         position: relative;
@@ -351,6 +405,10 @@ export default {
 
     &.dark {
         background: rgba(47, 52, 55, 1);
+
+        .power-editor-tool-bar-acrylic-background {
+            background: rgba(0, 0, 0, 0.8);
+        }
 
         .tip-tap-editor-container {
             .tip-tap-editor {

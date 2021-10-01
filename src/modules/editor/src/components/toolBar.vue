@@ -71,22 +71,27 @@
             <i class="ms-Icon ms-Icon--ChromeMinimize"></i>
         </fv-button>
         <heading-callout
+            :mobileMode="mobileMode"
             :theme="thisTheme"
             :editor="editor"
             :getBackground="getBackground"
             :getForeground="getForeground"
             :execMore="execMore"
         >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false)"
-                :title="getTitle('Header')"
-            >
-                <i class="ms-Icon ms-Icon--Header1"></i>
-            </fv-button>
+
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false)"
+                    :title="getTitle('Header')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--Header1"></i>
+                </fv-button>
+            </template>
         </heading-callout>
         <fv-button
             class="power-editor-cmd-btn"
@@ -205,6 +210,7 @@
         </fv-button>
         <hr />
         <color-callout
+            :mobileMode="mobileMode"
             :theme="thisTheme"
             :editor="editor"
             :getBackground="getBackground"
@@ -212,16 +218,19 @@
             :exec="exec"
             :execMore="execMore"
         >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false, 'rgba(239, 107, 87, 1)')"
-                :title="getTitle('Color')"
-            >
-                <i class="ms-Icon ms-Icon--Eyedropper"></i>
-            </fv-button>
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false, 'rgba(239, 107, 87, 1)')"
+                    :title="getTitle('Color')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--Eyedropper"></i>
+                </fv-button>
+            </template>
         </color-callout>
         <fv-button
             class="power-editor-cmd-btn"
@@ -235,21 +244,24 @@
             <i class="ms-Icon ms-Icon--PenWorkspace"></i>
         </fv-button>
         <emoji-callout
+            :mobileMode="mobileMode"
             :theme="thisTheme"
             :editor="editor"
             @insert-emoji="insertEmoji"
         >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false, 'rgba(255, 180, 0, 1)')"
-                :title="getTitle('Emoji')"
-                @click="exec('')"
-            >
-                <i class="ms-Icon ms-Icon--Emoji2"></i>
-            </fv-button>
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false, 'rgba(255, 180, 0, 1)')"
+                    :title="getTitle('Emoji')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--Emoji2"></i>
+                </fv-button>
+            </template>
         </emoji-callout>
         <fv-button
             class="power-editor-cmd-btn"
@@ -274,49 +286,61 @@
             <i class="ms-Icon ms-Icon--Variable"></i>
         </fv-button>
         <image-callout
+            :mobileMode="mobileMode"
             :theme="thisTheme"
             @insert-image="insertImg"
         >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false)"
-                :title="getTitle('Image')"
-            >
-                <i class="ms-Icon ms-Icon--Photo2"></i>
-            </fv-button>
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false)"
+                    :title="getTitle('Image')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--Photo2"></i>
+                </fv-button>
+            </template>
         </image-callout>
         <link-callout
+            :mobileMode="mobileMode"
             :theme="thisTheme"
             @insert-link="insertLink"
         >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false)"
-                :title="getTitle('Link')"
-            >
-                <i class="ms-Icon ms-Icon--Link"></i>
-            </fv-button>
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false)"
+                    :title="getTitle('Link')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--Link"></i>
+                </fv-button>
+            </template>
         </link-callout>
         <embed-callout
+            :mobileMode="mobileMode"
             :theme="thisTheme"
             @insert-embed="insertEmbed"
         >
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="thisTheme"
-                :isBoxShadow="true"
-                :background="getBackground(false)"
-                :foreground="getForeground(false)"
-                :title="getTitle('Embed')"
-            >
-                <i class="ms-Icon ms-Icon--FileHTML"></i>
-            </fv-button>
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false)"
+                    :title="getTitle('Embed')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--FileHTML"></i>
+                </fv-button>
+            </template>
         </embed-callout>
 
         <fv-button
@@ -380,7 +404,10 @@ export default {
             },
         },
         showSave: {
-            default: true
+            default: true,
+        },
+        mobileMode: {
+            default: false,
         },
         theme: {
             default: 'light',
@@ -443,7 +470,7 @@ export default {
         insert(html) {
             this.editor.commands.insertContent(html);
         },
-        insertEmoji (emoji) {
+        insertEmoji(emoji) {
             this.editor.chain().focus().insertContent(emoji).run();
         },
         insertImg(base64_list) {
@@ -466,9 +493,9 @@ export default {
         insertDrawingBlock() {
             this.editor.chain().focus().insertContent(`<drawing-block theme="${this.theme}"></drawing-block>`).run();
         },
-        save () {
-            this.$emit("save-click");
-        }
+        save() {
+            this.$emit('save-click');
+        },
     },
 };
 </script>
@@ -483,20 +510,14 @@ export default {
     width: calc(100% - 10px);
     height: 60px;
     padding-right: 5px;
-    background: rgba(255, 255, 255, 0.8);
+    background: transparent;
     border-radius: 8px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
     z-index: 2;
     overflow-x: auto;
-
-    &.dark {
-        background: rgba(0, 0, 0, 0.8);
-    }
 
     .power-editor-cmd-btn {
         width: 45px;

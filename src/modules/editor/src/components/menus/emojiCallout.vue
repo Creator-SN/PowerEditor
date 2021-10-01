@@ -1,38 +1,59 @@
 <template>
-    <fv-callout
-        v-if="editor"
-        :lockScroll="true"
-        :position="'bottomCenter'"
-        :beak="12"
-        :space="0"
+    <callout-base
+        :show.sync="show"
+        :mobileMode="mobileMode"
+        :title="'Emoji'"
         :theme="theme"
-        :popperClass="'power-editor-emoji-callout'"
+        :popperClass="['power-editor-emoji-callout']"
     >
-        <slot></slot>
-        <header>
+        <template v-slot:trigger="x">
+            <slot :show="x.show"></slot>
+        </template>
+
+        <template v-slot:header="x">
             <div class="power-editor-emoji-banner">
-                <p style="font-size: 13.8px">Emoji</p>
-                <fv-button :theme="theme" @click="insertRandom">Random</fv-button>
+                <p style="font-size: 13.8px">{{x.title}}</p>
+                <fv-button
+                    :theme="theme"
+                    @click="insertRandom"
+                >Random</fv-button>
             </div>
-        </header>
-        <main>
-            <div class="power-editor-emoji-list" v-for="(group, index) in emoji_list" :key="`type:${index}`">
+        </template>
+        <template v-slot:content>
+            <div
+                class="power-editor-emoji-list"
+                v-for="(group, index) in emoji_list"
+                :key="`type:${index}`"
+            >
                 <p class="title">{{group.name}}</p>
                 <div class="power-editor-emoji-group">
-                    <i v-for="(item, i) in group.emojis" :key="i" class="emoji-item" v-html="item" @click="insertEmoji(item)"></i>
+                    <i
+                        v-for="(item, i) in group.emojis"
+                        :key="i"
+                        class="emoji-item"
+                        v-html="item"
+                        @click="insertEmoji(item)"
+                    ></i>
                 </div>
             </div>
-        </main>
-    </fv-callout>
+        </template>
+    </callout-base>
 </template>
 
 <script>
-import emoji_list from "../../js/emojiList.js";
+import emoji_list from '../../js/emojiList.js';
+import calloutBase from './calloutBase.vue';
 
 export default {
+    components: {
+        calloutBase,
+    },
     props: {
         editor: {
             default: null,
+        },
+        mobileMode: {
+            default: false,
         },
         theme: {
             default: 'light',
@@ -40,7 +61,8 @@ export default {
     },
     data() {
         return {
-            emoji_list: emoji_list
+            emoji_list: emoji_list,
+            show: false,
         };
     },
     watch: {},
@@ -48,23 +70,21 @@ export default {
         getTitle(name) {
             return name;
         },
-        insertEmoji (emoji) {
+        insertEmoji(emoji) {
             this.$emit('insert-emoji', emoji);
         },
-        insertRandom () {
+        insertRandom() {
             let i = (Math.random() * (this.emoji_list.length - 1)).toFixed(0);
             let j = (Math.random() * (this.emoji_list[i].emojis.length - 1)).toFixed(0);
             this.$emit('insert-emoji', this.emoji_list[i].emojis[j]);
-        }
+        },
     },
 };
 </script>
 
 <style lang="scss">
 .power-editor-emoji-callout {
-
-    .power-editor-emoji-banner
-    {
+    .power-editor-emoji-banner {
         position: relative;
         width: 100%;
         height: 35px;
@@ -78,33 +98,31 @@ export default {
         position: relative;
         width: 300px;
         height: 500px;
+        max-height: 100%;
+        flex: 1;
         padding: 5px 0px;
         display: flex;
         flex-direction: column;
         align-items: center;
         overflow: auto;
 
-        .power-editor-emoji-list
-        {
+        .power-editor-emoji-list {
             position: relative;
             width: 100%;
             height: auto;
 
-            .title
-            {
+            .title {
                 font-size: 12px;
             }
 
-            .power-editor-emoji-group
-            {
+            .power-editor-emoji-group {
                 position: relative;
                 width: 100%;
                 height: auto;
                 display: flex;
                 flex-wrap: wrap;
 
-                .emoji-item
-                {
+                .emoji-item {
                     position: relative;
                     width: 25px;
                     height: 25px;
@@ -118,13 +136,27 @@ export default {
                     user-select: none;
                     cursor: default;
 
-                    &:hover
-                    {
+                    &:hover {
                         background: rgba(200, 200, 200, 0.6);
                     }
                 }
             }
         }
+    }
+}
+
+.p-e-c-b-m-banner
+{
+    .power-editor-emoji-banner {
+        position: relative;
+        width: 50%;
+        height: 35px;
+        padding: 0px 5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 </style>
