@@ -177,7 +177,7 @@ export default {
     &.dark {
         .power-editor-equation-popper-container {
             background: black;
-            
+
             .power-editor-equation-popper-input {
                 background: transparent;
                 color: whitesmoke;

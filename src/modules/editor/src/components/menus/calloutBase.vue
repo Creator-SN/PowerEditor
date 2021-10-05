@@ -1,74 +1,31 @@
 <template>
-    <div
-        class="power-editor-callout-base-container"
-        :class="[{ dark: theme === 'dark' }]"
-    >
-        <fv-callout
-            v-if="!mobileMode"
-            :visible.sync="thisShow"
-            :lockScroll="true"
-            :position="'bottomCenter'"
-            :disabled="mobileMode"
-            :beak="12"
-            :space="0"
-            :theme="theme"
-            :popperClass="popperClass"
-        >
-            <slot
-                name="trigger"
-                :show="false"
-            ></slot>
+    <div class="power-editor-callout-base-container" :class="[{ dark: theme === 'dark' }]">
+        <fv-callout v-if="!mobileMode" :visible.sync="thisShow" :lockScroll="true" :position="'bottomCenter'" :disabled="mobileMode" :beak="12" :space="0" :theme="theme" :popperClass="popperClass">
+            <slot name="trigger" :show="false"></slot>
             <header>
-                <slot
-                    name="header"
-                    :title="title"
-                >
-                    <p style="font-size: 13.8px">{{title}}</p>
+                <slot name="header" :title="title">
+                    <p style="font-size: 13.8px">{{ title }}</p>
                 </slot>
             </header>
             <main>
-                <slot
-                    name="content"
-                    index="1"
-                ></slot>
+                <slot name="content" index="1"></slot>
             </main>
         </fv-callout>
 
         <div v-if="mobileMode">
-            <slot
-                name="trigger"
-                :show="triggerShow"
-            ></slot>
+            <slot name="trigger" :show="triggerShow"></slot>
             <transition name="power-editor-callout-base-mobile-container">
-                <div
-                    v-show="thisShow"
-                    class="power-editor-callout-base-mobile-container"
-                >
+                <div v-show="thisShow" class="power-editor-callout-base-mobile-container">
                     <div class="p-e-c-b-m-banner">
-                        <slot
-                            name="header"
-                            :title="title"
-                        >
-                            <p style="width: 50px;"></p>
-                            <p class="p-e-c-b-m-title">{{title}}</p>
+                        <slot name="header" :title="title">
+                            <p style="width: 50px"></p>
+                            <p class="p-e-c-b-m-title">{{ title }}</p>
                         </slot>
-                        <p
-                            class="p-e-c-b-m-close"
-                            @click="thisShow = false"
-                        >Cancel</p>
+                        <p class="p-e-c-b-m-close" @click="thisShow = false">Cancel</p>
                     </div>
-                    <div
-                        class="p-e-c-b-m-content-block"
-                        :class="popperClass"
-                    >
-                        <div
-                            class="main"
-                            style="width: 100%;"
-                        >
-                            <slot
-                                name="content"
-                                index="2"
-                            ></slot>
+                    <div class="p-e-c-b-m-content-block" :class="popperClass">
+                        <div class="main" style="width: 100%">
+                            <slot name="content" index="2"></slot>
                         </div>
                     </div>
                 </div>

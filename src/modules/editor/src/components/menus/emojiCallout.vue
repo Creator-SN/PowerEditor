@@ -1,39 +1,20 @@
 <template>
-    <callout-base
-        :show.sync="show"
-        :mobileMode="mobileMode"
-        :title="'Emoji'"
-        :theme="theme"
-        :popperClass="['power-editor-emoji-callout']"
-    >
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Emoji'" :theme="theme" :popperClass="['power-editor-emoji-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
 
         <template v-slot:header="x">
             <div class="power-editor-emoji-banner">
-                <p style="font-size: 13.8px">{{x.title}}</p>
-                <fv-button
-                    :theme="theme"
-                    @click="insertRandom"
-                >Random</fv-button>
+                <p style="font-size: 13.8px">{{ x.title }}</p>
+                <fv-button :theme="theme" @click="insertRandom">Random</fv-button>
             </div>
         </template>
         <template v-slot:content>
-            <div
-                class="power-editor-emoji-list"
-                v-for="(group, index) in emoji_list"
-                :key="`type:${index}`"
-            >
-                <p class="title">{{group.name}}</p>
+            <div class="power-editor-emoji-list" v-for="(group, index) in emoji_list" :key="`type:${index}`">
+                <p class="title">{{ group.name }}</p>
                 <div class="power-editor-emoji-group">
-                    <i
-                        v-for="(item, i) in group.emojis"
-                        :key="i"
-                        class="emoji-item"
-                        v-html="item"
-                        @click="insertEmoji(item)"
-                    ></i>
+                    <i v-for="(item, i) in group.emojis" :key="i" class="emoji-item" v-html="item" @click="insertEmoji(item)"></i>
                 </div>
             </div>
         </template>
@@ -145,8 +126,7 @@ export default {
     }
 }
 
-.p-e-c-b-m-banner
-{
+.p-e-c-b-m-banner {
     .power-editor-emoji-banner {
         position: relative;
         width: 50%;

@@ -70,9 +70,9 @@ export default {
                 this.show = this.$refs.n.$el.innerText.replace(/\n/g, '') === '';
             }, 50);
         },
-        preventEnter (event) {
-            console.log(event)
-        }
+        preventEnter(event) {
+            console.log(event);
+        },
     },
     beforeDestroy() {
         clearInterval(this.timer);

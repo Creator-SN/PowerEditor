@@ -1,27 +1,9 @@
 <template>
-    <div
-        class="power-editor-container"
-        :class="[{ dark: theme === 'dark' }]"
-    >
-        <tool-bar
-            v-if="editor"
-            :editor="editor"
-            :theme="theme"
-            :mobileMode="mobileMode"
-            @save-click="save"
-        ></tool-bar>
+    <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
+        <tool-bar v-if="editor" :editor="editor" :theme="theme" :mobileMode="mobileMode" @save-click="save"></tool-bar>
         <div class="power-editor-tool-bar-acrylic-background"></div>
-        <div
-            class="tip-tap-editor-container"
-            :style="{ background: editorOutSideBackground }"
-        >
-            <editor-content
-                class="tip-tap-editor"
-                :editor="editor"
-                :theme="theme"
-                ref="editor"
-                :style="{ 'max-width': contentMaxWidth }"
-            />
+        <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
+            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" ref="editor" :style="{ 'max-width': contentMaxWidth }" />
         </div>
     </div>
 </template>
@@ -210,14 +192,16 @@ export default {
                 this.insert(htmlDoc.body.innerHTML);
             } else if (exists_text !== false) {
                 exists_text.getAsString((str) => {
-                    str = str.replace(/&/g, '&amp;');
-                    str = str.replace(/</g, '&lt;');
-                    str = str.replace(/>/g, '&gt;');
-                    str = str.replace(/"/g, '&quto;');
-                    str = str.replace(/'/g, '&#39;');
-                    str = str.replace(/`/g, '&#96;');
-                    str = str.replace(/\//g, '&#x2F;');
-                    this.insert(encodeURI(str));
+                    const transaction = this.editor.state.tr.insertText(str);
+                    this.editor.view.dispatch(transaction);
+                    // str = str.replace(/&/g, '&amp;');
+                    // str = str.replace(/</g, '&lt;');
+                    // str = str.replace(/>/g, '&gt;');
+                    // str = str.replace(/"/g, '&quto;');
+                    // str = str.replace(/'/g, '&#39;');
+                    // str = str.replace(/`/g, '&#96;');
+                    // str = str.replace(/\//g, '&#x2F;');
+                    // this.insert(str);
                 });
             } else
                 Promise.all(img_promises).then((data) => {
@@ -255,8 +239,10 @@ export default {
         left: 5px;
         top: 5px;
         width: calc(100% - 10px);
-        height: 60px;
+        height: 70px;
         background: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(50px);
         -webkit-backdrop-filter: blur(50px);
         z-index: 1;

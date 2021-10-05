@@ -1,23 +1,11 @@
 <template>
-    <callout-base
-        :show.sync="show"
-        :mobileMode="mobileMode"
-        :title="'Text Color'"
-        :theme="theme"
-        :popperClass="['power-editor-color-callout']"
-    >
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Text Color'" :theme="theme" :popperClass="['power-editor-color-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
         <template v-slot:content>
-            <p style="font-size: 12px">Color</p>
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="theme"
-                :isBoxShadow="true"
-                :title="getTitle(`removeColor`)"
-                @click="exec('unsetColor')"
-            >{{ '' }}</fv-button>
+            <p style="font-size: 12px; font-weight: bold">Foreground</p>
+            <fv-button class="power-editor-cmd-btn" :theme="theme" :isBoxShadow="true" :title="getTitle(`removeColor`)" @click="exec('unsetColor')">{{ '' }}</fv-button>
             <fv-button
                 v-for="(item, index) in colorList"
                 :key="'color:' + index"
@@ -28,15 +16,10 @@
                 :foreground="`whitesmoke`"
                 :title="getTitle(item.name)"
                 @click="execMore('setColor', item.color)"
-            >{{ '' }}</fv-button>
-            <p style="font-size: 12px">Background</p>
-            <fv-button
-                class="power-editor-cmd-btn"
-                :theme="theme"
-                :isBoxShadow="true"
-                :title="getTitle(`removeHighlight`)"
-                @click="exec('unsetHighlight')"
-            >{{ '' }}</fv-button>
+                >{{ '' }}</fv-button
+            >
+            <p style="font-size: 12px; font-weight: bold">Background</p>
+            <fv-button class="power-editor-cmd-btn" :theme="theme" :isBoxShadow="true" :title="getTitle(`removeHighlight`)" @click="exec('unsetHighlight')">{{ '' }}</fv-button>
             <fv-button
                 v-for="(item, index) in highlightList"
                 :key="'highlight:' + index"
@@ -47,7 +30,8 @@
                 :foreground="`whitesmoke`"
                 :title="getTitle(item.name)"
                 @click="execMore('toggleHighlight', { color: item.color })"
-            >{{ '' }}</fv-button>
+                >{{ '' }}</fv-button
+            >
         </template>
     </callout-base>
 </template>
@@ -117,7 +101,7 @@ export default {
 <style lang="scss">
 .power-editor-color-callout {
     div.main {
-        width: 80px;
+        width: 100px;
         height: 360px;
         padding: 5px 15px;
         box-sizing: border-box;
@@ -127,7 +111,7 @@ export default {
         overflow: auto;
 
         .power-editor-cmd-btn {
-            width: 100%;
+            width: 50px;
             height: 35px;
             margin-top: 5px;
             flex-shrink: 0;

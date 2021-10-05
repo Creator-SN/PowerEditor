@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="power-editor-tool-bar-container"
-        :class="[{ dark: thisTheme === 'dark' }]"
-    >
+    <div class="power-editor-tool-bar-container" :class="[{ dark: thisTheme === 'dark' }]">
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -70,15 +67,7 @@
         >
             <i class="ms-Icon ms-Icon--ChromeMinimize"></i>
         </fv-button>
-        <heading-callout
-            :mobileMode="mobileMode"
-            :theme="thisTheme"
-            :editor="editor"
-            :getBackground="getBackground"
-            :getForeground="getForeground"
-            :execMore="execMore"
-        >
-
+        <heading-callout :mobileMode="mobileMode" :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :execMore="execMore">
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -209,15 +198,7 @@
             <i class="ms-Icon ms-Icon--DecreaseIndentLegacy"></i>
         </fv-button>
         <hr />
-        <color-callout
-            :mobileMode="mobileMode"
-            :theme="thisTheme"
-            :editor="editor"
-            :getBackground="getBackground"
-            :getForeground="getForeground"
-            :exec="exec"
-            :execMore="execMore"
-        >
+        <color-callout :mobileMode="mobileMode" :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :exec="exec" :execMore="execMore">
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -243,12 +224,7 @@
         >
             <i class="ms-Icon ms-Icon--PenWorkspace"></i>
         </fv-button>
-        <emoji-callout
-            :mobileMode="mobileMode"
-            :theme="thisTheme"
-            :editor="editor"
-            @insert-emoji="insertEmoji"
-        >
+        <emoji-callout :mobileMode="mobileMode" :theme="thisTheme" :editor="editor" @insert-emoji="insertEmoji">
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -285,11 +261,7 @@
         >
             <i class="ms-Icon ms-Icon--Variable"></i>
         </fv-button>
-        <image-callout
-            :mobileMode="mobileMode"
-            :theme="thisTheme"
-            @insert-image="insertImg"
-        >
+        <image-callout :mobileMode="mobileMode" :theme="thisTheme" @insert-image="insertImg">
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -304,11 +276,7 @@
                 </fv-button>
             </template>
         </image-callout>
-        <link-callout
-            :mobileMode="mobileMode"
-            :theme="thisTheme"
-            @insert-link="insertLink"
-        >
+        <link-callout :mobileMode="mobileMode" :theme="thisTheme" @insert-link="insertLink">
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -323,11 +291,7 @@
                 </fv-button>
             </template>
         </link-callout>
-        <embed-callout
-            :mobileMode="mobileMode"
-            :theme="thisTheme"
-            @insert-embed="insertEmbed"
-        >
+        <embed-callout :mobileMode="mobileMode" :theme="thisTheme" @insert-embed="insertEmbed">
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -508,14 +472,13 @@ export default {
     left: 5px;
     top: 5px;
     width: calc(100% - 10px);
-    height: 60px;
+    height: 70px;
     padding-right: 5px;
     background: transparent;
     border-radius: 8px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
     z-index: 2;
     overflow-x: auto;
 

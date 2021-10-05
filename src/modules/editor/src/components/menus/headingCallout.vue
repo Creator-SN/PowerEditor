@@ -1,11 +1,5 @@
 <template>
-    <callout-base
-        :show.sync="show"
-        :mobileMode="mobileMode"
-        :title="'Headers'"
-        :theme="theme"
-        :popperClass="['power-editor-header-callout']"
-    >
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Headers'" :theme="theme" :popperClass="['power-editor-header-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
@@ -20,7 +14,8 @@
                 :foreground="getForeground(editor.isActive('heading', { level: i }))"
                 :title="getTitle('Horizontal Rule')"
                 @click="execMore('toggleHeading', { level: i })"
-            >H{{ i }}</fv-button>
+                >H{{ i }}</fv-button
+            >
         </template>
     </callout-base>
 </template>
@@ -54,7 +49,7 @@ export default {
     },
     data() {
         return {
-            show: false
+            show: false,
         };
     },
     watch: {},

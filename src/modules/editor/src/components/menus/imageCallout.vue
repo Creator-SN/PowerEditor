@@ -1,54 +1,21 @@
 <template>
-    <callout-base
-        :show.sync="show"
-        :mobileMode="mobileMode"
-        :title="'Insert Image'"
-        :theme="theme"
-        :popperClass="['power-editor-image-callout']"
-    >
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Insert Image'" :theme="theme" :popperClass="['power-editor-image-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
         <template v-slot:content="x">
-            <div
-                class="power-editor-i-c-block"
-                :class="[{ dark: theme === 'dark' }]"
-            >
+            <div class="power-editor-i-c-block" :class="[{ dark: theme === 'dark' }]">
                 <p class="power-editor-i-c-title">Method 1</p>
-                <i
-                    class="ms-Icon ms-Icon--Photo2Add power-editor-i-c-icon-1"
-                    @click="$refs[`img_local_${x.index}`].click()"
-                ></i>
+                <i class="ms-Icon ms-Icon--Photo2Add power-editor-i-c-icon-1" @click="$refs[`img_local_${x.index}`].click()"></i>
                 <p class="power-editor-i-c-t2">Choose Local Image as Base64 (multiple).</p>
-                <input
-                    type="file"
-                    accept="image/gif,image/png,image/jpeg,image/x-png"
-                    multiple="true"
-                    style="display: none"
-                    :ref="`img_local_${x.index}`"
-                    @change="insertLocal(x.index)"
-                />
+                <input type="file" accept="image/gif,image/png,image/jpeg,image/x-png" multiple="true" style="display: none" :ref="`img_local_${x.index}`" @change="insertLocal(x.index)" />
             </div>
-            <div
-                class="power-editor-i-c-block"
-                :class="[{ dark: theme === 'dark' }]"
-            >
+            <div class="power-editor-i-c-block" :class="[{ dark: theme === 'dark' }]">
                 <p class="power-editor-i-c-title">Method 2</p>
-                <fv-text-box
-                    v-model="url"
-                    placeholder="Insert Image Url."
-                    :theme="theme"
-                    style="width: 90%; border: thin; outline: none"
-                    ref="img_link"
-                />
+                <fv-text-box v-model="url" placeholder="Insert Image Url." :theme="theme" style="width: 90%; border: thin; outline: none" ref="img_link" />
             </div>
             <div class="power-editor-i-c-control-block">
-                <fv-button
-                    theme="dark"
-                    :disabled="url === ''"
-                    background="rgba(65, 74, 90, 1)"
-                    @click="insert"
-                >Insert</fv-button>
+                <fv-button theme="dark" :disabled="url === ''" background="rgba(65, 74, 90, 1)" @click="insert">Insert</fv-button>
             </div>
         </template>
     </callout-base>

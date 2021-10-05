@@ -26,7 +26,7 @@ export default Node.create({
             },
             theme: {
                 default: 'light',
-            }
+            },
         };
     },
 
@@ -66,7 +66,7 @@ export default Node.create({
         return [
             wrappingInputRule(inputRegex, this.type, (match) => ({
                 checked: match[match.length - 1] === 'x',
-                theme: this.editor.$PowerEditorTheme()
+                theme: this.editor.$PowerEditorTheme(),
             })),
         ];
     },
