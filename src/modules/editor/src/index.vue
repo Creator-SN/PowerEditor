@@ -290,7 +290,7 @@ export default {
             h4,
             h5,
             h6 {
-                line-height: 1.1;
+                line-height: 1.5;
             }
 
             a {
