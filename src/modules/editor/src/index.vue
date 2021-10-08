@@ -108,18 +108,18 @@ export default {
             ],
             editorProps: {
                 //ProseMirror Editor Props//
-                handlePaste(view, e, slice) {
-                    let placeholder = {
-                        view,
-                        e,
-                        slice,
-                    };
-                    let event = placeholder.e;
-                    event.stopPropagation();
-                    event.preventDefault();
-                    el.customPaste(event);
-                    return true;
-                },
+                // handlePaste(view, e, slice) {
+                //     let placeholder = {
+                //         view,
+                //         e,
+                //         slice,
+                //     };
+                //     let event = placeholder.e;
+                //     event.stopPropagation();
+                //     event.preventDefault();
+                //     el.customPaste(event);
+                //     return true;
+                // },
             },
         });
         // For the extensions can use this function to get the current theme.//
@@ -137,7 +137,7 @@ export default {
         },
         insertImg(base64_list) {
             base64_list.forEach((el) => {
-                this.insert(`<image-block src="${el}" theme="${this.theme}"></image-block>\n`);
+                this.insert(`<img src="${el}" theme="${this.theme}"></img>\n`);
             });
         },
         themeSync() {
@@ -454,12 +454,20 @@ export default {
                 color: whitesmoke;
             }
 
+            ul,
+            ol {
+                li::marker
+                {
+                    color: rgba(245, 245, 245, 0.6);
+                }
+            }
+
             hr {
                 border-top: 2px solid rgba(228, 227, 226, 1);
             }
 
             blockquote {
-                border-left: 2px solid rgba(228, 227, 226, 1);
+                border-left: 2px solid rgba(251, 188, 136, 1);
             }
         }
     }

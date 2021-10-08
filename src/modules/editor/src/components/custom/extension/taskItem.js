@@ -18,6 +18,9 @@ export default Node.create({
 
     addAttributes() {
         return {
+            value: {
+                default: ""
+            },
             checked: {
                 default: false,
             },
@@ -33,13 +36,18 @@ export default Node.create({
     parseHTML() {
         return [
             {
-                tag: 'power-task-item',
+                tag: 'li[data-type="powerTaskItem"]',
+                priority: 51,
             },
-        ];
+        ]
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['power-task-item', mergeAttributes(HTMLAttributes)];
+        return ['li', mergeAttributes(
+            this.options.HTMLAttributes,
+            HTMLAttributes,
+            { 'data-type': 'powerTaskItem' },
+        ), 0]
     },
 
     addKeyboardShortcuts() {

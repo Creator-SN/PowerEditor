@@ -439,7 +439,7 @@ export default {
         },
         insertImg(base64_list) {
             base64_list.forEach((el) => {
-                this.insert(`<image-block src="${el}" theme="${this.theme}"></image-block>\n`);
+                this.insert(`<img src="${el}" theme="${this.theme}"></img>\n`);
             });
         },
         insertLink(link) {

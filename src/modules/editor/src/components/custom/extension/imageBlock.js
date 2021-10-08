@@ -34,13 +34,13 @@ export default Node.create({
     parseHTML() {
         return [
             {
-                tag: 'image-block',
+                tag: 'img[src]',
             },
         ];
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['image-block', mergeAttributes(HTMLAttributes)];
+        return ['img', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)];
     },
 
     addNodeView() {
