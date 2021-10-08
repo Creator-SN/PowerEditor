@@ -17,6 +17,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 
 import lowlight from 'lowlight';
@@ -40,6 +41,9 @@ export default {
     props: {
         value: {
             default: `<p>I’m running PowerEditor with Vue.js. 🎉</p>`,
+        },
+        placeholder: {
+            default: 'Write something …',
         },
         contentMaxWidth: {
             default: '900px',
@@ -67,6 +71,7 @@ export default {
     watch: {
         value(val) {
             this.editor.commands.setContent(val);
+            this.themeSync();
         },
         theme() {
             this.themeSync();
@@ -86,6 +91,10 @@ export default {
                 Highlight.configure({ multicolor: true }),
                 Color,
                 Link,
+                Placeholder.configure({
+                    emptyEditorClass: 'is-editor-empty',
+                    placeholder: () => this.placeholder,
+                }),
                 CodeBlockLowlight.configure({
                     lowlight,
                 }),
@@ -208,6 +217,9 @@ export default {
                     this.insertImg(data);
                 });
         },
+        focus() {
+            this.editor.commands.focus();
+        },
         save() {
             this.$emit('save-json', this.editor.getJSON());
             this.$emit('save-html', this.editor.getHTML());
@@ -290,6 +302,7 @@ export default {
             h4,
             h5,
             h6 {
+                color: #2c3e50;
                 line-height: 1.5;
             }
 
@@ -299,8 +312,36 @@ export default {
                 cursor: pointer;
             }
 
+            p {
+                color: #2c3e50;
+
+                &.is-editor-empty {
+                    padding: 3px;
+                    border-radius: 3px;
+                    box-sizing: border-box;
+
+                    &:first-child::before {
+                        content: attr(data-placeholder);
+                        float: left;
+                        color: #ced4da;
+                        pointer-events: none;
+                        height: 0;
+                    }
+
+                    &:hover {
+                        background: rgba(200, 200, 200, 0.1);
+                    }
+
+                    &:active {
+                        background: rgba(200, 200, 200, 0.05);
+                    }
+                }
+            }
+
             code {
                 background-color: rgba(#616161, 0.1);
+                font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+                font-size: 12.8px;
                 color: #616161;
             }
 

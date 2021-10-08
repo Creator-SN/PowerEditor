@@ -11,4 +11,16 @@ features:
 footer: MIT Licensed | Copyright © 2021 Creator SN
 ---
 
-<power-editor style="width:100%" />
+<script>
+export default {
+    data () {
+        return {
+            theme: "light"
+        }
+    }
+}
+</script>
+
+<fv-button :theme="theme" borderRadius="35" style="width: 35px; height: 35px; margin: 15px 0px;" @click="theme = theme == 'light' ? 'dark' : 'light'"><i class="ms-Icon" :class="[`ms-Icon--${theme === 'light' ? 'Sunny' : 'ClearNight'}`]"></i></fv-button>
+
+<power-editor :theme="theme" style="width:100%" />
