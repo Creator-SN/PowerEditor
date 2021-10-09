@@ -1,9 +1,33 @@
 <template>
-    <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
-        <tool-bar v-if="editor" :editor="editor" :theme="theme" :mobileMode="mobileMode" @save-click="save"></tool-bar>
-        <div class="power-editor-tool-bar-acrylic-background"></div>
-        <div class="tip-tap-editor-container" :style="{ background: editorOutSideBackground }">
-            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" ref="editor" :style="{ 'max-width': contentMaxWidth }" />
+    <div
+        class="power-editor-container"
+        :class="[{ dark: theme === 'dark' }]"
+    >
+        <transition name="power-editor-tool-bar-fade-in">
+            <tool-bar
+                v-if="editor && editable"
+                :editor="editor"
+                :theme="theme"
+                :mobileMode="mobileMode"
+                @save-click="save"
+            ></tool-bar>
+        </transition>
+        <div
+            v-if="editor && editable"
+            class="power-editor-tool-bar-acrylic-background"
+        ></div>
+        <div
+        :class="[{'read-only': !editable}]"
+            class="tip-tap-editor-container"
+            :style="{ background: editorOutSideBackground }"
+        >
+            <editor-content
+                class="tip-tap-editor"
+                :editor="editor"
+                :theme="theme"
+                ref="editor"
+                :style="{ 'max-width': contentMaxWidth }"
+            />
         </div>
     </div>
 </template>
@@ -42,6 +66,9 @@ export default {
         value: {
             default: `<p>I’m running PowerEditor with Vue.js. 🎉</p>`,
         },
+        editable: {
+            default: true,
+        },
         placeholder: {
             default: 'Write something …',
         },
@@ -73,6 +100,9 @@ export default {
             this.editor.commands.setContent(val);
             this.themeSync();
         },
+        editable() {
+            this.editor.setEditable(this.editable);
+        },
         theme() {
             this.themeSync();
         },
@@ -80,6 +110,7 @@ export default {
     mounted() {
         let el = this;
         this.editor = new Editor({
+            editable: this.editable,
             content: this.value,
             extensions: [
                 StarterKit,
@@ -187,18 +218,40 @@ export default {
                 });
                 let parser = new DOMParser();
                 let htmlDoc = parser.parseFromString(txt, 'text/html');
-                let img_nodes = htmlDoc.querySelectorAll('img');
+                console.log(htmlDoc);
+                let insertDoc = parser.parseFromString('', 'text/html');
+                let pure = [];
+                htmlDoc.body.children.forEach((el) => {
+                    let r = this.dfsDiv(el);
+                    pure = pure.concat(r);
+                });
+                insertDoc.body.append(...pure);
+                // let all_nodes = insertDoc.querySelectorAll('*');
+                // for (let i = 0; i < all_nodes.length; i++) {
+                //     let node = all_nodes[i];
+                //     let style = node.getAttribute('style');
+                //     if (!style) node.setAttribute('style', ``);
+                //     else {
+                //         let color = style.match(/color: *[()\d,\w]+;/);
+                //         let background = style.match(/background-color: *[()\d,\w]+;/);
+                //         if (color) color = color[0];
+                //         else color = 'inherit';
+                //         if (background) background = background[0];
+                //         else background = 'inherit';
+                //         node.setAttribute('style', `color: ${color}; background: ${background};`);
+                //     }
+                // }
+                let img_nodes = insertDoc.querySelectorAll('img');
                 for (let i = 0; i < img_nodes.length; i++) {
-                    let node = htmlDoc.createElement('image-block');
-                    let src = img_nodes[i].getAttribute('src');
-                    node.setAttribute('src', src);
                     let x = img_nodes[i];
-                    while (x && x.parentNode != htmlDoc.body) {
+                    let node = img_nodes[i];
+                    while (x && x.parentNode != insertDoc.body) {
                         x = x.parentNode;
                     }
                     x.parentNode.insertBefore(node, x);
                 }
-                this.insert(htmlDoc.body.innerHTML);
+                console.log(insertDoc.body.innerHTML);
+                this.insert(insertDoc.body.innerHTML);
             } else if (exists_text !== false) {
                 exists_text.getAsString((str) => {
                     const transaction = this.editor.state.tr.insertText(str);
@@ -216,6 +269,15 @@ export default {
                 Promise.all(img_promises).then((data) => {
                     this.insertImg(data);
                 });
+        },
+        dfsDiv(node) {
+            if (node.tagName.toUpperCase() !== 'DIV') return [node];
+            let children = node.children;
+            let result = [];
+            children.forEach((el) => {
+                result = result.concat(this.dfsDiv(el));
+            });
+            return result;
         },
         focus() {
             this.editor.commands.focus();
@@ -268,7 +330,13 @@ export default {
         padding: 0px 5px;
         padding-top: 60px;
         box-sizing: border-box;
+        transition: padding 0.3s;
         overflow: auto;
+
+        &.read-only
+        {
+            padding-top: 5px;
+        }
 
         .tip-tap-editor {
             position: relative;
@@ -456,8 +524,7 @@ export default {
 
             ul,
             ol {
-                li::marker
-                {
+                li::marker {
                     color: rgba(245, 245, 245, 0.6);
                 }
             }
@@ -470,6 +537,23 @@ export default {
                 border-left: 2px solid rgba(251, 188, 136, 1);
             }
         }
+    }
+
+    .power-editor-tool-bar-fade-in-enter-active, .power-editor-tool-bar-fade-in-leave-active
+    {
+        transition: all 0.3s;
+    }
+
+    .power-editor-tool-bar-fade-in-enter, .power-editor-tool-bar-fade-in-leave-to
+    {
+        margin-top: -15px;
+        opacity: 0;
+    }
+
+    .power-editor-tool-bar-fade-in-enter-to, .power-editor-tool-bar-fade-in-leave
+    {
+        margin-top: 0;
+        opacity: 1;
     }
 }
 </style>
