@@ -1,6 +1,6 @@
 <template>
     <node-view-wrapper v-if="node" class="power-editor-image-container" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
-        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :theme="node.attrs.theme">
+        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="node.attrs.theme">
             <fv-image :src="node.attrs.src" style="width: 100%; height: auto"></fv-image>
         </media-container>
     </node-view-wrapper>

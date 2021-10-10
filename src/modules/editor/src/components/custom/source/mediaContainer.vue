@@ -13,7 +13,7 @@
             <i class="ms-Icon ms-Icon--GripperDotsVertical"></i>
         </div>
         <div class="power-editor-media-control-btn-block">
-            <fv-button class="power-editor-media-cmd-btn" :theme="theme" fontSize="12" :isBoxShadow="true" :title="getTitle('TextField')" @click="show.captionBox = true">
+            <fv-button class="power-editor-media-cmd-btn" :theme="theme" fontSize="12" :isBoxShadow="true" :title="getTitle('TextField')" @click="showCaptionBox">
                 <i class="ms-Icon ms-Icon--TextField"></i>
             </fv-button>
             <fv-button class="power-editor-media-cmd-btn" :theme="theme" fontSize="12" :isBoxShadow="true" :title="getTitle('AlignLeft')" @click="thisAlignCenter = false">
@@ -24,8 +24,9 @@
             </fv-button>
         </div>
         <div v-show="active" class="power-editor-media-mask-block"></div>
+        <p v-show="thisCaption !== '' && !show.captionBox" class="power-editor-media-container-caption" @click="showCaptionBox">{{thisCaption}}</p>
         <fv-text-box
-            v-show="thisCaption !== '' || show.captionBox"
+            v-show="show.captionBox"
             v-model="thisCaption"
             :theme="theme"
             class="power-editor-media-caption-block"
@@ -39,6 +40,11 @@ export default {
     props: {
         width: {
             default: 100,
+        },
+        editor: {
+            default: () => {
+                return {}
+            }
         },
         caption: {
             default: '',
@@ -155,6 +161,10 @@ export default {
         getTitle(name) {
             return name;
         },
+        showCaptionBox () {
+            if(!this.editor.isEditable) return;
+            this.show.captionBox = true;
+        }
     },
 };
 </script>
@@ -176,6 +186,11 @@ export default {
 
         .power-editor-media-drag-btn {
             color: rgba(36, 36, 36, 1);
+        }
+
+        .power-editor-media-container-caption
+        {
+            color: rgba(230, 230, 230, 1);
         }
     }
 
@@ -270,6 +285,28 @@ export default {
     .power-editor-media-caption-block {
         position: relative;
         width: 100%;
+        margin-top: 15px;
+    }
+
+    .power-editor-media-container-caption
+    {
+        font-size: 13.8px;
+        color: rgba(95, 95, 95, 1);
+        border-radius: 3px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover
+        {
+            background: rgba(200, 200, 200, 0.1);
+        }
+
+        &:active
+        {
+            background: rgba(200, 200, 200, 0.15);
+        }
     }
 
     .power-editor-media-mask-block {

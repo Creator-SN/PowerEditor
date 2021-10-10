@@ -31,7 +31,7 @@
                 <fv-button class="power-editor-d-b-btn __clear" :borderRadius="50" :theme="node.attrs.theme" @click="clear"><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
             </div>
         </div>
-        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :theme="node.attrs.theme">
+        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="node.attrs.theme">
             <svg viewBox="0 0 500 250" ref="canvas">
                 <template v-for="item in node.attrs.lines">
                     <path v-if="item.id !== id" :key="item.id" :d="item.path" :id="`id-${item.id}`" :stroke="item.color" :stroke-width="item.size" />

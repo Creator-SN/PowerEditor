@@ -139,6 +139,7 @@ export default {
             else this.left = 0;
         },
         show() {
+            if(!this.editor.isEditable) return;
             this.updateAttributes({
                 showPopper: true,
             });
@@ -202,6 +203,7 @@ export default {
         display: flex;
         align-items: center;
         box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+        z-index: 1;
 
         .power-editor-equation-popper-btn {
             width: 80px;
@@ -231,7 +233,7 @@ export default {
     }
 
     .power-editor-equation-popper-fade-enter-active {
-        transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+        transition: opacity 0.05s ease-out, transform 0.05s ease-out;
     }
 
     .power-editor-equation-popper-fade-enter {
@@ -245,7 +247,7 @@ export default {
     }
 
     .power-editor-equation-popper-fade-leave-active {
-        transition: transform 0.1s ease-out;
+        transition: transform 0.05s ease-out;
     }
 
     .power-editor-equation-popper-fade-leave {

@@ -1,6 +1,6 @@
 <template>
     <node-view-wrapper v-if="node" class="power-editor-embed-container" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
-        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :theme="node.attrs.theme" ref="media">
+        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="node.attrs.theme" ref="media">
             <iframe :src="node.attrs.src" frameborder="0" allowfullscreen style="width: 100%; height: auto" :style="{ height: `${width / 1.778}px` }"></iframe>
         </media-container>
     </node-view-wrapper>
