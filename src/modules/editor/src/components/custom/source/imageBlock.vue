@@ -1,7 +1,21 @@
 <template>
-    <node-view-wrapper v-if="node" class="power-editor-image-container" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
-        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="node.attrs.theme">
-            <fv-image :src="node.attrs.src" style="width: 100%; height: auto"></fv-image>
+    <node-view-wrapper
+        v-if="node"
+        class="power-editor-image-container"
+        :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }"
+    >
+        <media-container
+            :width.sync="node.attrs.width"
+            :caption.sync="node.attrs.caption"
+            :alignCenter.sync="node.attrs.alignCenter"
+            :editor="editor"
+            :theme="node.attrs.theme"
+        >
+            <fv-image
+                :src="node.attrs.src"
+                style="width: 100%; height: auto"
+            ></fv-image>
+            <div class="power-editor-image-selection-mask" :class="[{selected: selected}]"></div>
         </media-container>
     </node-view-wrapper>
 </template>
@@ -59,7 +73,11 @@ export default {
     data() {
         return {};
     },
-    watch: {},
+    watch: {
+        selected(val) {
+            console.log(val);
+        },
+    },
 };
 </script>
 
@@ -71,5 +89,18 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .power-editor-image-selection-mask {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        transition: all 0.3s;
+
+        &.selected {
+            background: rgba(45, 170, 219, 0.3);
+        }
+    }
 }
 </style>

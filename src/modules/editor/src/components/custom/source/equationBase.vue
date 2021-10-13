@@ -1,9 +1,29 @@
 <template>
-    <node-view-wrapper v-if="node" :as="node.attrs.tag" class="power-editor-equation-container" :class="{ dark: node.attrs.theme === 'dark', div: node.attrs.tag == 'div' }">
+    <node-view-wrapper
+        v-if="node"
+        :as="node.attrs.tag"
+        class="power-editor-equation-container"
+        :class="{ dark: node.attrs.theme === 'dark', div: node.attrs.tag == 'div', selected: selected }"
+    >
         <transition name="power-editor-equation-popper-fade">
-            <div v-show="node.attrs.showPopper" class="power-editor-equation-popper-container" :style="{ left: `${left}px`, top: `${top}%` }" @keyup.enter="!lock ? close() : ''">
-                <input v-model="node.attrs.value" class="power-editor-equation-popper-input" :placeholder="node.attrs.placeholder" ref="input" />
-                <fv-button class="power-editor-equation-popper-btn" :theme="node.attrs.theme" :disabled="lock" @click="close">Confirm</fv-button>
+            <div
+                v-show="node.attrs.showPopper"
+                class="power-editor-equation-popper-container"
+                :style="{ left: `${left}px`, top: `${top}%` }"
+                @keyup.enter="!lock ? close() : ''"
+            >
+                <input
+                    v-model="node.attrs.value"
+                    class="power-editor-equation-popper-input"
+                    :placeholder="node.attrs.placeholder"
+                    ref="input"
+                />
+                <fv-button
+                    class="power-editor-equation-popper-btn"
+                    :theme="node.attrs.theme"
+                    :disabled="lock"
+                    @click="close"
+                >Confirm</fv-button>
             </div>
         </transition>
         <span
@@ -139,7 +159,7 @@ export default {
             else this.left = 0;
         },
         show() {
-            if(!this.editor.isEditable) return;
+            if (!this.editor.isEditable) return;
             this.updateAttributes({
                 showPopper: true,
             });
@@ -168,8 +188,14 @@ export default {
     position: relative;
     width: auto;
     height: auto;
+    transition: background-color 0.3s;
+
+    &.selected {
+        background: rgba(45, 170, 219, 0.3);
+    }
 
     &.div {
+        padding: 1px 0px;
         display: flex;
         justify-content: center;
         align-items: center;

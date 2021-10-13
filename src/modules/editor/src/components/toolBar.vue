@@ -243,6 +243,17 @@
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
+            :background="getBackground(editor.isActive('code'))"
+            :foreground="getForeground(editor.isActive('code'))"
+            :title="getTitle('Code')"
+            @click="exec('toggleCode')"
+        >
+            <i class="ms-Icon ms-Icon--CSharp"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
             :background="getBackground(editor.isActive('codeBlock'))"
             :foreground="getForeground(editor.isActive('codeBlock'))"
             :title="getTitle('Code')"

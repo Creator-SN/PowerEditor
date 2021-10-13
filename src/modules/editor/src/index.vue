@@ -17,7 +17,7 @@
             class="power-editor-tool-bar-acrylic-background"
         ></div>
         <div
-        :class="[{'read-only': !editable}]"
+            :class="[{'read-only': !editable}]"
             class="tip-tap-editor-container"
             :style="{ background: editorOutSideBackground }"
         >
@@ -113,7 +113,12 @@ export default {
             editable: this.editable,
             content: this.value,
             extensions: [
-                StarterKit,
+                StarterKit.configure({
+                    dropcursor: {
+                        color: 'rgba(45, 170, 219, 0.3)',
+                        width: 6,
+                    },
+                }),
                 Underline,
                 TextAlign.configure({
                     types: ['heading', 'paragraph'],
@@ -333,8 +338,7 @@ export default {
         transition: padding 0.3s;
         overflow: auto;
 
-        &.read-only
-        {
+        &.read-only {
             padding-top: 5px;
         }
 
@@ -539,19 +543,19 @@ export default {
         }
     }
 
-    .power-editor-tool-bar-fade-in-enter-active, .power-editor-tool-bar-fade-in-leave-active
-    {
+    .power-editor-tool-bar-fade-in-enter-active,
+    .power-editor-tool-bar-fade-in-leave-active {
         transition: all 0.3s;
     }
 
-    .power-editor-tool-bar-fade-in-enter, .power-editor-tool-bar-fade-in-leave-to
-    {
+    .power-editor-tool-bar-fade-in-enter,
+    .power-editor-tool-bar-fade-in-leave-to {
         margin-top: -15px;
         opacity: 0;
     }
 
-    .power-editor-tool-bar-fade-in-enter-to, .power-editor-tool-bar-fade-in-leave
-    {
+    .power-editor-tool-bar-fade-in-enter-to,
+    .power-editor-tool-bar-fade-in-leave {
         margin-top: 0;
         opacity: 1;
     }
