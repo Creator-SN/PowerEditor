@@ -26,6 +26,18 @@
                 >Confirm</fv-button>
             </div>
         </transition>
+        <div
+            v-if="node.attrs.tag == 'div'"
+            draggable="true"
+            data-drag-handle
+            class="power-editor-equation-drag-btn"
+            @mousedown="active = true"
+            @mouseup="active = false"
+            @touchstart="active = true"
+            @touchend="active = false"
+        >
+            <i class="ms-Icon ms-Icon--GripperDotsVertical"></i>
+        </div>
         <span
             class="power-editor-equation-target"
             :placeholder="node.attrs.emptyPlaceholder"
@@ -93,6 +105,7 @@ export default {
             backup: '',
             equationString: '',
             errorMsg: '',
+            active: false,
             lock: false,
         };
     },
@@ -214,6 +227,16 @@ export default {
         .power-editor-equation-target {
             color: whitesmoke;
         }
+
+        .power-editor-equation-drag-btn {
+            color: rgba(36, 36, 36, 1);
+        }
+    }
+
+    &:hover {
+        .power-editor-equation-drag-btn {
+            opacity: 1;
+        }
     }
 
     .power-editor-equation-popper-container {
@@ -244,6 +267,19 @@ export default {
             border-radius: 3px;
             outline: none;
         }
+    }
+
+    .power-editor-equation-drag-btn {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        width: auto;
+        height: auto;
+        font-size: 18px;
+        color: whitesmoke;
+        opacity: 0;
+        transition: opacity 1s;
+        cursor: grab;
     }
 
     .power-editor-equation-target {
