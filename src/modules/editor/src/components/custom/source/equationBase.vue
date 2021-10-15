@@ -229,7 +229,7 @@ export default {
         }
 
         .power-editor-equation-drag-btn {
-            color: rgba(36, 36, 36, 1);
+            color: whitesmoke;
         }
     }
 
@@ -276,7 +276,7 @@ export default {
         width: auto;
         height: auto;
         font-size: 18px;
-        color: whitesmoke;
+        color: rgba(36, 36, 36, 1);
         opacity: 0;
         transition: opacity 1s;
         cursor: grab;
