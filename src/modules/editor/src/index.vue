@@ -411,10 +411,12 @@ export default {
             }
 
             code {
+                padding: 4px 6px;
                 background-color: rgba(#616161, 0.1);
                 font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
                 font-size: 12.8px;
-                color: #616161;
+                color: rgba(235, 87, 87, 1);
+                border-radius: 3px;
             }
 
             pre {
@@ -506,7 +508,7 @@ export default {
         background: rgba(47, 52, 55, 1);
 
         .power-editor-tool-bar-acrylic-background {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(70, 70, 70, 0.3);
         }
 
         .tip-tap-editor-container {
@@ -539,6 +541,10 @@ export default {
 
             blockquote {
                 border-left: 2px solid rgba(251, 188, 136, 1);
+            }
+
+            code {
+                background-color: rgba(72, 72, 72, 1);
             }
         }
     }

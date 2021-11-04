@@ -256,7 +256,7 @@
             :isBoxShadow="true"
             :background="getBackground(editor.isActive('codeBlock'))"
             :foreground="getForeground(editor.isActive('codeBlock'))"
-            :title="getTitle('Code')"
+            :title="getTitle('Code Block')"
             @click="exec('toggleCodeBlock')"
         >
             <i class="ms-Icon ms-Icon--Code"></i>
@@ -434,7 +434,7 @@ export default {
         },
         getBackground(state) {
             if (state) return this.highlightColor.b;
-            return '';
+            return 'rgba(36, 36, 36, 1)';
         },
         exec(cmd) {
             if (cmd) this.editor.chain().focus()[cmd]().run();
@@ -494,10 +494,15 @@ export default {
     overflow-x: auto;
 
     .power-editor-cmd-btn {
-        width: 45px;
-        height: 45px;
+        width: 35px;
+        height: 35px;
         margin-left: 5px;
         flex-shrink: 0;
+        
+        i
+        {
+            font-size: 12px;
+        }
     }
 
     hr {
