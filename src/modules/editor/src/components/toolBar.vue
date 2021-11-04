@@ -1,5 +1,8 @@
 <template>
-    <div class="power-editor-tool-bar-container" :class="[{ dark: thisTheme === 'dark' }]">
+    <div
+        class="power-editor-tool-bar-container"
+        :class="[{ dark: thisTheme === 'dark' }]"
+    >
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -67,7 +70,14 @@
         >
             <i class="ms-Icon ms-Icon--ChromeMinimize"></i>
         </fv-button>
-        <heading-callout :mobileMode="mobileMode" :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :execMore="execMore">
+        <heading-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            :editor="editor"
+            :getBackground="getBackground"
+            :getForeground="getForeground"
+            :execMore="execMore"
+        >
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -198,7 +208,15 @@
             <i class="ms-Icon ms-Icon--DecreaseIndentLegacy"></i>
         </fv-button>
         <hr />
-        <color-callout :mobileMode="mobileMode" :theme="thisTheme" :editor="editor" :getBackground="getBackground" :getForeground="getForeground" :exec="exec" :execMore="execMore">
+        <color-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            :editor="editor"
+            :getBackground="getBackground"
+            :getForeground="getForeground"
+            :exec="exec"
+            :execMore="execMore"
+        >
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -224,7 +242,12 @@
         >
             <i class="ms-Icon ms-Icon--PenWorkspace"></i>
         </fv-button>
-        <emoji-callout :mobileMode="mobileMode" :theme="thisTheme" :editor="editor" @insert-emoji="insertEmoji">
+        <emoji-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            :editor="editor"
+            @insert-emoji="insertEmoji"
+        >
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -272,7 +295,11 @@
         >
             <i class="ms-Icon ms-Icon--Variable"></i>
         </fv-button>
-        <image-callout :mobileMode="mobileMode" :theme="thisTheme" @insert-image="insertImg">
+        <image-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            @insert-image="insertImg"
+        >
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -287,7 +314,11 @@
                 </fv-button>
             </template>
         </image-callout>
-        <link-callout :mobileMode="mobileMode" :theme="thisTheme" @insert-link="insertLink">
+        <link-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            @insert-link="insertLink"
+        >
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -302,7 +333,11 @@
                 </fv-button>
             </template>
         </link-callout>
-        <embed-callout :mobileMode="mobileMode" :theme="thisTheme" @insert-embed="insertEmbed">
+        <embed-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            @insert-embed="insertEmbed"
+        >
             <template v-slot:default="x">
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -434,7 +469,8 @@ export default {
         },
         getBackground(state) {
             if (state) return this.highlightColor.b;
-            return 'rgba(36, 36, 36, 1)';
+            if (this.thisTheme === 'dark') return 'rgba(36, 36, 36, 1)';
+            return '';
         },
         exec(cmd) {
             if (cmd) this.editor.chain().focus()[cmd]().run();
@@ -498,9 +534,8 @@ export default {
         height: 35px;
         margin-left: 5px;
         flex-shrink: 0;
-        
-        i
-        {
+
+        i {
             font-size: 12px;
         }
     }
