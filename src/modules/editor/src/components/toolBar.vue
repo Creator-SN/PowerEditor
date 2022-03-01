@@ -526,7 +526,7 @@ export default {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    z-index: 2;
+    z-index: 5;
     overflow-x: auto;
 
     .power-editor-cmd-btn {

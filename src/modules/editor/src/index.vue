@@ -324,7 +324,7 @@ export default {
         box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(50px);
         -webkit-backdrop-filter: blur(50px);
-        z-index: 2;
+        z-index: 3;
     }
 
     .tip-tap-editor-container {
