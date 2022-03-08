@@ -37,6 +37,7 @@
     "bin:i18n": "ts-node ./build/i18n.ts"
   },
   "dependencies": {
+    "@tiptap/extension-bubble-menu": "^2.0.0-beta.55",
     "@tiptap/extension-code-block-lowlight": "^2.0.0-beta.39",
     "@tiptap/extension-color": "^2.0.0-beta.3",
     "@tiptap/extension-highlight": "^2.0.0-beta.18",
@@ -48,13 +49,13 @@
     "@tiptap/extension-text-style": "^2.0.0-beta.17",
     "@tiptap/extension-underline": "^2.0.0-beta.16",
     "@tiptap/starter-kit": "^2.0.0-beta.111",
-    "@tiptap/vue-2": "^2.0.0-beta.55",
+    "@tiptap/vue-2": "^2.0.0-beta.77",
     "core-js": "^3.6.5",
     "d3": "^7.0.4",
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "^0.1.63",
+    "vfluentdesign": "^0.1.64",
     "vue": "^2.6.11"
   },
   "devDependencies": {

@@ -29,6 +29,8 @@
             v-show="show.captionBox"
             v-model="thisCaption"
             :theme="theme"
+            underline
+            :is-box-shadow="true"
             class="power-editor-media-caption-block"
             :placeholder="getTitle('Write a caption...')"
         ></fv-text-box>

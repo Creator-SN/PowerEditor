@@ -40,8 +40,8 @@
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
-            :background="getBackground(editor.isActive('strike'))"
-            :foreground="getForeground(editor.isActive('strike'))"
+            :background="getBackground(editor.isActive('underline'))"
+            :foreground="getForeground(editor.isActive('underline'))"
             :title="getTitle('Underline')"
             @click="exec('toggleUnderline')"
         >
@@ -57,7 +57,7 @@
             :title="getTitle('Block Quote')"
             @click="exec('toggleBlockquote')"
         >
-            <i class="ms-Icon ms-Icon--RightDoubleQuote"></i>
+            <i class="ms-Icon ms-Icon--LeftDoubleQuote"></i>
         </fv-button>
         <fv-button
             class="power-editor-cmd-btn"
@@ -124,7 +124,7 @@
             :title="getTitle('BulletedList')"
             @click="exec('toggleBulletList')"
         >
-            <i class="ms-Icon ms-Icon--CheckList"></i>
+            <i class="ms-Icon ms-Icon--BulletedList"></i>
         </fv-button>
         <fv-button
             class="power-editor-cmd-btn"
@@ -136,6 +136,18 @@
             @click="exec('toggleOrderedList')"
         >
             <i class="ms-Icon ms-Icon--NumberedList"></i>
+        </fv-button>
+        <fv-button
+            v-if="false"
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(false)"
+            :foreground="getForeground(false)"
+            :title="getTitle('DetailsList')"
+            @click="exec('toggleOrderedList')"
+        >
+            <i class="ms-Icon ms-Icon--ShowBcc"></i>
         </fv-button>
         <hr />
         <fv-button
@@ -227,7 +239,7 @@
                     :title="getTitle('Color')"
                     @click="x.show !== false ? x.show() : ''"
                 >
-                    <i class="ms-Icon ms-Icon--Eyedropper"></i>
+                    <i class="ms-Icon ms-Icon--FontColor"></i>
                 </fv-button>
             </template>
         </color-callout>
@@ -240,7 +252,7 @@
             :title="getTitle('Draw')"
             @click="insertDrawingBlock"
         >
-            <i class="ms-Icon ms-Icon--PenWorkspace"></i>
+            <i class="ms-Icon ms-Icon--StrokeErase2"></i>
         </fv-button>
         <emoji-callout
             :mobileMode="mobileMode"
@@ -419,6 +431,9 @@ export default {
         mobileMode: {
             default: false,
         },
+        tippyOptions: {
+            default: 100,
+        },
         theme: {
             default: 'light',
         },
@@ -512,8 +527,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'office-ui-fabric-core/src/sass/_References.scss';
-
 .power-editor-tool-bar-container {
     position: absolute;
     left: 5px;
@@ -522,6 +535,7 @@ export default {
     height: 70px;
     padding-right: 5px;
     background: transparent;
+    border: rgba(120, 120, 120, 0.1) solid thin;
     border-radius: 8px;
     box-sizing: border-box;
     display: flex;

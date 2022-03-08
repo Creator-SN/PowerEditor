@@ -29,6 +29,16 @@
                 :style="{ 'max-width': contentMaxWidth }"
             />
         </div>
+        <div class="power-editor-bubble-tool-bar">
+            <bubble-tool-bar
+                v-if="editor && editable"
+                :editor="editor"
+                :theme="theme"
+                :tippy-options="{ duration: 100 }"
+                ref="bubbleToolBar"
+                :mobileMode="mobileMode"
+            ></bubble-tool-bar>
+        </div>
     </div>
 </template>
 
@@ -43,6 +53,7 @@ import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import BubbleMenu from '@tiptap/extension-bubble-menu';
 
 import lowlight from 'lowlight';
 
@@ -55,12 +66,14 @@ import EquationBlock from './components/custom/extension/equationBlock.js';
 import DrawingBlock from './components/custom/extension/drawingBlock.js';
 
 import toolBar from './components/toolBar.vue';
+import bubbleToolBar from './components/bubbleToolBar.vue';
 
 export default {
     name: 'PowerEditor',
     components: {
         EditorContent,
         toolBar,
+        bubbleToolBar,
     },
     props: {
         value: {
@@ -141,6 +154,9 @@ export default {
                 InlineEquation,
                 EquationBlock,
                 DrawingBlock,
+                BubbleMenu.configure({
+                    element: document.querySelector('.power-editor-bubble-tool-bar'),
+                }),
             ],
             editorProps: {
                 //ProseMirror Editor Props//

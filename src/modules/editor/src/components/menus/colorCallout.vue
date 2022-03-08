@@ -1,37 +1,59 @@
 <template>
-    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Text Color'" :theme="theme" :popperClass="['power-editor-color-callout']">
+    <callout-base
+        :show.sync="show"
+        :mobileMode="mobileMode"
+        :title="'Text Color'"
+        :theme="theme"
+        :popperClass="['power-editor-color-callout']"
+    >
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
         <template v-slot:content>
             <p style="font-size: 12px; font-weight: bold">Foreground</p>
-            <fv-button class="power-editor-cmd-btn" :theme="theme" :isBoxShadow="true" :title="getTitle(`removeColor`)" @click="exec('unsetColor')">{{ '' }}</fv-button>
-            <fv-button
+            <div
+                class="power-editor-color-item"
+                :class="[{dark : theme == 'dark'}]"
+                @click="exec('unsetColor')"
+            >
+                <p class="peci-example">A</p>
+                <p class="peci-comment">{{getTitle(`removeColor`)}}</p>
+            </div>
+            <div
                 v-for="(item, index) in colorList"
+                class="power-editor-color-item"
+                :class="[{dark : theme == 'dark', choosen: editor.isActive('textStyle', { color: item.color })}]"
                 :key="'color:' + index"
-                class="power-editor-cmd-btn"
-                :theme="theme"
-                :isBoxShadow="!editor.isActive('textStyle', { color: item.color })"
-                :background="item.color"
-                :foreground="`whitesmoke`"
-                :title="getTitle(item.name)"
                 @click="execMore('setColor', item.color)"
-                >{{ '' }}</fv-button
             >
-            <p style="font-size: 12px; font-weight: bold">Background</p>
-            <fv-button class="power-editor-cmd-btn" :theme="theme" :isBoxShadow="true" :title="getTitle(`removeHighlight`)" @click="exec('unsetHighlight')">{{ '' }}</fv-button>
-            <fv-button
+                <p
+                    class="peci-example"
+                    :style="{color: item.color}"
+                >A</p>
+                <p class="peci-comment">{{item.name}}</p>
+            </div>
+            <p style="font-size: 12px; font-weight: bold">Highlight Background</p>
+            <div
+                class="power-editor-color-item"
+                :class="[{dark : theme == 'dark'}]"
+                @click="exec('unsetHighlight')"
+            >
+                <p class="peci-example">A</p>
+                <p class="peci-comment">{{getTitle(`removeHighlight`)}}</p>
+            </div>
+            <div
                 v-for="(item, index) in highlightList"
+                class="power-editor-color-item"
+                :class="[{dark : theme == 'dark', choosen: editor.isActive('highlight', { color: item.color })}]"
                 :key="'highlight:' + index"
-                class="power-editor-cmd-btn"
-                :theme="theme"
-                :isBoxShadow="!editor.isActive('highlight', { color: item.color })"
-                :background="item.color"
-                :foreground="`whitesmoke`"
-                :title="getTitle(item.name)"
                 @click="execMore('toggleHighlight', { color: item.color })"
-                >{{ '' }}</fv-button
             >
+                <p
+                    class="peci-example"
+                    :style="{background: item.color}"
+                >A</p>
+                <p class="peci-comment">{{item.name}}</p>
+            </div>
         </template>
     </callout-base>
 </template>
@@ -101,20 +123,82 @@ export default {
 <style lang="scss">
 .power-editor-color-callout {
     div.main {
-        width: 100px;
+        width: 300px;
         height: 360px;
-        padding: 5px 15px;
+        padding: 5px 0px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         align-items: center;
         overflow: auto;
+        overflow-x: hidden;
 
         .power-editor-cmd-btn {
             width: 50px;
             height: 35px;
             margin-top: 5px;
             flex-shrink: 0;
+        }
+
+        .power-editor-color-item {
+            position: relative;
+            width: 100%;
+            height: 35px;
+            margin: 3px;
+            padding: 5px;
+            border-radius: 6px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            user-select: none;
+            cursor: default;
+
+            &:hover {
+                background: rgba(200, 200, 200, 0.1);
+            }
+
+            &:active {
+                background: rgba(200, 200, 200, 0.3);
+            }
+
+            &.dark {
+                &:hover {
+                    background: rgba(200, 200, 200, 0.3);
+                }
+
+                &:active {
+                    background: rgba(200, 200, 200, 0.2);
+                }
+
+                .peci-example {
+                    background: rgba(75, 75, 75, 1);
+                    border: rgba(75, 75, 75, 0.1) solid thin;
+                }
+            }
+
+            &.choosen
+            {
+                background: rgba(200, 200, 200, 0.3);
+            }
+
+            .peci-example {
+                position: relative;
+                width: 25px;
+                height: 25px;
+                flex-shrink: 1;
+                background: white;
+                border: whitesmoke solid thin;
+                color: rgba(36, 36, 36, 1);
+                border-radius: 35px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .peci-comment {
+                flex: 1;
+                margin-left: 15px;
+            }
         }
     }
 }
