@@ -169,7 +169,7 @@ export default {
                     element: document.querySelector('.power-editor-bubble-tool-bar'),
                     shouldShow: ({ editor, view, state, oldState, from, to }) => {
                         // only show the bubble menu for images and links
-                        if(state.selection.from === state.selection.to) return false;
+                        if (state.selection.from === state.selection.to) return false;
                         return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
                     },
                 }),
@@ -380,6 +380,7 @@ export default {
         .tip-tap-editor {
             position: relative;
             width: 100%;
+            max-width: 100%;
             margin: 0px auto;
             margin-top: 15px;
             min-height: 95%;
@@ -387,6 +388,7 @@ export default {
             padding: 15px;
             background: white;
             box-sizing: border-box;
+            transition: all 0.3s;
         }
 
         .ProseMirror {

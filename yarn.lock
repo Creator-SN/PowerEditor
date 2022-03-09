@@ -1207,6 +1207,14 @@
   dependencies:
     prosemirror-inputrules "^1.1.3"
 
+"@tiptap/extension-character-count@^2.0.0-beta.25":
+  version "2.0.0-beta.25"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-character-count/-/extension-character-count-2.0.0-beta.25.tgz#6da586e3820b91dcd6173098d81d8261fd5b9fe2"
+  integrity sha512-TvTC5Mqq0HK5wts49Eb0YXN+1Q49Vyv9Awr3b63GP/6r4VKd8+wC96xGOnWtjzDclSiYKQz1Gsv8yeOWhMRqpA==
+  dependencies:
+    prosemirror-model "^1.16.1"
+    prosemirror-state "^1.3.4"
+
 "@tiptap/extension-code-block-lowlight@^2.0.0-beta.39":
   version "2.0.0-beta.39"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code-block-lowlight/-/extension-code-block-lowlight-2.0.0-beta.39.tgz#f890fd33dfdda946d747798f050e08729f40517d"
@@ -9632,7 +9640,7 @@ prosemirror-model@^1.0.0, prosemirror-model@^1.14.3:
   dependencies:
     orderedmap "^1.1.0"
 
-prosemirror-model@^1.16.0, prosemirror-model@^1.8.1:
+prosemirror-model@^1.16.0, prosemirror-model@^1.16.1, prosemirror-model@^1.8.1:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.16.1.tgz#fb388270bc9609b66298d6a7e15d0cc1d6c61253"
   integrity sha512-r1/w0HDU40TtkXp0DyKBnFPYwd8FSlUSJmGCGFv4DeynfeSlyQF2FD0RQbVEMOe6P3PpUSXM6LZBV7W/YNZ4mA==
