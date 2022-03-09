@@ -76,6 +76,27 @@
                 </fv-button>
             </template>
         </color-callout>
+        <table-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            :editor="editor"
+            :exec="exec"
+            :execMore="execMore"
+        >
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-bubble-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false, 'rgba(56, 171, 127, 1)')"
+                    :title="getTitle('Table')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--TiltDown"></i>
+                </fv-button>
+            </template>
+        </table-callout>
         <fv-button
             class="power-editor-bubble-cmd-btn"
             :theme="thisTheme"
@@ -111,10 +132,12 @@
 
 <script>
 import colorCallout from './menus/colorCallout.vue';
+import TableCallout from './menus/tableCallout.vue';
 
 export default {
     components: {
-        colorCallout
+        colorCallout,
+        TableCallout,
     },
     props: {
         editor: {
@@ -237,8 +260,7 @@ export default {
     overflow-x: hidden;
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
 
-    &.dark
-    {
+    &.dark {
         background: rgba(92, 92, 92, 1);
     }
 

@@ -53,6 +53,10 @@ import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 
 import lowlight from 'lowlight';
@@ -154,8 +158,20 @@ export default {
                 InlineEquation,
                 EquationBlock,
                 DrawingBlock,
+                Table.configure({
+                    HTMLAttributes: {},
+                    resizable: true,
+                }),
+                TableRow,
+                TableHeader,
+                TableCell,
                 BubbleMenu.configure({
                     element: document.querySelector('.power-editor-bubble-tool-bar'),
+                    shouldShow: ({ editor, view, state, oldState, from, to }) => {
+                        // only show the bubble menu for images and links
+                        if(state.selection.from === state.selection.to) return false;
+                        return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
+                    },
                 }),
             ],
             editorProps: {
@@ -313,6 +329,9 @@ export default {
         for (let key in this.timer) {
             clearInterval(this.timer[key]);
         }
+    },
+    beforeUnmount() {
+        this.editor.destroy();
     },
 };
 </script>
@@ -517,6 +536,73 @@ export default {
                 border-top: 2px solid rgba(#0d0d0d, 0.1);
                 margin: 2rem 0;
             }
+
+            table {
+                border-collapse: collapse;
+                table-layout: fixed;
+                width: 100%;
+                margin: 0;
+                display: table;
+                overflow: hidden;
+
+                td,
+                th {
+                    min-width: 1em;
+                    border: thin solid #ced4da;
+                    padding: 3px 5px;
+                    vertical-align: top;
+                    box-sizing: border-box;
+                    position: relative;
+
+                    > * {
+                        margin-bottom: 0;
+                    }
+                }
+
+                th {
+                    width: auto;
+                    font-weight: bold;
+                    text-align: left;
+                    background-color: rgba(241, 243, 245, 1);
+                }
+
+                .selectedCell:after {
+                    z-index: 2;
+                    position: absolute;
+                    content: '';
+                    left: 0;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    background: rgba(200, 200, 255, 0.4);
+                    pointer-events: none;
+                }
+
+                .column-resize-handle {
+                    position: absolute;
+                    right: -2px;
+                    top: 0;
+                    bottom: -2px;
+                    width: 4px;
+                    background-color: rgba(145, 191, 209, 1);
+                    pointer-events: none;
+                }
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            .tableWrapper {
+                width: 100%;
+                padding: 1rem 0;
+                overflow-x: auto;
+            }
+        }
+
+        .resize-cursor {
+            cursor: ew-resize;
+            cursor: col-resize;
         }
     }
 
@@ -561,6 +647,20 @@ export default {
 
             code {
                 background-color: rgba(72, 72, 72, 1);
+            }
+
+            table {
+                th {
+                    background: rgba(235, 235, 235, 1);
+
+                    p {
+                        color: rgba(13, 13, 13, 1);
+                    }
+                }
+
+                tr:nth-child(2n) {
+                    background: rgba(0, 0, 0, 0.3);
+                }
             }
         }
     }

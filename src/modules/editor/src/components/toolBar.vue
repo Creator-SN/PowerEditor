@@ -274,6 +274,27 @@
                 </fv-button>
             </template>
         </emoji-callout>
+        <table-callout
+            :mobileMode="mobileMode"
+            :theme="thisTheme"
+            :editor="editor"
+            :exec="exec"
+            :execMore="execMore"
+        >
+            <template v-slot:default="x">
+                <fv-button
+                    class="power-editor-cmd-btn"
+                    :theme="thisTheme"
+                    :isBoxShadow="true"
+                    :background="getBackground(false)"
+                    :foreground="getForeground(false, 'rgba(56, 171, 127, 1)')"
+                    :title="getTitle('Table')"
+                    @click="x.show !== false ? x.show() : ''"
+                >
+                    <i class="ms-Icon ms-Icon--TiltDown"></i>
+                </fv-button>
+            </template>
+        </table-callout>
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -409,6 +430,7 @@ import colorCallout from './menus/colorCallout.vue';
 import emojiCallout from './menus/emojiCallout.vue';
 import imageCallout from './menus/imageCallout.vue';
 import headingCallout from './menus/headingCallout.vue';
+import TableCallout from './menus/tableCallout.vue';
 
 export default {
     components: {
@@ -418,6 +440,7 @@ export default {
         emojiCallout,
         imageCallout,
         headingCallout,
+        TableCallout,
     },
     props: {
         editor: {
