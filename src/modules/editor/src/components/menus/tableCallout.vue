@@ -64,7 +64,8 @@
                     class="power-editor-table-control-item"
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
-                    @click="exec('addRowAfter')"
+                    :title="getTitle('Add Row Before')"
+                    @click="exec('addRowBefore')"
                 >
                     <i class="ms-Icon ms-Icon--UpArrowShiftKey"></i>
                 </fv-button>
@@ -73,6 +74,7 @@
                     class="power-editor-table-control-item"
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
+                    :title="getTitle('Add Row After')"
                     @click="exec('addRowAfter')"
                 >
                     <i
@@ -85,6 +87,7 @@
                     class="power-editor-table-control-item"
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
+                    :title="getTitle('Add Column Before')"
                     @click="exec('addColumnBefore')"
                 >
                     <i
@@ -97,6 +100,7 @@
                     class="power-editor-table-control-item"
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
+                    :title="getTitle('Add Column After')"
                     @click="exec('addColumnAfter')"
                 >
                     <i
@@ -109,6 +113,7 @@
                     :theme="theme"
                     class="power-editor-table-control-item"
                     :is-box-shadow="true"
+                    :title="getTitle('Merge Cells')"
                     @click="exec('mergeCells')"
                 >
                     <i class="ms-Icon ms-Icon--PPSOneLandscape"></i>
@@ -117,6 +122,7 @@
                     :theme="theme"
                     class="power-editor-table-control-item"
                     :is-box-shadow="true"
+                    :title="getTitle('Split Cell')"
                     @click="exec('splitCell')"
                 >
                     <i class="ms-Icon ms-Icon--PPSTwoPortrait"></i>
