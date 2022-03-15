@@ -11,12 +11,16 @@
             </div>
         </template>
         <template v-slot:content>
-            <div class="power-editor-emoji-list" v-for="(group, index) in emoji_list" :key="`type:${index}`">
-                <p class="title">{{ group.name }}</p>
-                <div class="power-editor-emoji-group">
-                    <i v-for="(item, i) in group.emojis" :key="i" class="emoji-item" v-html="item" @click="insertEmoji(item)"></i>
-                </div>
-            </div>
+            <fv-infinite-scroll-view v-model="emoji_list" :batchSize="1" style="width: 100%; height: 100%;">
+                <template v-slot:default="x">
+                    <div class="power-editor-emoji-list" v-for="(group, index) in x.dynamicValue" :key="`type:${index}`">
+                        <p class="title">{{ group.name }}</p>
+                        <div class="power-editor-emoji-group">
+                            <i v-for="(item, i) in group.emojis" :key="i" class="emoji-item" v-html="item" @click="insertEmoji(item)"></i>
+                        </div>
+                    </div>
+                </template>
+            </fv-infinite-scroll-view>
         </template>
     </callout-base>
 </template>

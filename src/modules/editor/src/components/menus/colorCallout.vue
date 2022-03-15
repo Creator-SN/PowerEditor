@@ -10,7 +10,7 @@
             <slot :show="x.show"></slot>
         </template>
         <template v-slot:content>
-            <p style="font-size: 12px; font-weight: bold">Foreground</p>
+            <p style="width: 100%; font-size: 12px;">Foreground</p>
             <div
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark'}]"
@@ -32,7 +32,7 @@
                 >A</p>
                 <p class="peci-comment">{{item.name}}</p>
             </div>
-            <p style="font-size: 12px; font-weight: bold">Highlight Background</p>
+            <p style="width: 100%; font-size: 12px;">Highlight Background</p>
             <div
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark'}]"

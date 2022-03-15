@@ -1207,14 +1207,6 @@
   dependencies:
     prosemirror-inputrules "^1.1.3"
 
-"@tiptap/extension-character-count@^2.0.0-beta.25":
-  version "2.0.0-beta.25"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-character-count/-/extension-character-count-2.0.0-beta.25.tgz#6da586e3820b91dcd6173098d81d8261fd5b9fe2"
-  integrity sha512-TvTC5Mqq0HK5wts49Eb0YXN+1Q49Vyv9Awr3b63GP/6r4VKd8+wC96xGOnWtjzDclSiYKQz1Gsv8yeOWhMRqpA==
-  dependencies:
-    prosemirror-model "^1.16.1"
-    prosemirror-state "^1.3.4"
-
 "@tiptap/extension-code-block-lowlight@^2.0.0-beta.39":
   version "2.0.0-beta.39"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code-block-lowlight/-/extension-code-block-lowlight-2.0.0-beta.39.tgz#f890fd33dfdda946d747798f050e08729f40517d"
@@ -9640,7 +9632,7 @@ prosemirror-model@^1.0.0, prosemirror-model@^1.14.3:
   dependencies:
     orderedmap "^1.1.0"
 
-prosemirror-model@^1.16.0, prosemirror-model@^1.16.1, prosemirror-model@^1.8.1:
+prosemirror-model@^1.16.0, prosemirror-model@^1.8.1:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/prosemirror-model/-/prosemirror-model-1.16.1.tgz#fb388270bc9609b66298d6a7e15d0cc1d6c61253"
   integrity sha512-r1/w0HDU40TtkXp0DyKBnFPYwd8FSlUSJmGCGFv4DeynfeSlyQF2FD0RQbVEMOe6P3PpUSXM6LZBV7W/YNZ4mA==
@@ -11763,10 +11755,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vfluentdesign@^0.1.64:
-  version "0.1.64"
-  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-0.1.64.tgz#893808ce46150bbca31b7f54da9b7c704172ae94"
-  integrity sha512-iy1Ra93gZE5xNgWVJq9CGf7Yqc85uVxRwaZrXLDL9GxMAtx0wEqFCujyiPC2AvL7KT73bgyCd9kQcms37ha6Xw==
+vfluentdesign@^0.1.70:
+  version "0.1.70"
+  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-0.1.70.tgz#6a55170839f54586c9a797205601b9f5be84c50f"
+  integrity sha512-y1LBWiL1BI7gWd/+OYN0BQgoWUoE+QVaNJsk7fO4pQ5jiw72LAaK18uHrSrAKriudKpU7e5dIuu7Di8dSoZ7WA==
   dependencies:
     core-js "^3.4.3"
     fluent-reveal-effect "^1.1.1"

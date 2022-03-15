@@ -324,7 +324,7 @@
             :background="getBackground(editor.isActive('equationBlock'))"
             :foreground="getForeground(editor.isActive('equationBlock'))"
             :title="getTitle('Equation')"
-            @click="insertEquationBlock"
+            @click="insertEquation"
         >
             <i class="ms-Icon ms-Icon--Variable"></i>
         </fv-button>
@@ -533,11 +533,19 @@ export default {
         insertEmbed(link) {
             this.editor.chain().focus().insertContent(link).run();
         },
-        insertInlineEquation() {
-            this.editor.chain().focus().insertContent(`<inline-equation theme="${this.theme}"></inline-equation>`).run();
+        insertInlineEquation(text='') {
+            this.editor.chain().focus().insertContent(`<inline-equation theme="${this.theme}" value="${text}"></inline-equation>`).run();
         },
         insertEquationBlock() {
             this.editor.chain().focus().insertContent(`<equation-block theme="${this.theme}"></equation-block>`).run();
+        },
+        insertEquation() {
+            let state = this.editor.view.state;
+            let selection = this.editor.view.state.selection;
+            let text = state.doc.textBetween(selection.from, selection.to, ' ');
+            if (text.length > 0) {
+                this.insertInlineEquation(text);
+            } else this.insertEquationBlock();
         },
         insertDrawingBlock() {
             this.editor.chain().focus().insertContent(`<drawing-block theme="${this.theme}"></drawing-block>`).run();

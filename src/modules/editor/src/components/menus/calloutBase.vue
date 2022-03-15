@@ -1,35 +1,73 @@
 <template>
-    <div class="power-editor-callout-base-container" :class="[{ dark: theme === 'dark' }]">
-        <fv-callout v-if="!mobileMode" :visible.sync="thisShow" :lockScroll="true" :position="'bottomCenter'" :disabled="mobileMode" :beak="12" :space="0" :theme="theme" :popperClass="popperClass">
-            <slot name="trigger" :show="false"></slot>
+    <div
+        class="power-editor-callout-base-container"
+        :class="[{ dark: theme === 'dark' }]"
+    >
+        <fv-callout
+            v-if="!mobileMode"
+            :visible.sync="thisShow"
+            :lockScroll="true"
+            :position="'bottomCenter'"
+            :disabled="mobileMode"
+            :beak="12"
+            :space="0"
+            :theme="theme"
+            :popperClass="popperClass"
+        >
+            <slot
+                name="trigger"
+                :show="false"
+            ></slot>
             <header>
-                <slot name="header" :title="title">
+                <slot
+                    name="header"
+                    :title="title"
+                >
                     <p style="font-size: 13.8px">{{ title }}</p>
                 </slot>
             </header>
             <main>
-                <slot name="content" index="1"></slot>
+                <slot
+                    name="content"
+                    index="1"
+                ></slot>
             </main>
         </fv-callout>
 
         <div v-if="mobileMode">
-            <slot name="trigger" :show="triggerShow"></slot>
-            <transition name="power-editor-callout-base-mobile-container">
-                <div v-show="thisShow" class="power-editor-callout-base-mobile-container">
-                    <div class="p-e-c-b-m-banner">
-                        <slot name="header" :title="title">
-                            <p style="width: 50px"></p>
-                            <p class="p-e-c-b-m-title">{{ title }}</p>
-                        </slot>
-                        <p class="p-e-c-b-m-close" @click="thisShow = false">Cancel</p>
-                    </div>
-                    <div class="p-e-c-b-m-content-block" :class="popperClass">
-                        <div class="main" style="width: 100%">
-                            <slot name="content" index="2"></slot>
-                        </div>
+            <slot
+                name="trigger"
+                :show="triggerShow"
+            ></slot>
+            <fv-drawer v-model="thisShow" class="power-editor-callout-base-mobile-container" length="calc(100% - 50px)">
+                <div class="p-e-c-b-m-banner">
+                    <slot
+                        name="header"
+                        :title="title"
+                    >
+                        <p style="width: 50px"></p>
+                        <p class="p-e-c-b-m-title">{{ title }}</p>
+                    </slot>
+                    <p
+                        class="p-e-c-b-m-close"
+                        @click="thisShow = false"
+                    >Cancel</p>
+                </div>
+                <div
+                    class="p-e-c-b-m-content-block"
+                    :class="popperClass"
+                >
+                    <div
+                        class="main"
+                        style="width: 100%; height: 100%;"
+                    >
+                        <slot
+                            name="content"
+                            index="2"
+                        ></slot>
                     </div>
                 </div>
-            </transition>
+            </fv-drawer>
         </div>
     </div>
 </template>
@@ -83,6 +121,11 @@ export default {
             .p-e-c-b-m-banner {
                 background: rgba(47, 52, 55, 0.95);
                 color: whitesmoke;
+
+                .p-e-c-b-m-close
+                {
+                    color: rgba(46, 170, 220, 1);
+                }
             }
         }
 
@@ -92,19 +135,11 @@ export default {
     }
 
     .power-editor-callout-base-mobile-container {
-        position: fixed;
-        left: 0px;
-        top: 0px;
-        width: 100%;
-        height: 100%;
-        margin-top: 50px;
         background: rgba(247, 246, 243, 0.9);
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
         display: flex;
         flex-direction: column;
-        backdrop-filter: blur(50px);
-        -webkit-backdrop-filter: blur(50px);
         z-index: 9;
 
         .p-e-c-b-m-banner {
@@ -112,6 +147,7 @@ export default {
             width: 100%;
             height: 45px;
             background: rgba(255, 255, 255, 0.95);
+            border-bottom: rgba(200, 200, 200, 0.1) solid thin;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -123,7 +159,7 @@ export default {
 
             .p-e-c-b-m-close {
                 width: 60px;
-                color: rgba(46, 170, 220, 1);
+                color: rgba(0, 90, 158, 1);
                 text-align: center;
                 user-select: none;
                 cursor: pointer;
@@ -135,39 +171,12 @@ export default {
             width: 100%;
             height: 100%;
             flex: 1;
-            padding: 0px 15px;
-            padding-top: 30px;
+            padding: 30px 15px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
             overflow: hidden;
         }
-    }
-
-    .power-editor-callout-base-mobile-container-enter-active {
-        transition: opacity 0.1s ease-out, transform 0.2s ease-out;
-    }
-
-    .power-editor-callout-base-mobile-container-enter {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-
-    .power-editor-callout-base-mobile-container-enter-to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    .power-editor-callout-base-mobile-container-leave-active {
-        transition: transform 0.1s ease-out;
-    }
-
-    .power-editor-callout-base-mobile-container-leave {
-        transform: translateY(0);
-    }
-
-    .power-editor-callout-base-mobile-container-leave-to {
-        transform: translateY(100%);
     }
 }
 </style>

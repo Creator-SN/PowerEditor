@@ -386,6 +386,7 @@ export default {
             min-height: 95%;
             height: auto;
             padding: 15px;
+            padding-bottom: 315px;
             background: white;
             box-sizing: border-box;
             transition: all 0.3s;
