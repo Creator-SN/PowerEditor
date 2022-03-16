@@ -420,6 +420,7 @@
         >
             <i class="ms-Icon ms-Icon--Save"></i>
         </fv-button>
+        <slot name="custom-buttons"></slot>
     </div>
 </template>
 

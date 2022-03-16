@@ -18,6 +18,6 @@ module.exports = {
         ]
     },
     themeConfig: {
-        logo: "https://raw.githubusercontent.com/aleversn/VFluent/master/examples/assert/logo/VFluent.png",
+        logo: "https://raw.githubusercontent.com/Creator-SN/PowerEditor/master/src/modules/editor/src/assets/logo.svg",
     }
 }

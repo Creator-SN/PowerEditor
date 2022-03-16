@@ -6,18 +6,24 @@
         <transition name="power-editor-tool-bar-fade-in">
             <tool-bar
                 v-if="editor && editable"
+                v-show="showToolBar"
                 :editor="editor"
                 :theme="theme"
                 :mobileMode="mobileMode"
                 @save-click="save"
-            ></tool-bar>
+            >
+                <template v-slot:custom-buttons>
+                    <slot name="custom-buttons" :editor="editor"></slot>
+                </template>
+            </tool-bar>
         </transition>
         <div
             v-if="editor && editable"
+            v-show="showToolBar"
             class="power-editor-tool-bar-acrylic-background"
         ></div>
         <div
-            :class="[{'read-only': !editable}]"
+            :class="[{'read-only': !editable || !showToolBar}]"
             class="tip-tap-editor-container"
             :style="{ background: editorOutSideBackground }"
         >
@@ -98,6 +104,9 @@ export default {
         },
         mobileDisplayWidth: {
             default: 768,
+        },
+        showToolBar: {
+            default: true
         },
         theme: {
             default: 'light',
