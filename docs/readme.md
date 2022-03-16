@@ -64,7 +64,7 @@ this.$refs.editor.save()
 ---
 1. Custom-buttons
 
-默认模板是图标自定义模板
+自定义`ToolBar`菜单工具栏按钮项
 
 - editor: 当前`tiptap` editor对象
 
