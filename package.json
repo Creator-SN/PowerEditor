@@ -1,6 +1,6 @@
 {
   "name": "@creatorsn/powereditor",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": false,
   "author": {
     "name": "Creator-SN",
@@ -59,7 +59,7 @@
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "^0.1.73",
+    "vfluentdesign": "^0.1.74",
     "vue": "^2.6.11"
   },
   "devDependencies": {
