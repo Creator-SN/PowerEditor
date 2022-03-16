@@ -59,7 +59,7 @@
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "^0.1.78",
+    "vfluentdesign": "^0.1.79",
     "vue": "^2.6.11"
   },
   "devDependencies": {
