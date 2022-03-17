@@ -7,7 +7,7 @@
     >
         <transition name="power-editor-mention-popper-fade">
             <div
-                v-show="node.attrs.showPopper"
+                v-show="node.attrs.showPopper && filterItems.length > 0"
                 class="power-editor-mention-popper-container"
                 :style="{ left: `${left}px`, top: `${top}%` }"
             >
@@ -61,8 +61,9 @@
                 :placeholder="node.attrs.placeholder"
                 :readonly="freeze"
                 ref="target"
-                :style="{width: `${node.attrs.value ? node.attrs.value.length * 10 : node.attrs.placeholder.length * 10}px`, color: currentItem.color}"
+                :style="{width: `${node.attrs.value ? node.attrs.value.length * 8 : node.attrs.placeholder.length * 8}px`, color: currentItem.color}"
                 @keydown.backspace="delRecover"
+                @keydown.tab="skipNode"
             />
         </span>
     </node-view-wrapper>
@@ -211,6 +212,10 @@ export default {
                 this.editor.commands.focus();
                 this.editor.commands.insertContent('@');
             }
+        },
+        skipNode (event) {
+            event.preventDefault();
+            this.editor.commands.focus();
         },
         close() {
             this.updateAttributes({
