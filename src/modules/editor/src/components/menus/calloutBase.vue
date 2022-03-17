@@ -39,7 +39,14 @@
                 name="trigger"
                 :show="triggerShow"
             ></slot>
-            <fv-drawer v-model="thisShow" class="power-editor-callout-base-mobile-container" length="calc(100% - 50px)">
+            <fv-drawer
+                v-model="thisShow"
+                :theme="theme"
+                class="power-editor-callout-base-mobile-container"
+                :class="[{ dark: theme === 'dark' }]"
+                length="calc(100% - 50px)"
+                :appendBody="true"
+            >
                 <div class="p-e-c-b-m-banner">
                     <slot
                         name="header"
@@ -115,17 +122,29 @@ export default {
 <style lang="scss">
 .power-editor-callout-base-container {
     &.dark {
-        .power-editor-callout-base-mobile-container {
-            background: rgba(36, 36, 36, 0.9);
+        * {
+            color: whitesmoke;
+        }
+    }
+}
 
-            .p-e-c-b-m-banner {
-                background: rgba(47, 52, 55, 0.95);
-                color: whitesmoke;
+.power-editor-callout-base-mobile-container {
+    background: rgba(247, 246, 243, 0.9);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
 
-                .p-e-c-b-m-close
-                {
-                    color: rgba(46, 170, 220, 1);
-                }
+    &.dark {
+        background: rgba(36, 36, 36, 0.9);
+
+        .p-e-c-b-m-banner {
+            background: rgba(47, 52, 55, 0.95);
+            color: whitesmoke;
+
+            .p-e-c-b-m-close {
+                color: rgba(46, 170, 220, 1);
             }
         }
 
@@ -134,49 +153,40 @@ export default {
         }
     }
 
-    .power-editor-callout-base-mobile-container {
-        background: rgba(247, 246, 243, 0.9);
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
+    .p-e-c-b-m-banner {
+        position: relative;
+        width: 100%;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: rgba(200, 200, 200, 0.1) solid thin;
         display: flex;
-        flex-direction: column;
-        z-index: 9;
+        justify-content: space-between;
+        align-items: center;
 
-        .p-e-c-b-m-banner {
-            position: relative;
-            width: 100%;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: rgba(200, 200, 200, 0.1) solid thin;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            .p-e-c-b-m-title {
-                font-size: 16px;
-                user-select: none;
-            }
-
-            .p-e-c-b-m-close {
-                width: 60px;
-                color: rgba(0, 90, 158, 1);
-                text-align: center;
-                user-select: none;
-                cursor: pointer;
-            }
+        .p-e-c-b-m-title {
+            font-size: 16px;
+            user-select: none;
         }
 
-        .p-e-c-b-m-content-block {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            flex: 1;
-            padding: 30px 15px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
+        .p-e-c-b-m-close {
+            width: 60px;
+            color: rgba(0, 90, 158, 1);
+            text-align: center;
+            user-select: none;
+            cursor: pointer;
         }
+    }
+
+    .p-e-c-b-m-content-block {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        flex: 1;
+        padding: 30px 15px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
     }
 }
 </style>

@@ -109,10 +109,11 @@ export default {
 
                 .emoji-item {
                     position: relative;
-                    width: 25px;
-                    height: 25px;
+                    width: 35px;
+                    height: 35px;
                     padding: 1px;
                     border-radius: 3px;
+                    font-size: 20px;
                     font-style: normal;
                     box-sizing: border-box;
                     display: flex;
