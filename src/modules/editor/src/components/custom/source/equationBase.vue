@@ -106,6 +106,19 @@ export default {
             equationString: '',
             errorMsg: '',
             active: false,
+            outsideEvent: (event) => {
+                if (!this.node.attrs.showPopper) return 0;
+                let x = event.target;
+                let _self = false;
+                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                    if (x == this.$el) {
+                        _self = true;
+                        break;
+                    }
+                    x = x.parentNode;
+                }
+                if (!_self) this.closeWithBackup();
+            },
             lock: false,
         };
     },
@@ -132,19 +145,7 @@ export default {
     },
     methods: {
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                if (!this.node.attrs.showPopper) return 0;
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
-                }
-                if (!_self) this.closeWithBackup();
-            });
+            window.addEventListener('click', this.outsideEvent);
         },
         render() {
             try {
@@ -193,6 +194,9 @@ export default {
             });
         },
     },
+    beforeDestroy () {
+        window.removeEventListener('click', this.outsideEvent);
+    }
 };
 </script>
 

@@ -70,6 +70,18 @@ export default {
             direction: 1,
             disX: 0,
             currentWidth: this.width,
+            outsideEvent: (event) => {
+                let x = event.target;
+                let _self = false;
+                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
+                    if (x == this.$el) {
+                        _self = true;
+                        break;
+                    }
+                    x = x.parentNode;
+                }
+                if (!_self) this.show.captionBox = false;
+            },
             show: {
                 captionBox: false,
             },
@@ -147,18 +159,7 @@ export default {
             if (this.currentWidth > 100) this.currentWidth = 100;
         },
         outSideClickInit() {
-            window.addEventListener('click', (event) => {
-                let x = event.target;
-                let _self = false;
-                while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
-                    if (x == this.$el) {
-                        _self = true;
-                        break;
-                    }
-                    x = x.parentNode;
-                }
-                if (!_self) this.show.captionBox = false;
-            });
+            window.addEventListener('click', this.outsideEvent);
         },
         getTitle(name) {
             return name;
@@ -168,6 +169,9 @@ export default {
             this.show.captionBox = true;
         }
     },
+    beforeDestroy () {
+        window.removeEventListener('click', this.outsideEvent);
+    }
 };
 </script>
 

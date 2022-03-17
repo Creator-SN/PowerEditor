@@ -13,7 +13,10 @@
                 @save-click="save"
             >
                 <template v-slot:custom-buttons>
-                    <slot name="custom-buttons" :editor="editor"></slot>
+                    <slot
+                        name="custom-buttons"
+                        :editor="editor"
+                    ></slot>
                 </template>
             </tool-bar>
         </transition>
@@ -73,6 +76,7 @@ import PowerTaskList from './components/custom/extension/taskList.js';
 import PowerTaskItem from './components/custom/extension/taskItem.js';
 import InlineEquation from './components/custom/extension/inlineEquation.js';
 import EquationBlock from './components/custom/extension/equationBlock.js';
+import MentionItem from './components/custom/extension/mentionItem.js';
 import DrawingBlock from './components/custom/extension/drawingBlock.js';
 
 import toolBar from './components/toolBar.vue';
@@ -106,7 +110,32 @@ export default {
             default: 768,
         },
         showToolBar: {
-            default: true
+            default: true,
+        },
+        mentionItemAttr: {
+            default: () => {
+                return {
+                    mentionList: [
+                        { key: 0, name: 'Mention Color', type: 'header' },
+                        { key: 1, name: 'Blue', color: 'rgba(0, 120, 212, 1)', icon: 'WindowsLogo', iconColor: 'rgba(0, 153, 204, 1)' },
+                        { key: 2, name: 'Purple', color: '#958DF1', icon: 'DelveAnalyticsLogo', iconColor: '#958DF1' },
+                        { key: 3, name: 'Mention Text', type: 'header' },
+                        { key: 9, name: '', type: 'divider' },
+                        { key: 5, name: 'Text1' },
+                        { key: 6, name: 'Text2' },
+                    ],
+                    filterFunc: () => {
+                        return true;
+                    },
+                    chooseItemCallback: () => {
+                        console.log('chooseItemCallback');
+                    },
+                    mentionClickCallback: () => {
+                        console.log('mentionClickCallback');
+                    },
+                    headerForeground: 'rgba(0, 120, 212, 1)',
+                };
+            },
         },
         theme: {
             default: 'light',
@@ -166,6 +195,9 @@ export default {
                 PowerTaskItem,
                 InlineEquation,
                 EquationBlock,
+                MentionItem.configure({
+                    ...this.mentionItemAttr,
+                }),
                 DrawingBlock,
                 Table.configure({
                     HTMLAttributes: {},

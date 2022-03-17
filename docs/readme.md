@@ -31,16 +31,16 @@ export default {
 
 ### Propoties
 ---
-|       属性(attr)        |             类型(type)             | 必填(required) |                默认值(default)                 |      说明(statement)       |
-|:-----------------------:|:----------------------------------:|:--------------:|:----------------------------------------------:|:--------------------------:|
-|          value          |              [string]              |       No       | <p>I’m running PowerEditor with Vue.js. 🎉</p> | 文本内容, 支持纯文本及HTML |
-|        editable         |               [bool]               |       No       |                      true                      |       编辑器是否只读       |
-|       placeholder       |              [string]              |       No       |               Write something …                |     编辑器Placeholder      |
-|     contentMaxWidth     |              [number]              |       No       |                     900px                      |      内容最大显示宽度      |
-| editorOutSideBackground |          [string(color)]           |       No       |                                                |      编辑器外部背景色      |
-|   mobileDisplayWidth    |              [number]              |       No       |                      768                       |         移动端模式         |
-|       showToolBar       |               [bool]               |       No       |                      true                      |       显示菜单工具栏       |
-|          theme          | ['light','dark','custom','system'] |       No       |                     light                      |        明暗主题风格        |
+|       属性(attr)        |    类型(type)    | 必填(required) |                默认值(default)                 |      说明(statement)       |
+|:-----------------------:|:----------------:|:--------------:|:----------------------------------------------:|:--------------------------:|
+|          value          |     [string]     |       No       | <p>I’m running PowerEditor with Vue.js. 🎉</p> | 文本内容, 支持纯文本及HTML |
+|        editable         |      [bool]      |       No       |                      true                      |       编辑器是否只读       |
+|       placeholder       |     [string]     |       No       |               Write something …                |     编辑器Placeholder      |
+|     contentMaxWidth     |     [number]     |       No       |                     900px                      |      内容最大显示宽度      |
+| editorOutSideBackground | [string(color)]  |       No       |                                                |      编辑器外部背景色      |
+|   mobileDisplayWidth    |     [number]     |       No       |                      768                       |         移动端模式         |
+|       showToolBar       |      [bool]      |       No       |                      true                      |       显示菜单工具栏       |
+|          theme          | ['light','dark'] |       No       |                     light                      |        明暗主题风格        |
 
 ### Events
 ---
@@ -74,4 +74,42 @@ this.$refs.editor.save()
         <div>Content</div>
     </template>
 </power-editor>
+```
+
+## Appendix
+
+### MentionItem
+
+组件所包含的属性如下
+
+### Propoties
+---
+|      属性(attr)      |    类型(type)    | 必填(required) |   默认值(default)    | 说明(statement) |
+|:--------------------:|:----------------:|:--------------:|:--------------------:|:---------------:|
+|        value         |     [string]     |       No       |         N/A          |                 |
+|     placeholder      |     [string]     |       No       |         true         |                 |
+|     mentionList      |     [array]      |       No       |                      |                 |
+|      filterFunc      |    [function]    |       No       |                      |                 |
+|  chooseItemCallback  |    [function]    |       No       |                      |                 |
+| mentionClickCallback |    [function]    |       No       |                      |                 |
+|   headerForeground   | [string(color)]  |       No       | rgba(0, 120, 212, 1) |                 |
+|      showPopper      |      [bool]      |       No       |        false         |                 |
+|        theme         | ['light','dark'] |       No       |        light         |                 |
+
+其中, `mentionList`,`filterFunc`,`chooseItemCallback`,`mentionClickCallback`,`headerForeground`可在初始化`Power Editor`时对`MentionItemAttr`进行设定.
+
+```javascript
+{
+    mentionList: [],
+    filterFunc: (listItem) => {
+        return true;
+    },
+    chooseItemCallback: (chooseItem) => {
+        console.log('chooseItemCallback');
+    },
+    mentionClickCallback: (chooseItem) => {
+        console.log('mentionClickCallback');
+    },
+    headerForeground: 'rgba(0, 120, 212, 1)',
+}
 ```
