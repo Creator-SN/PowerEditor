@@ -39,7 +39,7 @@
         </transition>
         <span
             class="power-editor-mention-display-block"
-            @click="node.attrs.mentionClickCallback(currentItem)"
+            @click="node.attrs.mentionClickCallback(currentItem, node.attrs.value)"
         >
             <p v-if="!currentItem.image && !currentItem.icon">@</p>
             <img
@@ -151,7 +151,7 @@ export default {
     computed: {
         filterItems() {
             let result = [];
-            this.node.attrs.mentionList().forEach((el) => {
+            this.node.attrs.mentionList(this.node.attrs.value).forEach((el) => {
                 if (this.node.attrs.filterFunc(el, this.node.attrs.value)) {
                     result.push(el);
                 }
@@ -198,7 +198,7 @@ export default {
                 value: event.item.name,
             });
             this.currentItem = event.item;
-            this.node.attrs.chooseItemCallback(event.item);
+            this.node.attrs.chooseItemCallback(event.item, this.node.attrs.value);
             this.freeze = true;
             this.close();
         },

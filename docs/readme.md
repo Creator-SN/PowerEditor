@@ -100,14 +100,14 @@ this.$refs.editor.save()
 
 ```javascript
 {
-    mentionList: [],
+    mentionList: (value) => [],
     filterFunc: (listItem, value) => {
         return true;
     },
-    chooseItemCallback: (chooseItem) => {
+    chooseItemCallback: (chooseItem, value) => {
         console.log('chooseItemCallback');
     },
-    mentionClickCallback: (chooseItem) => {
+    mentionClickCallback: (chooseItem, value) => {
         console.log('mentionClickCallback');
     },
     headerForeground: 'rgba(0, 120, 212, 1)',
