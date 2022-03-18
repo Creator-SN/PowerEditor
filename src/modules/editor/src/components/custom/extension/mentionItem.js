@@ -14,7 +14,7 @@ export default Node.create({
     draggable: true,
 
     defaultOptions: {
-        mentionList: [
+        mentionList: () => [
             { key: 0, name: "Mention Color", type: "header" },
             { key: 1, name: "Blue", color: "rgba(0, 120, 212, 1)", icon: "WindowsLogo", iconColor: "rgba(0, 153, 204, 1)" },
             { key: 2, name: "Purple", color: "#958DF1", icon: "DelveAnalyticsLogo", iconColor: "#958DF1" },

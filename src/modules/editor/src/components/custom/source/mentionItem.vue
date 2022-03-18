@@ -151,7 +151,7 @@ export default {
     computed: {
         filterItems() {
             let result = [];
-            this.node.attrs.mentionList.forEach((el) => {
+            this.node.attrs.mentionList().forEach((el) => {
                 if (this.node.attrs.filterFunc(el, this.node.attrs.value)) {
                     result.push(el);
                 }
