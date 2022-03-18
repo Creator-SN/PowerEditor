@@ -49,6 +49,9 @@ export default Node.create({
             mentionList: {
                 default: this.options.mentionList,
             },
+            freeze: {
+                default: false
+            },
             filterFunc: {
                 default: this.options.filterFunc
             },

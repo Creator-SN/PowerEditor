@@ -32,7 +32,10 @@
                             :style="{color: x.valueTrigger(x.item.iconColor)}"
                             style="margin-right: 15px;"
                         ></i>
-                        <p :style="{ color: x.valueTrigger(x.item.type) == 'header' ? node.attrs.headerForeground : '' }" style="flex: 1;">{{x.valueTrigger(x.item.name)}}</p>
+                        <p
+                            :style="{ color: x.valueTrigger(x.item.type) == 'header' ? node.attrs.headerForeground : '' }"
+                            style="flex: 1;"
+                        >{{x.valueTrigger(x.item.name)}}</p>
                     </template>
                 </fv-list-view>
             </div>
@@ -41,7 +44,10 @@
             class="power-editor-mention-display-block"
             @click="node.attrs.mentionClickCallback(node.attrs.currentItem, node.attrs.value)"
         >
-            <p v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon" style="width: 28px; height: 100%; margin: 0px 8px;">@</p>
+            <p
+                v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon"
+                style="width: 28px; height: 100%; margin: 0px 8px;"
+            >@</p>
             <img
                 v-if="node.attrs.currentItem.image"
                 :src="valueTrigger(node.attrs.currentItem.image)"
@@ -59,7 +65,7 @@
                 v-model="node.attrs.value"
                 class="power-editor-mention-input"
                 :placeholder="node.attrs.placeholder"
-                :readonly="freeze"
+                :readonly="node.attrs.freeze"
                 ref="target"
                 :style="{color: node.attrs.currentItem.color}"
                 @keydown.backspace="delRecover"
@@ -122,7 +128,6 @@ export default {
         return {
             left: 0,
             top: 100,
-            freeze: false,
             outsideEvent: (event) => {
                 if (!this.node.attrs.showPopper) return 0;
                 let x = event.target;
@@ -163,9 +168,11 @@ export default {
         this.outSideClickInit();
         this.windowEventInit();
         setTimeout(() => {
-            this.show();
-            this.$refs.target.focus();
-            this.$refs.list.focus = true;
+            if (!this.node.attrs.freeze) {
+                this.show();
+                this.$refs.target.focus();
+                this.$refs.list.focus = true;
+            }
         }, 300);
     },
 
@@ -197,9 +204,9 @@ export default {
             this.updateAttributes({
                 value: event.item.name,
                 currentItem: event.item,
+                freeze: true,
             });
             this.node.attrs.chooseItemCallback(event.item, this.node.attrs.value);
-            this.freeze = true;
             this.close();
         },
         valueTrigger(val) {
@@ -213,7 +220,7 @@ export default {
                 this.editor.commands.insertContent('@');
             }
         },
-        skipNode (event) {
+        skipNode(event) {
             event.preventDefault();
             this.editor.commands.focus();
         },
@@ -225,9 +232,9 @@ export default {
             this.editor.commands.focus();
         },
     },
-    beforeDestroy () {
+    beforeDestroy() {
         window.removeEventListener('click', this.outsideEvent);
-    }
+    },
 };
 </script>
 
@@ -304,6 +311,7 @@ export default {
             background: transparent;
             font-size: 16px;
             border: none;
+            box-sizing: border-box;
             outline: none;
             user-select: all;
         }
