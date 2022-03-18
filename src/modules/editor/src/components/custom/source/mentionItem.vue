@@ -41,19 +41,19 @@
             class="power-editor-mention-display-block"
             @click="node.attrs.mentionClickCallback(node.attrs.currentItem, node.attrs.value)"
         >
-            <p v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon">@</p>
+            <p v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon" style="width: 28px; height: 100%; margin: 0px 8px;">@</p>
             <img
                 v-if="node.attrs.currentItem.image"
                 :src="valueTrigger(node.attrs.currentItem.image)"
                 alt=""
-                style="width: auto; height: 30px; margin: 0px 8px;"
+                style="width: 28px; height: 100%; margin: 0px 8px; object-fit: contain;"
             >
             <i
                 v-if="node.attrs.currentItem.icon"
                 class="ms-Icon"
                 :class="[`ms-Icon--${valueTrigger(node.attrs.currentItem.icon)}`]"
                 :style="{color: valueTrigger(node.attrs.currentItem.iconColor)}"
-                style="height: 100%; margin: 0px 8px;"
+                style="width: 28px; height: 100%; margin: 0px 8px;"
             ></i>
             <input
                 v-model="node.attrs.value"
@@ -61,10 +61,11 @@
                 :placeholder="node.attrs.placeholder"
                 :readonly="freeze"
                 ref="target"
-                :style="{width: `${node.attrs.value ? node.attrs.value.length * 8 : node.attrs.placeholder.length * 8}px`, color: node.attrs.currentItem.color}"
+                :style="{color: node.attrs.currentItem.color}"
                 @keydown.backspace="delRecover"
                 @keydown.tab="skipNode"
             />
+            <p class="power-editor-mention-placeholder">{{node.attrs.value ? node.attrs.value : node.attrs.placeholder}}</p>
         </span>
     </node-view-wrapper>
 </template>
@@ -288,7 +289,6 @@ export default {
 
     .power-editor-mention-display-block {
         position: relative;
-        height: 28px;
         height: 100%;
         font-size: 16px;
         box-sizing: border-box;
@@ -296,6 +296,20 @@ export default {
         align-items: center;
 
         .power-editor-mention-input {
+            position: absolute;
+            width: 100%;
+            max-width: 200px;
+            height: 100%;
+            padding-left: 36px;
+            background: transparent;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            user-select: all;
+        }
+
+        .power-editor-mention-placeholder {
+            position: relative;
             min-width: 20px;
             width: auto;
             max-width: 200px;
@@ -303,8 +317,9 @@ export default {
             background: transparent;
             font-size: 16px;
             border: none;
-            outline: none;
-            user-select: all;
+            opacity: 0;
+            user-select: none;
+            z-index: -1;
         }
     }
 
