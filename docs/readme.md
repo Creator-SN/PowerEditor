@@ -101,7 +101,7 @@ this.$refs.editor.save()
 ```javascript
 {
     mentionList: [],
-    filterFunc: (listItem) => {
+    filterFunc: (listItem, value) => {
         return true;
     },
     chooseItemCallback: (chooseItem) => {
