@@ -40,6 +40,9 @@ export default Node.create({
             value: {
                 default: '',
             },
+            currentItem: {
+                default: {}
+            },
             placeholder: {
                 default: 'mention',
             },

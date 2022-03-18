@@ -39,20 +39,20 @@
         </transition>
         <span
             class="power-editor-mention-display-block"
-            @click="node.attrs.mentionClickCallback(currentItem, node.attrs.value)"
+            @click="node.attrs.mentionClickCallback(node.attrs.currentItem, node.attrs.value)"
         >
-            <p v-if="!currentItem.image && !currentItem.icon">@</p>
+            <p v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon">@</p>
             <img
-                v-if="currentItem.image"
-                :src="valueTrigger(currentItem.image)"
+                v-if="node.attrs.currentItem.image"
+                :src="valueTrigger(node.attrs.currentItem.image)"
                 alt=""
                 style="width: auto; height: 30px; margin: 0px 8px;"
             >
             <i
-                v-if="currentItem.icon"
+                v-if="node.attrs.currentItem.icon"
                 class="ms-Icon"
-                :class="[`ms-Icon--${valueTrigger(currentItem.icon)}`]"
-                :style="{color: valueTrigger(currentItem.iconColor)}"
+                :class="[`ms-Icon--${valueTrigger(node.attrs.currentItem.icon)}`]"
+                :style="{color: valueTrigger(node.attrs.currentItem.iconColor)}"
                 style="height: 100%; margin: 0px 8px;"
             ></i>
             <input
@@ -61,7 +61,7 @@
                 :placeholder="node.attrs.placeholder"
                 :readonly="freeze"
                 ref="target"
-                :style="{width: `${node.attrs.value ? node.attrs.value.length * 8 : node.attrs.placeholder.length * 8}px`, color: currentItem.color}"
+                :style="{width: `${node.attrs.value ? node.attrs.value.length * 8 : node.attrs.placeholder.length * 8}px`, color: node.attrs.currentItem.color}"
                 @keydown.backspace="delRecover"
                 @keydown.tab="skipNode"
             />
@@ -121,7 +121,6 @@ export default {
         return {
             left: 0,
             top: 100,
-            currentItem: {},
             freeze: false,
             outsideEvent: (event) => {
                 if (!this.node.attrs.showPopper) return 0;
@@ -196,8 +195,8 @@ export default {
         chooseItem(event) {
             this.updateAttributes({
                 value: event.item.name,
+                currentItem: event.item,
             });
-            this.currentItem = event.item;
             this.node.attrs.chooseItemCallback(event.item, this.node.attrs.value);
             this.freeze = true;
             this.close();
