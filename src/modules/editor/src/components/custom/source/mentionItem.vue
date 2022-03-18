@@ -32,7 +32,7 @@
                             :style="{color: x.valueTrigger(x.item.iconColor)}"
                             style="margin-right: 15px;"
                         ></i>
-                        <p :style="{ color: x.valueTrigger(x.item.type) == 'header' ? node.attrs.headerForeground : '' }">{{x.valueTrigger(x.item.name)}}</p>
+                        <p :style="{ color: x.valueTrigger(x.item.type) == 'header' ? node.attrs.headerForeground : '' }" style="flex: 1;">{{x.valueTrigger(x.item.name)}}</p>
                     </template>
                 </fv-list-view>
             </div>
