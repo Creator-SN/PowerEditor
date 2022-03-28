@@ -11755,7 +11755,7 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vfluentdesign@^0.1.87:
+vfluentdesign@^0.1.88:
   version "0.1.88"
   resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-0.1.88.tgz#3724de12f0db2149347281c49c6deb5372632439"
   integrity sha512-qxj7g/RXKGK93OzpUl4fl1+9oUytjOrEe3ckmKwRgm21613sR5slo0PnMhDx8JFac6j3OmZ1yC9aLOkOOPh6EA==
