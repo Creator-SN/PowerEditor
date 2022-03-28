@@ -6,15 +6,15 @@
 
         <template v-slot:header="x">
             <div class="power-editor-emoji-banner">
-                <p style="font-size: 13.8px">{{ x.title }}</p>
-                <fv-button :theme="theme" @click="insertRandom">Random</fv-button>
+                <p style="font-size: 13.8px">{{ getTitle(x.title) }}</p>
+                <fv-button :theme="theme" :isBoxShadow="true" @click="insertRandom">{{getTitle('Random')}}</fv-button>
             </div>
         </template>
         <template v-slot:content>
             <fv-infinite-scroll-view v-model="emoji_list" :batchSize="1" style="width: 100%; height: 100%;">
                 <template v-slot:default="x">
                     <div class="power-editor-emoji-list" v-for="(group, index) in x.dynamicValue" :key="`type:${index}`">
-                        <p class="title">{{ group.name }}</p>
+                        <p class="title">{{ getTitle(group.name) }}</p>
                         <div class="power-editor-emoji-group">
                             <i v-for="(item, i) in group.emojis" :key="i" class="emoji-item" v-html="item" @click="insertEmoji(item)"></i>
                         </div>
@@ -28,6 +28,7 @@
 <script>
 import emoji_list from '../../js/emojiList.js';
 import calloutBase from './calloutBase.vue';
+import i18n from '@/i18n/i18n.js';
 
 export default {
     components: {
@@ -39,6 +40,9 @@ export default {
         },
         mobileMode: {
             default: false,
+        },
+        language: {
+            default: 'en',
         },
         theme: {
             default: 'light',
@@ -53,7 +57,7 @@ export default {
     watch: {},
     methods: {
         getTitle(name) {
-            return name;
+            return i18n(name, this.language);
         },
         insertEmoji(emoji) {
             this.$emit('insert-emoji', emoji);

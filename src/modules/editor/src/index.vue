@@ -9,6 +9,7 @@
                 v-show="showToolBar"
                 :editor="editor"
                 :theme="theme"
+                :language="language"
                 :mobileMode="mobileMode"
                 @save-click="save"
             >
@@ -43,6 +44,7 @@
                 v-if="editor && editable"
                 :editor="editor"
                 :theme="theme"
+                :language="language"
                 :tippy-options="{ duration: 100 }"
                 ref="bubbleToolBar"
                 :mobileMode="mobileMode"
@@ -116,14 +118,14 @@ export default {
             default: () => {
                 return {
                     mentionList: () => [
-            { key: 0, name: "Mention Color", type: "header" },
-            { key: 1, name: "Blue", color: "rgba(0, 120, 212, 1)", icon: "WindowsLogo", iconColor: "rgba(0, 153, 204, 1)" },
-            { key: 2, name: "Purple", color: "#958DF1", icon: "DelveAnalyticsLogo", iconColor: "#958DF1" },
-            { key: 3, name: "Mention Text", type: "header" },
-            { key: 9, name: "", type: "divider" },
-            { key: 5, name: "Text1" },
-            { key: 6, name: "Text2" }
-        ],
+                        // { key: 0, name: "Mention Color", type: "header" },
+                        // { key: 1, name: "Blue", color: "rgba(0, 120, 212, 1)", icon: "WindowsLogo", iconColor: "rgba(0, 153, 204, 1)" },
+                        // { key: 2, name: "Purple", color: "#958DF1", icon: "DelveAnalyticsLogo", iconColor: "#958DF1" },
+                        // { key: 3, name: "Mention Text", type: "header" },
+                        // { key: 9, name: "", type: "divider" },
+                        // { key: 5, name: "Text1" },
+                        // { key: 6, name: "Text2" }
+                    ],
                     filterFunc: () => {
                         return true;
                     },
@@ -136,6 +138,12 @@ export default {
                     headerForeground: 'rgba(0, 120, 212, 1)',
                 };
             },
+        },
+        extensions: {
+            default: () => []
+        },
+        language: {
+            default: 'cn',
         },
         theme: {
             default: 'light',
@@ -163,84 +171,88 @@ export default {
         },
     },
     mounted() {
-        let el = this;
-        this.editor = new Editor({
-            editable: this.editable,
-            content: this.value,
-            extensions: [
-                StarterKit.configure({
-                    dropcursor: {
-                        color: 'rgba(45, 170, 219, 0.3)',
-                        width: 6,
-                    },
-                }),
-                Underline,
-                TextAlign.configure({
-                    types: ['heading', 'paragraph'],
-                }),
-                TextStyle,
-                Highlight.configure({ multicolor: true }),
-                Color,
-                Link,
-                Placeholder.configure({
-                    emptyEditorClass: 'is-editor-empty',
-                    placeholder: () => this.placeholder,
-                }),
-                CodeBlockLowlight.configure({
-                    lowlight,
-                }),
-                ImageBlock,
-                EmbedBlock,
-                PowerTaskList,
-                PowerTaskItem,
-                InlineEquation,
-                EquationBlock,
-                MentionItem.configure({
-                    ...this.mentionItemAttr,
-                }),
-                DrawingBlock,
-                Table.configure({
-                    HTMLAttributes: {},
-                    resizable: true,
-                }),
-                TableRow,
-                TableHeader,
-                TableCell,
-                BubbleMenu.configure({
-                    element: document.querySelector('.power-editor-bubble-tool-bar'),
-                    shouldShow: ({ editor, view, state, oldState, from, to }) => {
-                        // only show the bubble menu for images and links
-                        if (state.selection.from === state.selection.to) return false;
-                        return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
-                    },
-                }),
-            ],
-            editorProps: {
-                //ProseMirror Editor Props//
-                // handlePaste(view, e, slice) {
-                //     let placeholder = {
-                //         view,
-                //         e,
-                //         slice,
-                //     };
-                //     let event = placeholder.e;
-                //     event.stopPropagation();
-                //     event.preventDefault();
-                //     el.customPaste(event);
-                //     return true;
-                // },
-            },
-        });
-        // For the extensions can use this function to get the current theme.//
-        this.editor.$PowerEditorTheme = () => {
-            return this.theme;
-        };
-        // For the extensions can use this function to sync theme.//
-        this.editor.$PowerEditorThemeSync = this.themeSync;
+        this.init();
         this.themeSync();
         this.widthTimerInit();
     },
     methods: {
+        init() {
+            let el = this;
+            this.editor = new Editor({
+                editable: this.editable,
+                content: this.value,
+                extensions: [
+                    StarterKit.configure({
+                        dropcursor: {
+                            color: 'rgba(45, 170, 219, 0.3)',
+                            width: 6,
+                        },
+                    }),
+                    Underline,
+                    TextAlign.configure({
+                        types: ['heading', 'paragraph'],
+                    }),
+                    TextStyle,
+                    Highlight.configure({ multicolor: true }),
+                    Color,
+                    Link,
+                    Placeholder.configure({
+                        emptyEditorClass: 'is-editor-empty',
+                        placeholder: () => this.placeholder,
+                    }),
+                    CodeBlockLowlight.configure({
+                        lowlight,
+                    }),
+                    ImageBlock,
+                    EmbedBlock,
+                    PowerTaskList,
+                    PowerTaskItem,
+                    InlineEquation,
+                    EquationBlock,
+                    MentionItem.configure({
+                        ...this.mentionItemAttr,
+                    }),
+                    DrawingBlock,
+                    Table.configure({
+                        HTMLAttributes: {},
+                        resizable: true,
+                    }),
+                    TableRow,
+                    TableHeader,
+                    TableCell,
+                    BubbleMenu.configure({
+                        element: document.querySelector('.power-editor-bubble-tool-bar'),
+                        shouldShow: ({ editor, view, state, oldState, from, to }) => {
+                            // only show the bubble menu for images and links
+                            if (state.selection.from === state.selection.to) return false;
+                            return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
+                        },
+                    }),
+                    ...this.extensions
+                ],
+                editorProps: {
+                    //ProseMirror Editor Props//
+                    // handlePaste(view, e, slice) {
+                    //     let placeholder = {
+                    //         view,
+                    //         e,
+                    //         slice,
+                    //     };
+                    //     let event = placeholder.e;
+                    //     event.stopPropagation();
+                    //     event.preventDefault();
+                    //     el.customPaste(event);
+                    //     return true;
+                    // },
+                },
+            });
+            // For the extensions can use this function to get the current theme.//
+            this.editor.$PowerEditorTheme = () => {
+                return this.theme;
+            };
+            // For the extensions can use this function to sync theme.//
+            this.editor.$PowerEditorThemeSync = this.themeSync;
+        },
         insert(html) {
             this.editor.commands.insertContent(html);
         },
@@ -493,7 +505,7 @@ export default {
                 padding: 4px 6px;
                 background-color: rgba(#616161, 0.1);
                 font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-                font-size: 12.8px;
+                font-size: 1rem;
                 color: rgba(235, 87, 87, 1);
                 border-radius: 3px;
             }
@@ -572,7 +584,7 @@ export default {
 
             blockquote {
                 padding-left: 1rem;
-                border-left: 2px solid rgba(13, 13, 13, 1);
+                border-left: 2px solid rgba(251, 188, 136, 0.6);
             }
 
             hr {

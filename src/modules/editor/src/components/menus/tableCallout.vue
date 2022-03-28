@@ -2,7 +2,7 @@
     <callout-base
         :show.sync="show"
         :mobileMode="mobileMode"
-        :title="'Table'"
+        :title="getTitle('Table')"
         :theme="theme"
         :popperClass="['power-editor-table-callout']"
     >
@@ -134,6 +134,7 @@
 
 <script>
 import calloutBase from './calloutBase.vue';
+import i18n from '@/i18n/i18n.js';
 
 export default {
     components: {
@@ -158,6 +159,9 @@ export default {
         editor: {
             default: null,
         },
+        language: {
+            default: 'en',
+        },
         theme: {
             default: 'light',
         },
@@ -172,7 +176,7 @@ export default {
     watch: {},
     methods: {
         getTitle(name) {
-            return name;
+            return i18n(name, this.language);
         },
     },
 };
