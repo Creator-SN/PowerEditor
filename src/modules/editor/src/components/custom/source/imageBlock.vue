@@ -74,9 +74,9 @@ export default {
         return {};
     },
     watch: {
-        selected(val) {
-            console.log(val);
-        },
+        // selected(val) {
+        //     console.log(val);
+        // },
     },
 };
 </script>

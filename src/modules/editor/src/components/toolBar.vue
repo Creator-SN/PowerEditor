@@ -73,6 +73,7 @@
         <heading-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             :editor="editor"
             :getBackground="getBackground"
             :getForeground="getForeground"
@@ -98,7 +99,7 @@
             :isBoxShadow="true"
             :background="getBackground(editor.isActive('powerTaskList'))"
             :foreground="getForeground(editor.isActive('powerTaskList'))"
-            :title="getTitle('TaskLogo')"
+            :title="getTitle('Task')"
             @click="exec('togglePowerTaskList')"
         >
             <i class="ms-Icon ms-Icon--TaskLogo"></i>
@@ -223,6 +224,7 @@
         <color-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             :editor="editor"
             :getBackground="getBackground"
             :getForeground="getForeground"
@@ -257,6 +259,7 @@
         <emoji-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             :editor="editor"
             @insert-emoji="insertEmoji"
         >
@@ -277,6 +280,7 @@
         <table-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             :editor="editor"
             :exec="exec"
             :execMore="execMore"
@@ -331,6 +335,7 @@
         <image-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             @insert-image="insertImg"
         >
             <template v-slot:default="x">
@@ -350,6 +355,7 @@
         <link-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             @insert-link="insertLink"
         >
             <template v-slot:default="x">
@@ -369,6 +375,7 @@
         <embed-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             @insert-embed="insertEmbed"
         >
             <template v-slot:default="x">
@@ -432,6 +439,7 @@ import emojiCallout from './menus/emojiCallout.vue';
 import imageCallout from './menus/imageCallout.vue';
 import headingCallout from './menus/headingCallout.vue';
 import TableCallout from './menus/tableCallout.vue';
+import i18n from '@/i18n/i18n.js';
 
 export default {
     components: {
@@ -457,6 +465,9 @@ export default {
         },
         tippyOptions: {
             default: 100,
+        },
+        language: {
+            default: 'en',
         },
         theme: {
             default: 'light',
@@ -493,7 +504,7 @@ export default {
     },
     methods: {
         getTitle(name) {
-            return name;
+            return i18n(name, this.language);
         },
         getForeground(
             state,

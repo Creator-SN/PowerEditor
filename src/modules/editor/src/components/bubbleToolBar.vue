@@ -57,6 +57,7 @@
         <color-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             :editor="editor"
             :getBackground="getBackground"
             :getForeground="getForeground"
@@ -79,6 +80,7 @@
         <table-callout
             :mobileMode="mobileMode"
             :theme="thisTheme"
+            :language="language"
             :editor="editor"
             :exec="exec"
             :execMore="execMore"
@@ -133,6 +135,7 @@
 <script>
 import colorCallout from './menus/colorCallout.vue';
 import TableCallout from './menus/tableCallout.vue';
+import i18n from '@/i18n/i18n.js';
 
 export default {
     components: {
@@ -150,6 +153,9 @@ export default {
         },
         mobileMode: {
             default: false,
+        },
+        language: {
+            default: 'en',
         },
         theme: {
             default: 'light',
@@ -186,7 +192,7 @@ export default {
     },
     methods: {
         getTitle(name) {
-            return name;
+            return i18n(name, this.language);
         },
         getForeground(
             state,

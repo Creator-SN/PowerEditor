@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import i18n from '@/i18n/i18n.js';
+
 export default {
     props: {
         width: {
@@ -53,6 +55,9 @@ export default {
         },
         alignCenter: {
             default: true,
+        },
+        language: {
+            default: 'en',
         },
         theme: {
             default: 'light',
@@ -162,7 +167,7 @@ export default {
             window.addEventListener('click', this.outsideEvent);
         },
         getTitle(name) {
-            return name;
+            return i18n(name, this.language);
         },
         showCaptionBox () {
             if(!this.editor.isEditable) return;

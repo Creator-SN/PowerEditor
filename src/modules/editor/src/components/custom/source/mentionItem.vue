@@ -46,25 +46,25 @@
         >
             <p
                 v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon"
-                style="width: 28px; height: 100%; margin: 0px 8px;"
+                class="power-editor-mention-icon"
             >@</p>
             <img
                 v-if="node.attrs.currentItem.image"
                 :src="valueTrigger(node.attrs.currentItem.image)"
                 alt=""
-                style="width: 28px; height: 100%; margin: 0px 8px; object-fit: contain;"
+                class="power-editor-mention-icon"
             >
             <i
                 v-if="node.attrs.currentItem.icon"
-                class="ms-Icon p-e-mention-icon"
+                class="ms-Icon power-editor-mention-icon"
                 :class="[`ms-Icon--${valueTrigger(node.attrs.currentItem.icon)}`]"
                 :style="{color: valueTrigger(node.attrs.currentItem.iconColor)}"
-                style="width: 28px; height: 100%; margin: 0px 8px;"
             ></i>
             <input
                 v-model="node.attrs.value"
                 class="power-editor-mention-input"
                 :placeholder="node.attrs.placeholder"
+                :class="[{freeze: node.attrs.freeze}]"
                 :readonly="node.attrs.freeze"
                 ref="target"
                 :style="{color: node.attrs.currentItem.color}"
@@ -244,12 +244,14 @@ export default {
     width: auto;
     height: 30px;
     padding: 3px 3px 1px 3px;
+    background: rgba(250, 250, 250, 1);
     font-size: 16px;
-    border-radius: 3px;
+    border-radius: 5px;
     transition: background-color 0.3s;
     box-sizing: border-box;
     display: inline-flex;
     align-items: flex-end;
+    cursor: pointer;
 
     &.selected {
         background: rgba(45, 170, 219, 0.3);
@@ -260,12 +262,18 @@ export default {
     }
 
     &.dark {
+        background: rgba(36, 36, 36, 1);
+
+        &:hover {
+            background: rgba(75, 75, 75, 0.6);
+        }
+
         .power-editor-mention-popper-container {
             background: black;
         }
 
         .power-editor-mention-display-block {
-            .p-e-mention-icon {
+            .power-editor-mention-icon {
                 color: whitesmoke;
             }
 
@@ -301,34 +309,50 @@ export default {
 
     .power-editor-mention-display-block {
         position: relative;
+        width: auto;
+        max-width: 100%;
         height: 100%;
         font-size: 16px;
         box-sizing: border-box;
         display: inline-flex;
         align-items: center;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        .power-editor-mention-icon {
+            width: 20px;
+            height: 100%;
+            margin: 0px 2px 0px 1px;
+            text-align: center;
+            object-fit: contain;
+        }
 
         .power-editor-mention-input {
             position: absolute;
-            width: 100%;
-            max-width: 200px;
+            left: 23px;
+            width: calc(100% - 23px);
             height: 100%;
-            padding-left: 36px;
+            padding-right: 0px;
             background: transparent;
             font-size: 16px;
             border: none;
             box-sizing: border-box;
             outline: none;
             user-select: all;
+
+            &.freeze {
+                cursor: pointer;
+            }
         }
 
         .power-editor-mention-placeholder {
             position: relative;
             min-width: 20px;
             width: auto;
-            max-width: 200px;
             height: 100%;
+            margin: 0px;
             background: transparent;
-            font-size: 16px;
+            font-size: 18px;
             border: none;
             opacity: 0;
             user-select: none;

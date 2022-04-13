@@ -2,7 +2,7 @@
     <callout-base
         :show.sync="show"
         :mobileMode="mobileMode"
-        :title="'Text Color'"
+        :title="getTitle('Text Color')"
         :theme="theme"
         :popperClass="['power-editor-color-callout']"
     >
@@ -10,7 +10,7 @@
             <slot :show="x.show"></slot>
         </template>
         <template v-slot:content>
-            <p style="width: 100%; font-size: 12px;">Foreground</p>
+            <p style="width: 100%; font-size: 12px;">{{getTitle('Foreground')}}</p>
             <div
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark'}]"
@@ -30,9 +30,9 @@
                     class="peci-example"
                     :style="{color: item.color}"
                 >A</p>
-                <p class="peci-comment">{{item.name}}</p>
+                <p class="peci-comment">{{getTitle(item.name)}}</p>
             </div>
-            <p style="width: 100%; font-size: 12px;">Highlight Background</p>
+            <p style="width: 100%; font-size: 12px;">{{getTitle('Highlight Background')}}</p>
             <div
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark'}]"
@@ -52,7 +52,7 @@
                     class="peci-example"
                     :style="{background: item.color}"
                 >A</p>
-                <p class="peci-comment">{{item.name}}</p>
+                <p class="peci-comment">{{getTitle(item.name)}}</p>
             </div>
         </template>
     </callout-base>
@@ -60,6 +60,7 @@
 
 <script>
 import calloutBase from './calloutBase.vue';
+import i18n from '@/i18n/i18n.js';
 
 export default {
     components: {
@@ -83,6 +84,9 @@ export default {
         },
         mobileMode: {
             default: false,
+        },
+        language: {
+            default: 'en',
         },
         theme: {
             default: 'light',
@@ -114,7 +118,7 @@ export default {
     watch: {},
     methods: {
         getTitle(name) {
-            return name;
+            return i18n(name, this.language);
         },
     },
 };

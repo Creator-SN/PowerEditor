@@ -2,7 +2,7 @@
     <callout-base
         :show.sync="show"
         :mobileMode="mobileMode"
-        :title="'Headers'"
+        :title="getTitle('Headers')"
         :theme="theme"
         :popperClass="['power-editor-header-callout']"
     >
@@ -25,7 +25,7 @@
                     :foreground="getForeground(editor.isActive('heading', { level: i }))"
                     :title="getTitle('Heading') + i"
                 >H{{ i }}</fv-button>
-                <p class="pehi-comment">Heading {{i}}</p>
+                <p class="pehi-comment">{{getTitle('Heading')}} {{i}}</p>
             </div>
         </template>
     </callout-base>
@@ -33,6 +33,7 @@
 
 <script>
 import calloutBase from './calloutBase.vue';
+import i18n from '@/i18n/i18n.js';
 
 export default {
     components: {
@@ -54,6 +55,9 @@ export default {
         editor: {
             default: null,
         },
+        language: {
+            default: 'en',
+        },
         theme: {
             default: 'light',
         },
@@ -66,7 +70,7 @@ export default {
     watch: {},
     methods: {
         getTitle(name) {
-            return name;
+            return i18n(name, this.language);
         },
     },
 };
