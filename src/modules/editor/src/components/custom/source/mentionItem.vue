@@ -56,7 +56,7 @@
             >
             <i
                 v-if="node.attrs.currentItem.icon"
-                class="ms-Icon"
+                class="ms-Icon p-e-mention-icon"
                 :class="[`ms-Icon--${valueTrigger(node.attrs.currentItem.icon)}`]"
                 :style="{color: valueTrigger(node.attrs.currentItem.iconColor)}"
                 style="width: 28px; height: 100%; margin: 0px 8px;"
@@ -242,11 +242,12 @@ export default {
 .power-editor-mention-container {
     position: relative;
     width: auto;
-    height: 28px;
-    padding: 1px 3px;
+    height: 30px;
+    padding: 3px 3px 1px 3px;
     font-size: 16px;
     border-radius: 3px;
     transition: background-color 0.3s;
+    box-sizing: border-box;
     display: inline-flex;
     align-items: flex-end;
 
@@ -264,6 +265,10 @@ export default {
         }
 
         .power-editor-mention-display-block {
+            .p-e-mention-icon {
+                color: whitesmoke;
+            }
+
             .power-editor-mention-input {
                 background: transparent;
                 color: whitesmoke;

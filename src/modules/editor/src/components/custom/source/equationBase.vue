@@ -12,18 +12,20 @@
                 :style="{ left: `${left}px`, top: `${top}%` }"
                 @keyup.enter="!lock ? close() : ''"
             >
-                <input
+                <textarea
                     v-model="node.attrs.value"
                     class="power-editor-equation-popper-input"
                     :placeholder="node.attrs.placeholder"
                     ref="input"
+                    @keydown.enter="$event.preventDefault()"
                 />
                 <fv-button
                     class="power-editor-equation-popper-btn"
                     :theme="node.attrs.theme"
                     :disabled="lock"
+                    :is-box-shadow="true"
                     @click="close"
-                >Confirm</fv-button>
+                ><i class="ms-Icon ms-Icon--Accept"></i></fv-button>
             </div>
         </transition>
         <div
@@ -139,9 +141,9 @@ export default {
     mounted() {
         this.outSideClickInit();
         this.render();
-        setTimeout(() => {
+        this.$nextTick(() => {
             if (this.node.attrs.value === '') this.show();
-        }, 300);
+        });
     },
     methods: {
         outSideClickInit() {
@@ -194,9 +196,9 @@ export default {
             });
         },
     },
-    beforeDestroy () {
+    beforeDestroy() {
         window.removeEventListener('click', this.outsideEvent);
-    }
+    },
 };
 </script>
 
@@ -225,6 +227,10 @@ export default {
             .power-editor-equation-popper-input {
                 background: transparent;
                 color: whitesmoke;
+
+                &:hover {
+                    background: rgba(75, 75, 75, 0.6);
+                }
             }
         }
 
@@ -248,28 +254,39 @@ export default {
         left: 0px;
         top: 100%;
         width: 300px;
-        height: 35px;
+        height: 38px;
         padding: 5px;
         background: whitesmoke;
         border-radius: 3px;
         box-sizing: border-box;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
         z-index: 1;
 
         .power-editor-equation-popper-btn {
-            width: 80px;
+            width: 30px;
             margin-left: 5px;
         }
 
         .power-editor-equation-popper-input {
             height: 100%;
-            padding-left: 5px;
+            margin-right: 5px;
+            padding: 5px;
             flex: 1;
+            background: transparent;
+            font-family: 'Source Code Pro', monospace;
             border: none;
             border-radius: 3px;
+            box-sizing: border-box;
             outline: none;
+            resize: none;
+            transition: all 0.3s;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.6);
+            }
         }
     }
 
@@ -287,6 +304,8 @@ export default {
     }
 
     .power-editor-equation-target {
+        padding: 5px 1px;
+        border-radius: 3px;
         user-select: all;
 
         &.empty {
