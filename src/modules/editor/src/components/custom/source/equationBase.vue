@@ -104,7 +104,7 @@ export default {
         return {
             left: 0,
             top: 100,
-            backup: '',
+            backup: this.node.attrs.value,
             equationString: '',
             errorMsg: '',
             active: false,
