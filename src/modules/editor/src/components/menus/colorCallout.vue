@@ -14,7 +14,7 @@
             <div
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark'}]"
-                @click="exec('unsetColor')"
+                @click="execX('unsetColor')"
             >
                 <p class="peci-example">A</p>
                 <p class="peci-comment">{{getTitle(`removeColor`)}}</p>
@@ -24,7 +24,7 @@
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark', choosen: editor.isActive('textStyle', { color: item.color })}]"
                 :key="'color:' + index"
-                @click="execMore('setColor', item.color)"
+                @click="execMoreX('setColor', item.color)"
             >
                 <p
                     class="peci-example"
@@ -36,7 +36,7 @@
             <div
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark'}]"
-                @click="exec('unsetHighlight')"
+                @click="execX('unsetHighlight')"
             >
                 <p class="peci-example">A</p>
                 <p class="peci-comment">{{getTitle(`removeHighlight`)}}</p>
@@ -46,7 +46,7 @@
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark', choosen: editor.isActive('highlight', { color: item.color })}]"
                 :key="'highlight:' + index"
-                @click="execMore('toggleHighlight', { color: item.color })"
+                @click="execMoreX('toggleHighlight', { color: item.color })"
             >
                 <p
                     class="peci-example"
@@ -120,6 +120,18 @@ export default {
         getTitle(name) {
             return i18n(name, this.language);
         },
+        execX(a) {
+            this.exec(a);
+            if (this.mobileMode) {
+                this.show = false;
+            }
+        },
+        execMoreX(a, b) {
+            this.execMore(a, b);
+            if (this.mobileMode) {
+                this.show = false;
+            }
+        },
     },
 };
 </script>
@@ -180,8 +192,7 @@ export default {
                 }
             }
 
-            &.choosen
-            {
+            &.choosen {
                 background: rgba(200, 200, 200, 0.3);
             }
 

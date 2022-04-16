@@ -11755,10 +11755,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vfluentdesign@^0.1.96:
-  version "0.1.96"
-  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-0.1.96.tgz#e4091b957511828c032e5884d219724ff37c88c0"
-  integrity sha512-WjR9SOUNpHwve2ZPNld7tVWwTcoesowfAQteZGin2zqEY8Na6TFOIzFBzvU7SmB0qGsaDQhs2oeS4hX/f00seQ==
+vfluentdesign@^0.1.99:
+  version "0.1.99"
+  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-0.1.99.tgz#360b9992213d25c980ca8d4591765ca42017bb31"
+  integrity sha512-QX/ujQCNh8VIKJzoHapS+WIKyq1n8m5YUrQR3sKR0fw6BRcFbYwGxlXxRNKt8KvdgsWicM6WeWFO7XTPRCnpAA==
   dependencies:
     core-js "^3.4.3"
     fluent-reveal-effect "^1.1.1"

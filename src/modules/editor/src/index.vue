@@ -425,6 +425,7 @@ export default {
         box-sizing: border-box;
         transition: padding 0.3s;
         overflow: auto;
+        overflow-x: hidden;
 
         &.read-only {
             padding-top: 5px;

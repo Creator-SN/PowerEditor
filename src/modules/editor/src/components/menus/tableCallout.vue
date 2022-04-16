@@ -28,7 +28,7 @@
                     :disabled="!row || !column || isNaN(row) || isNaN(column)"
                     :is-box-shadow="true"
                     background="rgba(56, 171, 127, 1)"
-                    @click="execMore('insertTable', {
+                    @click="execMoreX('insertTable', {
                         rows: parseInt(row),
                         cols: parseInt(column),
                         withHeaderRow: true
@@ -54,7 +54,7 @@
                     background="rgba(165, 47, 52, 1)"
                     :is-box-shadow="true"
                     :title="getTitle('Delete Row')"
-                    @click="exec('deleteRow')"
+                    @click="execX('deleteRow')"
                 >
                     <i class="ms-Icon ms-Icon--DockBottom"></i>
                 </fv-button>
@@ -65,7 +65,7 @@
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
                     :title="getTitle('Add Row Before')"
-                    @click="exec('addRowBefore')"
+                    @click="execX('addRowBefore')"
                 >
                     <i class="ms-Icon ms-Icon--UpArrowShiftKey"></i>
                 </fv-button>
@@ -75,7 +75,7 @@
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
                     :title="getTitle('Add Row After')"
-                    @click="exec('addRowAfter')"
+                    @click="execX('addRowAfter')"
                 >
                     <i
                         class="ms-Icon ms-Icon--UpArrowShiftKey"
@@ -88,7 +88,7 @@
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
                     :title="getTitle('Add Column Before')"
-                    @click="exec('addColumnBefore')"
+                    @click="execX('addColumnBefore')"
                 >
                     <i
                         class="ms-Icon ms-Icon--UpArrowShiftKey"
@@ -101,7 +101,7 @@
                     background="rgba(0, 120, 212, 1)"
                     :is-box-shadow="true"
                     :title="getTitle('Add Column After')"
-                    @click="exec('addColumnAfter')"
+                    @click="execX('addColumnAfter')"
                 >
                     <i
                         class="ms-Icon ms-Icon--UpArrowShiftKey"
@@ -114,7 +114,7 @@
                     class="power-editor-table-control-item"
                     :is-box-shadow="true"
                     :title="getTitle('Merge Cells')"
-                    @click="exec('mergeCells')"
+                    @click="execX('mergeCells')"
                 >
                     <i class="ms-Icon ms-Icon--PPSOneLandscape"></i>
                 </fv-button>
@@ -123,7 +123,7 @@
                     class="power-editor-table-control-item"
                     :is-box-shadow="true"
                     :title="getTitle('Split Cell')"
-                    @click="exec('splitCell')"
+                    @click="execX('splitCell')"
                 >
                     <i class="ms-Icon ms-Icon--PPSTwoPortrait"></i>
                 </fv-button>
@@ -178,6 +178,18 @@ export default {
         getTitle(name) {
             return i18n(name, this.language);
         },
+        execX(a) {
+            this.exec(a);
+            if (this.mobileMode) {
+                this.show = false;
+            }
+        },
+        execMoreX(a, b) {
+            this.execMore(a, b);
+            if (this.mobileMode) {
+                this.show = false;
+            }
+        }
     },
 };
 </script>

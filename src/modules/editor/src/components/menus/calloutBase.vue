@@ -148,6 +148,10 @@ export default {
             }
         }
 
+        .p-e-c-b-m-content-block {
+            background: rgba(56, 56, 56, 0.9);
+        }
+
         * {
             color: whitesmoke;
         }
@@ -183,6 +187,7 @@ export default {
         height: 100%;
         flex: 1;
         padding: 30px 15px;
+        background: rgba(252, 252, 252, 0.9);
         box-sizing: border-box;
         display: flex;
         justify-content: center;

@@ -254,7 +254,7 @@ export default {
         left: 0px;
         top: 100%;
         width: 300px;
-        height: 38px;
+        height: 75px;
         padding: 5px;
         background: whitesmoke;
         border-radius: 3px;
@@ -304,8 +304,10 @@ export default {
     }
 
     .power-editor-equation-target {
+        max-width: 100%;
         padding: 5px 1px;
         border-radius: 3px;
+        overflow-x: auto;
         user-select: all;
 
         &.empty {

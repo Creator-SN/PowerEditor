@@ -15,7 +15,7 @@
                 class="power-editor-heading-item"
                 :class="[{dark : theme == 'dark', choosen: editor.isActive('heading', { level: i })}]"
                 :key="'color:' + i"
-                @click="execMore('toggleHeading', { level: i })"
+                @click="execMoreX('toggleHeading', { level: i })"
             >
                 <fv-button
                     class="power-editor-cmd-btn"
@@ -71,6 +71,18 @@ export default {
     methods: {
         getTitle(name) {
             return i18n(name, this.language);
+        },
+        execX(a) {
+            this.exec(a);
+            if (this.mobileMode) {
+                this.show = false;
+            }
+        },
+        execMoreX(a, b) {
+            this.execMore(a, b);
+            if (this.mobileMode) {
+                this.show = false;
+            }
         },
     },
 };

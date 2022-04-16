@@ -61,11 +61,17 @@ export default {
         },
         insertEmoji(emoji) {
             this.$emit('insert-emoji', emoji);
+            if(this.mobileMode) {
+                this.show = false;
+            }
         },
         insertRandom() {
             let i = (Math.random() * (this.emoji_list.length - 1)).toFixed(0);
             let j = (Math.random() * (this.emoji_list[i].emojis.length - 1)).toFixed(0);
             this.$emit('insert-emoji', this.emoji_list[i].emojis[j]);
+            if(this.mobileMode) {
+                this.show = false;
+            }
         },
     },
 };
