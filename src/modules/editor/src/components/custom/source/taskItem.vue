@@ -1,6 +1,6 @@
 <template>
     <node-view-wrapper v-if="node" as="li" class="power-editor-task-item-container">
-        <fv-check-box :value="node.attrs.checked" :theme="node.attrs.theme" :disabled="!editor.isEditable"></fv-check-box>
+        <fv-check-box v-model="node.attrs.checked" :theme="node.attrs.theme" :disabled="!editor.isEditable"></fv-check-box>
         <node-view-content ref="n" class="content"></node-view-content>
         <p v-show="show" class="placeholder">{{ node.attrs.placeholder }}</p>
     </node-view-wrapper>

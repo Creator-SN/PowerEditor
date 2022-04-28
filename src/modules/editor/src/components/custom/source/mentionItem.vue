@@ -9,7 +9,7 @@
             <div
                 v-show="node.attrs.showPopper && filterItems.length > 0"
                 class="power-editor-mention-popper-container"
-                :style="{ left: `${left}px`, top: `${top}%` }"
+                :style="{ left: `${left}px`, top: `${top}px` }"
             >
                 <fv-list-view
                     :value="filterItems"
@@ -180,16 +180,18 @@ export default {
         outSideClickInit() {
             window.addEventListener('click', this.outsideEvent);
         },
-        windowEventInit() {},
+        windowEventInit() {
+            window.addEventListener('scroll', this.showPos);
+            this.editor.$ContentContainer.addEventListener('scroll', this.showPos);
+        },
         showPos() {
             let el = this.$refs.target;
             if (!el.getBoundingClientRect) return;
-            let bottom = el.getBoundingClientRect().bottom;
-            let left = el.getBoundingClientRect().left;
-            if (bottom < 50) this.top = -100;
-            else this.top = 100;
-            if (left + 300 > document.body.clientWidth) this.left = document.body - 300 - left;
-            else this.left = 0;
+            const { left, top } = el.getBoundingClientRect();
+            if (document.body.clientWidth - left < 260) this.left = document.body.clientWidth - 260;
+            else this.left = left - 20;
+            if (document.body.clientHeight - top < 300) this.top = document.body.clientHeight - 300;
+            else this.top = top + 30;
         },
         show() {
             if (!this.editor.isEditable) return;
@@ -234,6 +236,8 @@ export default {
     },
     beforeDestroy() {
         window.removeEventListener('click', this.outsideEvent);
+        window.removeEventListener('scroll', this.showPos);
+        this.editor.$ContentContainer.removeEventListener('scroll', this.showPos);
     },
 };
 </script>
@@ -285,7 +289,7 @@ export default {
     }
 
     .power-editor-mention-popper-container {
-        position: absolute;
+        position: fixed;
         left: 0px;
         top: 100%;
         width: 260px;

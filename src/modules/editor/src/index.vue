@@ -27,8 +27,10 @@
             class="power-editor-tool-bar-acrylic-background"
         ></div>
         <div
+        
             :class="[{'read-only': !editable || !showToolBar}]"
             class="tip-tap-editor-container"
+            ref="container"
             :style="{ background: editorOutSideBackground }"
         >
             <editor-content
@@ -118,14 +120,14 @@ export default {
             default: () => {
                 return {
                     mentionList: () => [
-            // { key: 0, name: "Mention Color", type: "header" },
-            // { key: 1, name: "Blue", color: "rgba(0, 120, 212, 1)", icon: "WindowsLogo", iconColor: "rgba(0, 153, 204, 1)" },
-            // { key: 2, name: "Purple", color: "#958DF1", icon: "DelveAnalyticsLogo", iconColor: "#958DF1" },
-            // { key: 3, name: "Mention Text", type: "header" },
-            // { key: 9, name: "", type: "divider" },
-            // { key: 5, name: "Text1" },
-            // { key: 6, name: "Text2" }
-        ],
+                        { key: 0, name: 'Mention Color', type: 'header' },
+                        { key: 1, name: 'Blue', color: 'rgba(0, 120, 212, 1)', icon: 'WindowsLogo', iconColor: 'rgba(0, 153, 204, 1)' },
+                        { key: 2, name: 'Purple', color: '#958DF1', icon: 'DelveAnalyticsLogo', iconColor: '#958DF1' },
+                        { key: 3, name: 'Mention Text', type: 'header' },
+                        { key: 9, name: '', type: 'divider' },
+                        { key: 5, name: 'Text1' },
+                        { key: 6, name: 'Text2' },
+                    ],
                     filterFunc: () => {
                         return true;
                     },
@@ -140,7 +142,7 @@ export default {
             },
         },
         extensions: {
-            default: () => []
+            default: () => [],
         },
         language: {
             default: 'cn',
@@ -228,7 +230,7 @@ export default {
                             return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
                         },
                     }),
-                    ...this.extensions
+                    ...this.extensions,
                 ],
                 editorProps: {
                     //ProseMirror Editor Props//
@@ -252,6 +254,7 @@ export default {
             };
             // For the extensions can use this function to sync theme.//
             this.editor.$PowerEditorThemeSync = this.themeSync;
+            this.editor.$ContentContainer = this.$refs.container;
         },
         insert(html) {
             this.editor.commands.insertContent(html);
@@ -594,6 +597,13 @@ export default {
                 margin: 2rem 0;
             }
 
+            .tableWrapper {
+                width: 100%;
+                padding: 1rem 0;
+                overflow-x: auto;
+                overflow-y: visible;
+            }
+
             table {
                 border-collapse: collapse;
                 table-layout: fixed;
@@ -601,6 +611,7 @@ export default {
                 margin: 0;
                 display: table;
                 overflow: hidden;
+                overflow-y: visible;
 
                 td,
                 th {
@@ -648,12 +659,6 @@ export default {
                 p {
                     margin: 0;
                 }
-            }
-
-            .tableWrapper {
-                width: 100%;
-                padding: 1rem 0;
-                overflow-x: auto;
             }
         }
 
