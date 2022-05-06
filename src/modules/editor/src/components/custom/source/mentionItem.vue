@@ -166,7 +166,6 @@ export default {
         },
     },
     mounted() {
-        console.log(1)
         this.outSideClickInit();
         this.windowEventInit();
         setTimeout(() => {
@@ -190,10 +189,9 @@ export default {
             let el = this.$refs.target;
             if (!el || !el.getBoundingClientRect) return;
             const { left, top } = el.getBoundingClientRect();
-            console.log(left, top, document.body.clientHeight)
-            if (document.body.clientWidth - left < 260) this.left = document.body.clientWidth - 260;
+            if (window.innerWidth - left < 260) this.left = window.innerWidth - 260;
             else this.left = left - 20;
-            if (document.body.clientHeight - top < 300) this.top = document.body.clientHeight - 300;
+            if (window.innerHeight - top < 300) this.top = window.innerHeight - 300;
             else this.top = top + 30;
         },
         show() {
@@ -257,7 +255,7 @@ export default {
     transition: background-color 0.3s;
     box-sizing: border-box;
     display: inline-flex;
-    align-items: flex-end;
+    align-items: center;
     cursor: pointer;
 
     &.selected {
