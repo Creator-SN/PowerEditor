@@ -67,11 +67,12 @@
                 :class="[{freeze: node.attrs.freeze}]"
                 :readonly="node.attrs.freeze"
                 ref="target"
+                :title="node.attrs.value"
                 :style="{color: node.attrs.currentItem.color}"
                 @keydown.backspace="delRecover"
                 @keydown.tab="skipNode"
             />
-            <p class="power-editor-mention-placeholder">{{node.attrs.value ? node.attrs.value : node.attrs.placeholder}}</p>
+            <p :title="node.attrs.value" class="power-editor-mention-placeholder">{{node.attrs.value ? node.attrs.value : node.attrs.placeholder}}</p>
         </span>
     </node-view-wrapper>
 </template>
@@ -186,7 +187,7 @@ export default {
         },
         showPos() {
             let el = this.$refs.target;
-            if (!el.getBoundingClientRect) return;
+            if (!el || !el.getBoundingClientRect) return;
             const { left, top } = el.getBoundingClientRect();
             if (document.body.clientWidth - left < 260) this.left = document.body.clientWidth - 260;
             else this.left = left - 20;
@@ -314,14 +315,13 @@ export default {
     .power-editor-mention-display-block {
         position: relative;
         width: auto;
-        max-width: 100%;
+        max-width: 320px;
         height: 100%;
         font-size: 16px;
         box-sizing: border-box;
         display: inline-flex;
         align-items: center;
-        overflow-x: auto;
-        overflow-y: hidden;
+        overflow: hidden;
 
         .power-editor-mention-icon {
             width: 20px;
