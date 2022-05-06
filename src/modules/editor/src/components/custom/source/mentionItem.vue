@@ -264,6 +264,7 @@ export default {
 
     &:hover {
         background: rgba(200, 200, 200, 0.6);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.05);
     }
 
     &.dark {
@@ -326,9 +327,12 @@ export default {
         .power-editor-mention-icon {
             width: 20px;
             height: 100%;
-            margin: 0px 2px 0px 1px;
+            margin: 0px 2px 0px 3px;
+            font-size: 13px;
             text-align: center;
             object-fit: contain;
+            display: flex;
+            align-items: center;
         }
 
         .power-editor-mention-input {
