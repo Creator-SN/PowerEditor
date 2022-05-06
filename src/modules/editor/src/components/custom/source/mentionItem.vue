@@ -338,7 +338,7 @@ export default {
             height: 100%;
             padding-right: 0px;
             background: transparent;
-            font-size: 16px;
+            font-size: 13.8px;
             border: none;
             box-sizing: border-box;
             outline: none;
