@@ -166,6 +166,7 @@ export default {
         },
     },
     mounted() {
+        console.log(1)
         this.outSideClickInit();
         this.windowEventInit();
         setTimeout(() => {
@@ -189,6 +190,7 @@ export default {
             let el = this.$refs.target;
             if (!el || !el.getBoundingClientRect) return;
             const { left, top } = el.getBoundingClientRect();
+            console.log(left, top, document.body.clientHeight)
             if (document.body.clientWidth - left < 260) this.left = document.body.clientWidth - 260;
             else this.left = left - 20;
             if (document.body.clientHeight - top < 300) this.top = document.body.clientHeight - 300;
