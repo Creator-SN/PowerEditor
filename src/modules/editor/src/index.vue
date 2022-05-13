@@ -27,7 +27,6 @@
             class="power-editor-tool-bar-acrylic-background"
         ></div>
         <div
-        
             :class="[{'read-only': !editable || !showToolBar}]"
             class="tip-tap-editor-container"
             ref="container"
@@ -255,6 +254,9 @@ export default {
             // For the extensions can use this function to sync theme.//
             this.editor.$PowerEditorThemeSync = this.themeSync;
             this.editor.$ContentContainer = this.$refs.container;
+            this.editor.$MentionItemTools = {
+                ...this.mentionItemAttr
+            };
         },
         insert(html) {
             this.editor.commands.insertContent(html);

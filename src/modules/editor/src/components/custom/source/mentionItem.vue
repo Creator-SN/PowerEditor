@@ -42,7 +42,7 @@
         </transition>
         <span
             class="power-editor-mention-display-block"
-            @click="node.attrs.mentionClickCallback(node.attrs.currentItem, node.attrs.value)"
+            @click="editor.$MentionItemTools.mentionClickCallback(node.attrs.currentItem, node.attrs.value)"
         >
             <p
                 v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon"
@@ -157,8 +157,9 @@ export default {
     computed: {
         filterItems() {
             let result = [];
-            this.node.attrs.mentionList(this.node.attrs.value).forEach((el) => {
-                if (this.node.attrs.filterFunc(el, this.node.attrs.value)) {
+            // provide value as a parameter to filter the mentionList.
+            this.editor.$MentionItemTools.mentionList(this.node.attrs.value).forEach((el) => {
+                if (this.editor.$MentionItemTools.filterFunc(el, this.node.attrs.value)) {
                     result.push(el);
                 }
             });
@@ -209,7 +210,7 @@ export default {
                 currentItem: event.item,
                 freeze: true,
             });
-            this.node.attrs.chooseItemCallback(event.item, this.node.attrs.value);
+            this.editor.$MentionItemTools.chooseItemCallback(event.item, this.node.attrs.value);
             this.close();
         },
         valueTrigger(val) {
