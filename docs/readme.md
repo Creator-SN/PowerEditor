@@ -62,7 +62,7 @@ this.$refs.editor.save()
 
 ### Slot
 ---
-1. Custom-buttons
+1. Custom-buttons 或 Custom-buttons-[index] (`index`从`0`开始代表每个分隔栏左侧的位置, `index`最大为`3`, 缺省时为保存按钮左侧)
 
 自定义`ToolBar`菜单工具栏按钮项
 
@@ -71,7 +71,7 @@ this.$refs.editor.save()
 ```javascript
 <power-editor>
     <template v-slot:custom-buttons="x">
-        <div>Content</div>
+        <fv-button :class="[x.defaultClass]">Content</fv-button>
     </template>
 </power-editor>
 ```

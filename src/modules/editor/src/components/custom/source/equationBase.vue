@@ -305,7 +305,7 @@ export default {
 
     .power-editor-equation-target {
         max-width: 100%;
-        padding: 5px 1px;
+        padding: 5px 2px;
         border-radius: 3px;
         overflow-x: auto;
         user-select: all;

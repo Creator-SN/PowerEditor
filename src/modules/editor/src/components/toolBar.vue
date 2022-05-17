@@ -47,6 +47,7 @@
         >
             <i class="ms-Icon ms-Icon--Underline"></i>
         </fv-button>
+        <slot name="custom-buttons-0" defaultClass="power-editor-cmd-btn"></slot>
         <hr />
         <fv-button
             class="power-editor-cmd-btn"
@@ -115,6 +116,7 @@
         >
             <i class="ms-Icon ms-Icon--ClearFormatting"></i>
         </fv-button>
+        <slot name="custom-buttons-1" defaultClass="power-editor-cmd-btn"></slot>
         <hr />
         <fv-button
             class="power-editor-cmd-btn"
@@ -150,6 +152,7 @@
         >
             <i class="ms-Icon ms-Icon--ShowBcc"></i>
         </fv-button>
+        <slot name="custom-buttons-2" defaultClass="power-editor-cmd-btn"></slot>
         <hr />
         <fv-button
             class="power-editor-cmd-btn"
@@ -220,6 +223,7 @@
         >
             <i class="ms-Icon ms-Icon--DecreaseIndentLegacy"></i>
         </fv-button>
+        <slot name="custom-buttons-3" defaultClass="power-editor-cmd-btn"></slot>
         <hr />
         <color-callout
             :mobileMode="mobileMode"
@@ -415,6 +419,7 @@
         >
             <i class="ms-Icon ms-Icon--Redo"></i>
         </fv-button>
+        <slot name="custom-buttons" defaultClass="power-editor-cmd-btn"></slot>
         <fv-button
             v-show="showSave"
             class="power-editor-cmd-btn"
@@ -427,7 +432,6 @@
         >
             <i class="ms-Icon ms-Icon--Save"></i>
         </fv-button>
-        <slot name="custom-buttons"></slot>
     </div>
 </template>
 
@@ -545,11 +549,30 @@ export default {
         insertEmbed(link) {
             this.editor.chain().focus().insertContent(link).run();
         },
-        insertInlineEquation(text='') {
-            this.editor.chain().focus().insertContent(`<inline-equation theme="${this.theme}" value="${text}"></inline-equation>`).run();
+        insertInlineEquation(text = '') {
+            this.editor
+                .chain()
+                .focus()
+                .insertContent({
+                    type: 'inlineEquation',
+                    attrs: {
+                        theme: this.theme,
+                        value: text,
+                    },
+                })
+                .run();
         },
         insertEquationBlock() {
-            this.editor.chain().focus().insertContent(`<equation-block theme="${this.theme}"></equation-block>`).run();
+            this.editor
+                .chain()
+                .focus()
+                .insertContent({
+                    type: 'equationBlock',
+                    attrs: {
+                        theme: this.theme,
+                    },
+                })
+                .run();
         },
         insertEquation() {
             let state = this.editor.view.state;
