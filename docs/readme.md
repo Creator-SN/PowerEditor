@@ -67,6 +67,7 @@ this.$refs.editor.save()
 自定义`ToolBar`菜单工具栏按钮项
 
 - editor: 当前`tiptap` editor对象
+- defaultClass: 默认CSS样式名
 
 ```javascript
 <power-editor>

@@ -13,10 +13,39 @@
                 :mobileMode="mobileMode"
                 @save-click="save"
             >
-                <template v-slot:custom-buttons>
+                <template v-slot:custom-buttons="x">
                     <slot
                         name="custom-buttons"
                         :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
+                </template>
+                <template v-slot:custom-buttons-0="x">
+                    <slot
+                        name="custom-buttons-0"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
+                </template>
+                <template v-slot:custom-buttons-1="x">
+                    <slot
+                        name="custom-buttons-1"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
+                </template>
+                <template v-slot:custom-buttons-2="x">
+                    <slot
+                        name="custom-buttons-2"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
+                </template>
+                <template v-slot:custom-buttons-3="x">
+                    <slot
+                        name="custom-buttons-3"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
                     ></slot>
                 </template>
             </tool-bar>
