@@ -1,8 +1,8 @@
 <template>
     <node-view-wrapper v-if="node" as="li" class="power-editor-task-item-container">
         <fv-check-box v-model="node.attrs.checked" :theme="node.attrs.theme" :disabled="!editor.isEditable"></fv-check-box>
-        <node-view-content ref="n" class="content"></node-view-content>
-        <p v-show="show" class="placeholder">{{ node.attrs.placeholder }}</p>
+        <node-view-content ref="n" class="power-editor-task-item-content"></node-view-content>
+        <p v-show="show" class="power-editor-task-item-placeholder">{{ node.attrs.placeholder }}</p>
     </node-view-wrapper>
 </template>
 
@@ -86,13 +86,13 @@ export default {
     display: flex;
     align-items: center;
 
-    .content {
+    .power-editor-task-item-content {
         min-width: 10px;
         margin-left: 5px;
         white-space: nowrap;
     }
 
-    .placeholder {
+    .power-editor-task-item-placeholder {
         position: absolute;
         left: 32px;
         top: 0px;
