@@ -463,6 +463,7 @@ export default {
 
         &.read-only {
             padding-top: 5px;
+            padding-bottom: 5px;
         }
 
         .tip-tap-editor {
