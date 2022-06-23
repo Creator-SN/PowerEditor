@@ -1,6 +1,6 @@
 {
   "name": "@creatorsn/powereditor",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": false,
   "author": {
     "name": "Creator-SN",
@@ -52,7 +52,7 @@
     "@tiptap/extension-text-align": "^2.0.0-beta.23",
     "@tiptap/extension-text-style": "^2.0.0-beta.17",
     "@tiptap/extension-underline": "^2.0.0-beta.16",
-    "@tiptap/starter-kit": "^2.0.0-beta.111",
+    "@tiptap/starter-kit": "^2.0.0-beta.189",
     "@tiptap/vue-2": "^2.0.0-beta.77",
     "core-js": "^3.6.5",
     "d3": "^7.0.4",
