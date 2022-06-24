@@ -1,6 +1,6 @@
 {
   "name": "@creatorsn/powereditor",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "private": false,
   "author": {
     "name": "Creator-SN",
@@ -59,7 +59,6 @@
     "d3": "^7.0.4",
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
-    "prosemirror-inputrules": "^1.2.0",
     "simplify-js": "^1.2.4",
     "vfluentdesign": "^0.2.16",
     "vue": "^2.6.11"

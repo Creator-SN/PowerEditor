@@ -58,10 +58,12 @@ export default Node.create({
 
     addInputRules() {
         return [
-            nodeInputRule(inputRegex, this.type, () => {
-                return {
-                    theme: this.editor.$PowerEditorTheme(),
-                };
+            nodeInputRule({
+                find: inputRegex, type: this.type, getAttributes: () => {
+                    return {
+                        theme: this.editor.$PowerEditorTheme(),
+                    };
+                }
             }),
         ];
     },
