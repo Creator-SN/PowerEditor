@@ -1,73 +1,27 @@
 <template>
-    <div
-        class="power-editor-container"
-        :class="[{ dark: theme === 'dark' }]"
-    >
+    <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
         <transition name="power-editor-tool-bar-fade-in">
-            <tool-bar
-                v-if="editor && editable"
-                v-show="showToolBar"
-                :editor="editor"
-                :theme="theme"
-                :language="language"
-                :mobileMode="mobileMode"
-                @save-click="save"
-            >
+            <tool-bar v-if="editor && editable" v-show="showToolBar" :editor="editor" :theme="theme" :language="language" :mobileMode="mobileMode" @save-click="save">
                 <template v-slot:custom-buttons="x">
-                    <slot
-                        name="custom-buttons"
-                        :editor="editor"
-                        :defaultClass="x.defaultClass"
-                    ></slot>
+                    <slot name="custom-buttons" :editor="editor" :defaultClass="x.defaultClass"></slot>
                 </template>
                 <template v-slot:custom-buttons-0="x">
-                    <slot
-                        name="custom-buttons-0"
-                        :editor="editor"
-                        :defaultClass="x.defaultClass"
-                    ></slot>
+                    <slot name="custom-buttons-0" :editor="editor" :defaultClass="x.defaultClass"></slot>
                 </template>
                 <template v-slot:custom-buttons-1="x">
-                    <slot
-                        name="custom-buttons-1"
-                        :editor="editor"
-                        :defaultClass="x.defaultClass"
-                    ></slot>
+                    <slot name="custom-buttons-1" :editor="editor" :defaultClass="x.defaultClass"></slot>
                 </template>
                 <template v-slot:custom-buttons-2="x">
-                    <slot
-                        name="custom-buttons-2"
-                        :editor="editor"
-                        :defaultClass="x.defaultClass"
-                    ></slot>
+                    <slot name="custom-buttons-2" :editor="editor" :defaultClass="x.defaultClass"></slot>
                 </template>
                 <template v-slot:custom-buttons-3="x">
-                    <slot
-                        name="custom-buttons-3"
-                        :editor="editor"
-                        :defaultClass="x.defaultClass"
-                    ></slot>
+                    <slot name="custom-buttons-3" :editor="editor" :defaultClass="x.defaultClass"></slot>
                 </template>
             </tool-bar>
         </transition>
-        <div
-            v-if="editor && editable"
-            v-show="showToolBar"
-            class="power-editor-tool-bar-acrylic-background"
-        ></div>
-        <div
-            :class="[{'read-only': !editable || !showToolBar}]"
-            class="tip-tap-editor-container"
-            ref="container"
-            :style="{ background: editorOutSideBackground }"
-        >
-            <editor-content
-                class="tip-tap-editor"
-                :editor="editor"
-                :theme="theme"
-                ref="editor"
-                :style="{ 'max-width': contentMaxWidth }"
-            />
+        <div v-if="editor && editable" v-show="showToolBar" class="power-editor-tool-bar-acrylic-background"></div>
+        <div :class="[{ 'read-only': !editable || !showToolBar }]" class="tip-tap-editor-container" ref="container" :style="{ background: editorOutSideBackground }">
+            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" ref="editor" :style="{ 'max-width': contentMaxWidth }" />
         </div>
         <div class="power-editor-bubble-tool-bar">
             <bubble-tool-bar
@@ -217,6 +171,7 @@ export default {
                             color: 'rgba(45, 170, 219, 0.3)',
                             width: 6,
                         },
+                        codeBlock: false,
                     }),
                     Underline,
                     TextAlign.configure({
@@ -284,7 +239,7 @@ export default {
             this.editor.$PowerEditorThemeSync = this.themeSync;
             this.editor.$ContentContainer = this.$refs.container;
             this.editor.$MentionItemTools = {
-                ...this.mentionItemAttr
+                ...this.mentionItemAttr,
             };
         },
         insert(html) {

@@ -13,26 +13,28 @@ export default Node.create({
 
     draggable: true,
 
-    defaultOptions: {
-        mentionList: () => [
-            { key: 0, name: "Mention Color", type: "header" },
-            { key: 1, name: "Blue", color: "rgba(0, 120, 212, 1)", icon: "WindowsLogo", iconColor: "rgba(0, 153, 204, 1)" },
-            { key: 2, name: "Purple", color: "#958DF1", icon: "DelveAnalyticsLogo", iconColor: "#958DF1" },
-            { key: 3, name: "Mention Text", type: "header" },
-            { key: 9, name: "", type: "divider" },
-            { key: 5, name: "Text1" },
-            { key: 6, name: "Text2" }
-        ],
-        filterFunc: () => {
-            return true;
-        },
-        chooseItemCallback: () => {
-            console.log('chooseItemCallback');
-        },
-        mentionClickCallback: () => {
-            console.log('mentionClickCallback');
-        },
-        headerForeground: 'rgba(0, 120, 212, 1)',
+    addOptions() {
+        return {
+            mentionList: () => [
+                { key: 0, name: "Mention Color", type: "header" },
+                { key: 1, name: "Blue", color: "rgba(0, 120, 212, 1)", icon: "WindowsLogo", iconColor: "rgba(0, 153, 204, 1)" },
+                { key: 2, name: "Purple", color: "#958DF1", icon: "DelveAnalyticsLogo", iconColor: "#958DF1" },
+                { key: 3, name: "Mention Text", type: "header" },
+                { key: 9, name: "", type: "divider" },
+                { key: 5, name: "Text1" },
+                { key: 6, name: "Text2" }
+            ],
+            filterFunc: () => {
+                return true;
+            },
+            chooseItemCallback: () => {
+                console.log('chooseItemCallback');
+            },
+            mentionClickCallback: () => {
+                console.log('mentionClickCallback');
+            },
+            headerForeground: 'rgba(0, 120, 212, 1)',
+        }
     },
 
     addAttributes() {
