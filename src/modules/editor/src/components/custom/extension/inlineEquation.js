@@ -70,17 +70,17 @@ export default Node.create({
 
     addPasteRules() {
         return [
-            nodePasteRule(
-                pasteRegex,
-                this.type,
-                match => {
+            nodePasteRule({
+                find: pasteRegex,
+                type: this.type,
+                getAttributes: match => {
                     // return some attrs, if any.
                     return {
                         value: match[1],
                         theme: this.editor.$PowerEditorTheme(),
                     };
                 },
-            ),
+            }),
         ];
     },
 

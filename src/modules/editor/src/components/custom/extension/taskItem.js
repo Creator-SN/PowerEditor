@@ -1,4 +1,4 @@
-import { Node, mergeAttributes,nodeInputRule } from '@tiptap/core';
+import { Node, mergeAttributes, nodeInputRule } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import taskItem from '../source/taskItem.vue';
 
@@ -72,7 +72,7 @@ export default Node.create({
     addInputRules() {
         return [
             nodeInputRule({
-                find: inputRegex, type: this.type, getAttributes: () => {
+                find: inputRegex, type: this.type, getAttributes: match => {
                     return {
                         checked: match[match.length - 1] === 'x',
                         theme: this.editor.$PowerEditorTheme(),

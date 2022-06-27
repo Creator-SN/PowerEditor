@@ -1,49 +1,32 @@
-import { Plugin } from 'prosemirror-state';
-import { Slice, Fragment } from 'prosemirror-model';
-export function nodePasteRule(regexp, type, getAttrs) {
-    const handler = fragment => {
-        const nodes = [];
 
-        fragment.forEach(child => {
-            if (child.isText) {
-                const { text } = child;
-                let pos = 0;
-                let match;
+import { PasteRule,callOrReturn  } from '@tiptap/core'
 
-                // eslint-disable-next-line
-                while ((match = regexp.exec(text)) !== null) {
-                    if (match[0]) {
-                        const start = match.index;
-                        const end = start + match[0].length;
-                        const attrs = getAttrs instanceof Function ? getAttrs(match) : getAttrs;
+/**
+ * Build an paste rule that adds a node when the
+ * matched text is pasted into it.
+ */
+export function nodePasteRule({
+  find,
+  type,
+  getAttributes
+}) {
+  return new PasteRule({
+    find,
+    handler({ match, chain, range }) {
+      const attributes = callOrReturn(getAttributes, undefined, match)
 
-                        // adding text before markdown to nodes
-                        if (start > 0) {
-                            nodes.push(child.cut(pos, start));
-                        }
+      if (attributes === false || attributes === null) {
+        return null
+      }
 
-                        // create the node
-                        nodes.push(type.create(attrs));
-
-                        pos = end;
-                    }
-                }
-
-                // adding rest of text to nodes
-                if (pos < text.length) {
-                    nodes.push(child.cut(pos));
-                }
-            } else {
-                nodes.push(child.copy(handler(child.content)));
-            }
-        });
-
-        return Fragment.fromArray(nodes);
-    };
-
-    return new Plugin({
-        props: {
-            transformPasted: slice => new Slice(handler(slice.content), slice.openStart, slice.openEnd),
-        },
-    });
+      if (match.input) {
+        chain()
+          .deleteRange(range)
+          .insertContent({
+            type: type.name,
+            attrs: attributes,
+          })
+      }
+    },
+  })
 }
