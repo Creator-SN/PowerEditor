@@ -31,10 +31,7 @@ export default Node.create({
             },
             showPopper: {
                 default: false,
-            },
-            theme: {
-                default: 'light',
-            },
+            }
         };
     },
 

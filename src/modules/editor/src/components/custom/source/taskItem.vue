@@ -1,6 +1,6 @@
 <template>
     <node-view-wrapper v-if="node" as="li" class="power-editor-task-item-container">
-        <fv-check-box v-model="node.attrs.checked" :theme="node.attrs.theme" :disabled="!editor.isEditable"></fv-check-box>
+        <fv-check-box v-model="node.attrs.checked" :theme="thisTheme" :disabled="!editor.isEditable"></fv-check-box>
         <node-view-content ref="n" class="power-editor-task-item-content"></node-view-content>
         <p v-show="show" class="power-editor-task-item-placeholder">{{ node.attrs.placeholder }}</p>
     </node-view-wrapper>
@@ -58,8 +58,14 @@ export default {
     data() {
         return {
             show: true,
+            thisTheme: this.editor.storage.defaultStorage.theme,
             timer: {},
         };
+    },
+    watch: {
+        'editor.storage.defaultStorage.theme' (val) {
+            this.thisTheme = val
+        }
     },
     mounted() {
         this.timerInit();

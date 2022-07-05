@@ -1,16 +1,16 @@
 <template>
-    <node-view-wrapper class="power-editor-drawing-block-container" :class="[{ dark: node.attrs.theme === 'dark' }]" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
+    <node-view-wrapper class="power-editor-drawing-block-container" :class="[{ dark: thisTheme === 'dark' }]" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
         <div class="power-editor-d-b-container">
             <div class="power-editor-d-b-block l1">
-                <fv-button :theme="node.attrs.theme" :borderRadius="50" :disabled="size <= 1" class="power-editor-d-b-btn __size" @click="size = size > 1 ? size - 1 : size"
+                <fv-button :theme="thisTheme" :borderRadius="50" :disabled="size <= 1" class="power-editor-d-b-btn __size" @click="size = size > 1 ? size - 1 : size"
                     ><i class="ms-Icon ms-Icon--Remove"></i
                 ></fv-button>
-                <fv-slider v-model="size" :theme="node.attrs.theme" :mininum="1" :maxinum="10" :showLabel="true" style="width: 150px; margin-left: 5px">
+                <fv-slider v-model="size" :theme="thisTheme" :mininum="1" :maxinum="10" :showLabel="true" style="width: 150px; margin-left: 5px">
                     <template slot-scope="prop">
                         <span style="height: 100%; margin-left: 5px; font-size: 12px; display: flex; align-items: center">{{ prop.value }}</span>
                     </template>
                 </fv-slider>
-                <fv-button :theme="node.attrs.theme" :borderRadius="50" :disabled="size >= 10" class="power-editor-d-b-btn __size" @click="size = size < 10 ? size + 1 : size"
+                <fv-button :theme="thisTheme" :borderRadius="50" :disabled="size >= 10" class="power-editor-d-b-btn __size" @click="size = size < 10 ? size + 1 : size"
                     ><i class="ms-Icon ms-Icon--Add"></i
                 ></fv-button>
             </div>
@@ -19,7 +19,7 @@
                     class="power-editor-d-b-btn __color"
                     v-for="(item, index) in colorList"
                     :key="'color:' + index"
-                    :theme="node.attrs.theme"
+                    :theme="thisTheme"
                     :borderRadius="50"
                     :background="item.color"
                     :isBoxShadow="color !== item.color"
@@ -28,10 +28,10 @@
                 >
             </div>
             <div class="power-editor-d-b-block">
-                <fv-button class="power-editor-d-b-btn __clear" :borderRadius="50" :theme="node.attrs.theme" @click="clear"><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
+                <fv-button class="power-editor-d-b-btn __clear" :borderRadius="50" :theme="thisTheme" @click="clear"><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
             </div>
         </div>
-        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="node.attrs.theme">
+        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="thisTheme">
             <svg viewBox="0 0 500 250" ref="canvas">
                 <template v-for="item in node.attrs.lines">
                     <path v-if="item.id !== id" :key="item.id" :d="item.path" :id="`id-${item.id}`" :stroke="item.color" :stroke-width="item.size" />
@@ -116,7 +116,14 @@ export default {
                 { name: 'teal', color: '#94FADB' },
                 { name: 'green', color: '#B9F18D' },
             ],
+            thisTheme: this.editor.storage.defaultStorage.theme
         };
+    },
+
+    watch: {
+        'editor.storage.defaultStorage.theme' (val) {
+            this.thisTheme = val
+        }
     },
 
     methods: {

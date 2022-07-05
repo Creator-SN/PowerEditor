@@ -25,10 +25,7 @@ export default Node.create({
             },
             placeholder: {
                 default: 'To-Do',
-            },
-            theme: {
-                default: 'light',
-            },
+            }
         };
     },
 

@@ -23,10 +23,7 @@ export default Node.create({
             },
             alignCenter: {
                 default: true,
-            },
-            theme: {
-                default: 'light',
-            },
+            }
         };
     },
 

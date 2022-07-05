@@ -39,6 +39,7 @@
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2';
+import { Extension } from "@tiptap/core";
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
@@ -205,6 +206,7 @@ export default {
                     TableRow,
                     TableHeader,
                     TableCell,
+                    this.defaultStorageInit(),
                     BubbleMenu.configure({
                         element: document.querySelector('.power-editor-bubble-tool-bar'),
                         shouldShow: ({ editor, view, state, oldState, from, to }) => {
@@ -236,11 +238,23 @@ export default {
                 return this.theme;
             };
             // For the extensions can use this function to sync theme.//
-            this.editor.$PowerEditorThemeSync = this.themeSync;
             this.editor.$ContentContainer = this.$refs.container;
             this.editor.$MentionItemTools = {
                 ...this.mentionItemAttr,
             };
+        },
+        defaultStorageInit () {
+            const defaultStorage = Extension.create({
+                name: "defaultStorage",
+
+                addStorage () {
+                    return {
+                        theme: "light"
+                    }
+                }
+            });
+
+            return defaultStorage;
         },
         insert(html) {
             this.editor.commands.insertContent(html);
@@ -251,13 +265,7 @@ export default {
             });
         },
         themeSync() {
-            let children = this.$refs.editor.$children;
-            for (let component of children) {
-                if (component.$props.node.attrs.theme)
-                    component.$props.updateAttributes({
-                        theme: this.theme,
-                    });
-            }
+            this.editor.storage.defaultStorage.theme = this.theme;
         },
         widthTimerInit() {
             this.timer.widthTimer = setInterval(() => {

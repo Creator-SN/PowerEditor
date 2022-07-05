@@ -9,7 +9,7 @@
             :caption.sync="node.attrs.caption"
             :alignCenter.sync="node.attrs.alignCenter"
             :editor="editor"
-            :theme="node.attrs.theme"
+            :theme="thisTheme"
         >
             <fv-image
                 :src="node.attrs.src"
@@ -71,12 +71,17 @@ export default {
         },
     },
     data() {
-        return {};
+        return {
+            thisTheme: this.editor.storage.defaultStorage.theme
+        };
     },
     watch: {
         // selected(val) {
         //     console.log(val);
         // },
+        'editor.storage.defaultStorage.theme' (val) {
+            this.thisTheme = val
+        }
     },
 };
 </script>

@@ -3,7 +3,7 @@
         v-if="node"
         as="span"
         class="power-editor-mention-container"
-        :class="{ dark: node.attrs.theme === 'dark', selected: selected }"
+        :class="{ dark: thisTheme === 'dark', selected: selected }"
     >
         <transition name="power-editor-mention-popper-fade">
             <div
@@ -142,6 +142,7 @@ export default {
                 }
                 if (!_self) this.close();
             },
+            thisTheme: this.editor.storage.defaultStorage.theme,
         };
     },
     watch: {
@@ -153,6 +154,9 @@ export default {
         'node.attrs.value'() {
             this.delRecover();
         },
+        'editor.storage.defaultStorage.theme' (val) {
+            this.thisTheme = val
+        }
     },
     computed: {
         filterItems() {

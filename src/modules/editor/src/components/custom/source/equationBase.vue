@@ -3,7 +3,7 @@
         v-if="node"
         :as="node.attrs.tag"
         class="power-editor-equation-container"
-        :class="{ dark: node.attrs.theme === 'dark', div: node.attrs.tag == 'div', selected: selected }"
+        :class="{ dark: thisTheme === 'dark', div: node.attrs.tag == 'div', selected: selected }"
     >
         <transition name="power-editor-equation-popper-fade">
             <div
@@ -21,7 +21,7 @@
                 />
                 <fv-button
                     class="power-editor-equation-popper-btn"
-                    :theme="node.attrs.theme"
+                    :theme="thisTheme"
                     :disabled="lock"
                     :is-box-shadow="true"
                     @click="close"
@@ -121,6 +121,7 @@ export default {
                 }
                 if (!_self) this.closeWithBackup();
             },
+            thisTheme: this.editor.storage.defaultStorage.theme,
             lock: false,
         };
     },
@@ -137,6 +138,9 @@ export default {
                 this.lock = false;
             } else this.render();
         },
+        'editor.storage.defaultStorage.theme' (val) {
+            this.thisTheme = val
+        }
     },
     mounted() {
         this.outSideClickInit();
