@@ -540,7 +540,7 @@ export default {
         },
         insertImg(base64_list) {
             base64_list.forEach((el) => {
-                this.insert(`<img src="${el}" theme="${this.theme}"></img>\n`);
+                this.insert(`<img src="${el}"></img>\n`);
             });
         },
         insertLink(link) {
@@ -583,7 +583,7 @@ export default {
             } else this.insertEquationBlock();
         },
         insertDrawingBlock() {
-            this.editor.chain().focus().insertContent(`<drawing-block theme="${this.theme}"></drawing-block>`).run();
+            this.editor.chain().focus().insertContent(`<drawing-block></drawing-block>`).run();
         },
         save() {
             this.$emit('save-click');
