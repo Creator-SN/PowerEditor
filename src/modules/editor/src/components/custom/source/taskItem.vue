@@ -1,8 +1,7 @@
 <template>
     <node-view-wrapper v-if="node" as="li" class="power-editor-task-item-container">
-        <fv-check-box v-model="node.attrs.checked" :theme="thisTheme" :disabled="!editor.isEditable"></fv-check-box>
+        <fv-check-box v-model="node.attrs.checked" :theme="thisTheme" :disabled="!editor.isEditable" contenteditable="false"></fv-check-box>
         <node-view-content ref="n" class="power-editor-task-item-content"></node-view-content>
-        <p v-show="show" class="power-editor-task-item-placeholder">{{ node.attrs.placeholder }}</p>
     </node-view-wrapper>
 </template>
 
@@ -57,7 +56,6 @@ export default {
     },
     data() {
         return {
-            show: true,
             thisTheme: this.editor.storage.defaultStorage.theme,
             timer: {},
         };
@@ -68,14 +66,9 @@ export default {
         }
     },
     mounted() {
-        this.timerInit();
+
     },
     methods: {
-        timerInit() {
-            this.timer = setInterval(() => {
-                this.show = this.$refs.n.$el.innerText.replace(/\n/g, '') === '';
-            }, 50);
-        },
         preventEnter(event) {
             console.log(event);
         },
