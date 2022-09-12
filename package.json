@@ -59,15 +59,9 @@
     "d3": "^7.0.4",
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
-<<<<<<< HEAD
     "lowlight": "^2.6.1",
     "simplify-js": "^1.2.4",
     "vfluentdesign": "^0.4.2",
-=======
-    "prosemirror-state": "^1.4.1",
-    "simplify-js": "^1.2.4",
-    "vfluentdesign": "^0.2.20",
->>>>>>> 426b6a40569046c90aa166d874e410671750286a
     "vue": "^2.6.11"
   },
   "devDependencies": {
