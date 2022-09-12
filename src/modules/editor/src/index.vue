@@ -55,7 +55,7 @@ import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 
-import lowlight from 'lowlight';
+import { lowlight } from 'lowlight/lib/core';
 
 import ImageBlock from './components/custom/extension/imageBlock.js';
 import EmbedBlock from './components/custom/extension/embedBlock.js';
