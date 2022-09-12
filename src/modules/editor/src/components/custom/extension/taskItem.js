@@ -1,6 +1,6 @@
 import { Node, mergeAttributes, nodeInputRule } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-2';
-import { nodeInputRuleWithContentRule } from '../inputRules/nodeInputWithContentRules';
+import { nodeInputWithContentRule } from '../inputRules/nodeInputWithContentRules';
 import taskItem from '../source/taskItem.vue';
 
 const inputRegex = /^\s*(\[([ |x])\])\s$/;
@@ -14,19 +14,17 @@ export default Node.create({
 
     draggable: true,
 
-    atom: true,
-
     addAttributes() {
         return {
             value: {
-                default: ""
+                default: '',
             },
             checked: {
                 default: false,
             },
             placeholder: {
                 default: 'To-Do',
-            }
+            },
         };
     },
 
@@ -36,15 +34,11 @@ export default Node.create({
                 tag: 'li[data-type="powerTaskItem"]',
                 priority: 51,
             },
-        ]
+        ];
     },
 
     renderHTML({ HTMLAttributes }) {
-        return ['li', mergeAttributes(
-            this.options.HTMLAttributes,
-            HTMLAttributes,
-            { 'data-type': 'powerTaskItem' },
-        ), 0]
+        return ['li', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { 'data-type': 'powerTaskItem' }), 0];
     },
 
     addKeyboardShortcuts() {
@@ -69,14 +63,19 @@ export default Node.create({
 
     addInputRules() {
         return [
-            nodeInputRuleWithContentRule({
-                find: inputRegex, type: this.type, getAttributes: match => {
+            nodeInputWithContentRule({
+                find: inputRegex,
+                type: this.type,
+                getAttributes: (match) => {
                     return {
                         checked: match[match.length - 1] === 'x',
                         theme: this.editor.$PowerEditorTheme(),
                     };
                 },
-                content:"Todo..."
+                content: {
+                    type: 'paragraph',
+                },
+                overlapIgnore: ['powerTaskItem'],
             }),
         ];
     },
