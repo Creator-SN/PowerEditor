@@ -1,5 +1,6 @@
 import { Node, mergeAttributes, nodeInputRule } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-2';
+import { nodeInputRuleWithContentRule } from '../inputRules/nodeInputWithContentRules';
 import taskItem from '../source/taskItem.vue';
 
 const inputRegex = /^\s*(\[([ |x])\])\s$/;
@@ -68,13 +69,14 @@ export default Node.create({
 
     addInputRules() {
         return [
-            nodeInputRule({
+            nodeInputRuleWithContentRule({
                 find: inputRegex, type: this.type, getAttributes: match => {
                     return {
                         checked: match[match.length - 1] === 'x',
                         theme: this.editor.$PowerEditorTheme(),
                     };
-                }
+                },
+                content:"Todo..."
             }),
         ];
     },
