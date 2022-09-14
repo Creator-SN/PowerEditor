@@ -1,27 +1,73 @@
 <template>
-    <div class="power-editor-container" :class="[{ dark: theme === 'dark' }]">
+    <div
+        class="power-editor-container"
+        :class="[{ dark: theme === 'dark' }]"
+    >
         <transition name="power-editor-tool-bar-fade-in">
-            <tool-bar v-if="editor && editable" v-show="showToolBar" :editor="editor" :theme="theme" :language="language" :mobileMode="mobileMode" @save-click="save">
+            <tool-bar
+                v-if="editor && editable"
+                v-show="showToolBar"
+                :editor="editor"
+                :theme="theme"
+                :language="language"
+                :mobileMode="mobileMode"
+                @save-click="save"
+            >
                 <template v-slot:custom-buttons="x">
-                    <slot name="custom-buttons" :editor="editor" :defaultClass="x.defaultClass"></slot>
+                    <slot
+                        name="custom-buttons"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
                 </template>
                 <template v-slot:custom-buttons-0="x">
-                    <slot name="custom-buttons-0" :editor="editor" :defaultClass="x.defaultClass"></slot>
+                    <slot
+                        name="custom-buttons-0"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
                 </template>
                 <template v-slot:custom-buttons-1="x">
-                    <slot name="custom-buttons-1" :editor="editor" :defaultClass="x.defaultClass"></slot>
+                    <slot
+                        name="custom-buttons-1"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
                 </template>
                 <template v-slot:custom-buttons-2="x">
-                    <slot name="custom-buttons-2" :editor="editor" :defaultClass="x.defaultClass"></slot>
+                    <slot
+                        name="custom-buttons-2"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
                 </template>
                 <template v-slot:custom-buttons-3="x">
-                    <slot name="custom-buttons-3" :editor="editor" :defaultClass="x.defaultClass"></slot>
+                    <slot
+                        name="custom-buttons-3"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
                 </template>
             </tool-bar>
         </transition>
-        <div v-if="editor && editable" v-show="showToolBar" class="power-editor-tool-bar-acrylic-background"></div>
-        <div :class="[{ 'read-only': !editable || !showToolBar }]" class="tip-tap-editor-container" ref="container" :style="{ background: editorOutSideBackground }">
-            <editor-content class="tip-tap-editor" :editor="editor" :theme="theme" ref="editor" :style="{ 'max-width': contentMaxWidth }" />
+        <div
+            v-if="editor && editable"
+            v-show="showToolBar"
+            class="power-editor-tool-bar-acrylic-background"
+        ></div>
+        <div
+            :class="[{ 'read-only': !editable || !showToolBar }]"
+            class="tip-tap-editor-container"
+            ref="container"
+            :style="{ background: editorOutSideBackground }"
+        >
+            <editor-content
+                class="tip-tap-editor"
+                :editor="editor"
+                :theme="theme"
+                ref="editor"
+                :style="{ 'max-width': contentMaxWidth }"
+            />
         </div>
         <div class="power-editor-bubble-tool-bar">
             <bubble-tool-bar
@@ -39,7 +85,7 @@
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2';
-import { Extension } from "@tiptap/core";
+import { Extension } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
@@ -55,7 +101,7 @@ import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 
-import { lowlight } from 'lowlight/lib/core';
+import { lowlight } from './js/lowlight';
 
 import ImageBlock from './components/custom/extension/imageBlock.js';
 import EmbedBlock from './components/custom/extension/embedBlock.js';
@@ -243,15 +289,15 @@ export default {
                 ...this.mentionItemAttr,
             };
         },
-        defaultStorageInit () {
+        defaultStorageInit() {
             const defaultStorage = Extension.create({
-                name: "defaultStorage",
+                name: 'defaultStorage',
 
-                addStorage () {
+                addStorage() {
                     return {
-                        theme: "light"
-                    }
-                }
+                        theme: 'light',
+                    };
+                },
             });
 
             return defaultStorage;
