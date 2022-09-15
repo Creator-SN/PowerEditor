@@ -62,7 +62,7 @@
     "katex": "^0.13.18",
     "lowlight": "^2.7.0",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "^0.4.3",
+    "vfluentdesign": "^0.4.4",
     "vue": "^2.6.11"
   },
   "devDependencies": {
