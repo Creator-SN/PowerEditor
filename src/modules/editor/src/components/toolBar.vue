@@ -122,8 +122,8 @@
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
-            :background="getBackground(false)"
-            :foreground="getForeground(false)"
+            :background="getBackground(editor.isActive('bulletList'))"
+            :foreground="getForeground(editor.isActive('bulletList'))"
             :title="getTitle('BulletedList')"
             @click="exec('toggleBulletList')"
         >
@@ -133,8 +133,8 @@
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
-            :background="getBackground(false)"
-            :foreground="getForeground(false)"
+            :background="getBackground(editor.isActive('orderedList'))"
+            :foreground="getForeground(editor.isActive('orderedList'))"
             :title="getTitle('NumberedList')"
             @click="exec('toggleOrderedList')"
         >
