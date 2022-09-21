@@ -465,6 +465,7 @@ export default {
         background: rgba(255, 255, 255, 0.8);
         border: rgba(36, 36, 36, 0.1) thin solid;
         border-radius: 8px;
+        box-sizing: border-box;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(50px);
         -webkit-backdrop-filter: blur(50px);
