@@ -2,6 +2,7 @@
     <div
         class="power-editor-tool-bar-container"
         :class="[{ dark: thisTheme === 'dark' }]"
+        :style="{height: `${toolbarHeight}px`, 'border-radius': `${toolbarBorderRadius}px`}"
     >
         <fv-button
             class="power-editor-cmd-btn"
@@ -470,6 +471,12 @@ export default {
         tippyOptions: {
             default: 100,
         },
+        toolbarHeight: {
+            default: 70,
+        },
+        toolbarBorderRadius: {
+            default: ""
+        },
         language: {
             default: 'en',
         },
@@ -600,14 +607,16 @@ export default {
     width: calc(100% - 10px);
     height: 70px;
     padding-right: 5px;
+    padding-bottom: 6px;
     background: transparent;
     border: rgba(120, 120, 120, 0.1) solid thin;
     border-radius: 8px;
     box-sizing: border-box;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     z-index: 5;
     overflow-x: auto;
+    overflow-y: hidden;
 
     .power-editor-cmd-btn {
         width: 35px;

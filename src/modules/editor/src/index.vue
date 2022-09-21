@@ -10,6 +10,8 @@
                 :editor="editor"
                 :theme="theme"
                 :language="language"
+                :toolbarHeight="toolbarHeight"
+                :toolbarBorderRadius="toolbarBorderRadius"
                 :mobileMode="mobileMode"
                 @save-click="save"
             >
@@ -54,12 +56,13 @@
             v-if="editor && editable"
             v-show="showToolBar"
             class="power-editor-tool-bar-acrylic-background"
+            :style="{height: `${toolbarHeight}px`, background: toolbarBackground, 'border-radius': `${toolbarBorderRadius}px`}"
         ></div>
         <div
             :class="[{ 'read-only': !editable || !showToolBar }]"
             class="tip-tap-editor-container"
             ref="container"
-            :style="{ background: editorOutSideBackground }"
+            :style="{ 'padding-top': editable ? `${toolbarHeight - 10}px` : '', background: editorOutSideBackground }"
         >
             <editor-content
                 class="tip-tap-editor"
@@ -144,6 +147,15 @@ export default {
         },
         showToolBar: {
             default: true,
+        },
+        toolbarHeight: {
+            default: 70,
+        },
+        toolbarBackground: {
+            default: '',
+        },
+        toolbarBorderRadius: {
+            default: 8,
         },
         mentionItemAttr: {
             default: () => {
@@ -451,8 +463,9 @@ export default {
         width: calc(100% - 10px);
         height: 70px;
         background: rgba(255, 255, 255, 0.8);
+        border: rgba(36, 36, 36, 0.1) thin solid;
         border-radius: 8px;
-        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(50px);
         -webkit-backdrop-filter: blur(50px);
         z-index: 3;
@@ -714,6 +727,7 @@ export default {
 
         .power-editor-tool-bar-acrylic-background {
             background: rgba(70, 70, 70, 0.3);
+            border: rgba(120, 120, 120, 0.1) thin solid;
         }
 
         .tip-tap-editor-container {
