@@ -62,7 +62,7 @@
             :class="[{ 'read-only': !editable || !showToolBar }]"
             class="tip-tap-editor-container"
             ref="container"
-            :style="{ 'padding-top': editable && showToolBar ? `${toolbarHeight - 10}px` : '', background: editorOutSideBackground }"
+            :style="{ 'padding-top': editable && showToolBar ? `${toolbarHeight - 10}px` : `${readOnlyPaddingTop}px`, background: editorOutSideBackground }"
         >
             <editor-content
                 class="tip-tap-editor"
@@ -159,6 +159,9 @@ export default {
         },
         toolbarBorderRadius: {
             default: 8,
+        },
+        readOnlyPaddingTop: {
+            default: 5,
         },
         mentionItemAttr: {
             default: () => {

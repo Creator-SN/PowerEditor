@@ -44,6 +44,7 @@ export default {
 |      toolbarHeight      |     [number]     |       No       |                       70                       |         菜单栏高度         |
 |    toolbarBackground    | [string(color)]  |       No       |                                                |         菜单栏背景         |
 |   toolbarBorderRadius   |     [number]     |       No       |                       8                        |       菜单栏边框圆角       |
+|   readOnlyPaddingTop    |     [number]     |       No       |                       5                        |   只读模式下的顶部内边距   |
 |          theme          | ['light','dark'] |       No       |                     light                      |        明暗主题风格        |
 
 ### Events
