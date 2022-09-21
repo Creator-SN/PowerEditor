@@ -37,6 +37,7 @@ export default {
 |        editable         |      [bool]      |       No       |                      true                      |       编辑器是否只读       |
 |       placeholder       |     [string]     |       No       |               Write something …                |     编辑器Placeholder      |
 |     contentMaxWidth     |     [number]     |       No       |                     900px                      |      内容最大显示宽度      |
+|    editorBackground     | [string(color)]  |       No       |                                                |      编辑器内部背景色      |
 | editorOutSideBackground | [string(color)]  |       No       |                                                |      编辑器外部背景色      |
 |   mobileDisplayWidth    |     [number]     |       No       |                      768                       |         移动端模式         |
 |       showToolBar       |      [bool]      |       No       |                      true                      |       显示菜单工具栏       |

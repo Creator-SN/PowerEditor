@@ -69,7 +69,7 @@
                 :editor="editor"
                 :theme="theme"
                 ref="editor"
-                :style="{ 'max-width': contentMaxWidth }"
+                :style="{background: editorBackground, 'max-width': contentMaxWidth }"
             />
         </div>
         <div class="power-editor-bubble-tool-bar">
@@ -138,6 +138,9 @@ export default {
         contentMaxWidth: {
             default: '900px',
             type: String,
+        },
+        editorBackground: {
+            default: ""
         },
         editorOutSideBackground: {
             default: '',
