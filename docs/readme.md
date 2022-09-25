@@ -49,10 +49,11 @@ export default {
 
 ### Events
 ---
-| 事件名(Name) | 参数类型(args) |       说明(statement)        |
-|:------------:|:--------------:|:----------------------------:|
-|  save-json   |     string     | 触发保存事件并以json形式保存 |
-|  save-html   |     string     | 触发保存事件并以html形式保存 |
+|   事件名(Name)   | 参数类型(args) |       说明(statement)        |
+|:----------------:|:--------------:|:----------------------------:|
+| container-scroll |     object     |   Editor容器滚动时触发事件   |
+|    save-json     |     string     | 触发保存事件并以json形式保存 |
+|    save-html     |     string     | 触发保存事件并以html形式保存 |
 
 ### Hooks
 

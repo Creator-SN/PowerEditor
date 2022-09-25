@@ -140,7 +140,7 @@ export default {
             type: String,
         },
         editorBackground: {
-            default: ""
+            default: '',
         },
         editorOutSideBackground: {
             default: '',
@@ -221,6 +221,7 @@ export default {
     },
     mounted() {
         this.init();
+        this.eventInit();
         this.themeSync();
         this.widthTimerInit();
     },
@@ -306,6 +307,14 @@ export default {
             this.editor.$MentionItemTools = {
                 ...this.mentionItemAttr,
             };
+        },
+        eventInit() {
+            this.$refs.container.addEventListener('scroll', (event) => {
+                this.$emit('container-scroll', {
+                    el: this.$refs.container,
+                    oriEvent: event,
+                });
+            });
         },
         defaultStorageInit() {
             const defaultStorage = Extension.create({
