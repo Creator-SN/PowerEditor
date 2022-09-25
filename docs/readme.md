@@ -31,21 +31,22 @@ export default {
 
 ### Propoties
 ---
-|       属性(attr)        |    类型(type)    | 必填(required) |                默认值(default)                 |      说明(statement)       |
-|:-----------------------:|:----------------:|:--------------:|:----------------------------------------------:|:--------------------------:|
-|          value          |     [string]     |       No       | <p>I’m running PowerEditor with Vue.js. 🎉</p> | 文本内容, 支持纯文本及HTML |
-|        editable         |      [bool]      |       No       |                      true                      |       编辑器是否只读       |
-|       placeholder       |     [string]     |       No       |               Write something …                |     编辑器Placeholder      |
-|     contentMaxWidth     |     [number]     |       No       |                     900px                      |      内容最大显示宽度      |
-|    editorBackground     | [string(color)]  |       No       |                                                |      编辑器内部背景色      |
-| editorOutSideBackground | [string(color)]  |       No       |                                                |      编辑器外部背景色      |
-|   mobileDisplayWidth    |     [number]     |       No       |                      768                       |         移动端模式         |
-|       showToolBar       |      [bool]      |       No       |                      true                      |       显示菜单工具栏       |
-|      toolbarHeight      |     [number]     |       No       |                       70                       |         菜单栏高度         |
-|    toolbarBackground    | [string(color)]  |       No       |                                                |         菜单栏背景         |
-|   toolbarBorderRadius   |     [number]     |       No       |                       8                        |       菜单栏边框圆角       |
-|   readOnlyPaddingTop    |     [number]     |       No       |                       5                        |   只读模式下的顶部内边距   |
-|          theme          | ['light','dark'] |       No       |                     light                      |        明暗主题风格        |
+|       属性(attr)        |    类型(type)    | 必填(required) |                默认值(default)                 |             说明(statement)              |
+|:-----------------------:|:----------------:|:--------------:|:----------------------------------------------:|:----------------------------------------:|
+|          value          |     [string]     |       No       | <p>I’m running PowerEditor with Vue.js. 🎉</p> |        文本内容, 支持纯文本及HTML        |
+|        editable         |      [bool]      |       No       |                      true                      |              编辑器是否只读              |
+|       placeholder       |     [string]     |       No       |               Write something …                |            编辑器Placeholder             |
+|     contentMaxWidth     |     [number]     |       No       |                     900px                      |             内容最大显示宽度             |
+|    editorBackground     | [string(color)]  |       No       |                                                |             编辑器内部背景色             |
+| editorOutSideBackground | [string(color)]  |       No       |                                                |             编辑器外部背景色             |
+|   mobileDisplayWidth    |     [number]     |       No       |                      768                       |                移动端模式                |
+|       showToolBar       |      [bool]      |       No       |                      true                      |              显示菜单工具栏              |
+|      toolbarHeight      |     [number]     |       No       |                       70                       |                菜单栏高度                |
+|    toolbarBackground    | [string(color)]  |       No       |                                                |                菜单栏背景                |
+|   toolbarBorderRadius   |     [number]     |       No       |                       8                        |              菜单栏边框圆角              |
+|   editablePaddingTop    |     [number]     |       No       |                      N/A                       | 可编辑模式下的顶部内边距, 不定义时不生效 |
+|   readOnlyPaddingTop    |     [number]     |       No       |                       5                        |          只读模式下的顶部内边距          |
+|          theme          | ['light','dark'] |       No       |                     light                      |               明暗主题风格               |
 
 ### Events
 ---
