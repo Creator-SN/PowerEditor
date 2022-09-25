@@ -84,6 +84,18 @@ this.$refs.editor.save()
 </power-editor>
 ```
 
+2. Front Content
+
+在正文前插入前序内容
+
+```javascript
+<power-editor>
+    <template v-slot:front-content>
+        <div class="front-content-block"></div>
+    </template>
+</power-editor>
+```
+
 ## Appendix
 
 ### MentionItem
