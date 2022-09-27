@@ -54,6 +54,7 @@
 
 <script>
 import { NodeViewWrapper } from '@tiptap/vue-2';
+import { TextSelection } from 'prosemirror-state';
 
 export default {
     components: {
@@ -138,9 +139,12 @@ export default {
                 this.lock = false;
             } else this.render();
         },
-        'editor.storage.defaultStorage.theme' (val) {
-            this.thisTheme = val
-        }
+        'editor.storage.defaultStorage.theme'(val) {
+            this.thisTheme = val;
+        },
+        selected(val) {
+            if (val) this.show();
+        },
     },
     mounted() {
         this.outSideClickInit();
@@ -192,6 +196,10 @@ export default {
                 showPopper: false,
             });
             this.editor.commands.focus();
+            const { tr } = this.editor.view.state;
+            const selection = TextSelection.near(tr.doc.resolve(this.getPos() + this.node.nodeSize));
+            tr.setSelection(selection);
+            this.editor.view.dispatch(tr);
         },
         closeWithBackup() {
             this.close();
