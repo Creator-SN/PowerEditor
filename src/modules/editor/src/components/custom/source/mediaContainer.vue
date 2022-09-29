@@ -23,6 +23,11 @@
                 <i class="ms-Icon ms-Icon--AlignCenter"></i>
             </fv-button>
         </div>
+        <div class="power-editor-media-control-btn-block bottom">
+            <fv-button class="power-editor-media-cmd-btn" :theme="theme" icon="ReturnKeySm" fontSize="12" :isBoxShadow="true" :title="getTitle('TextField')" style="width: 80px;" @click="newline">
+                {{getTitle('Newline')}}
+            </fv-button>
+        </div>
         <div v-show="active" class="power-editor-media-mask-block"></div>
         <p v-show="thisCaption !== '' && !show.captionBox" class="power-editor-media-container-caption" @click="showCaptionBox">{{thisCaption}}</p>
         <fv-text-box
@@ -30,7 +35,7 @@
             v-model="thisCaption"
             :theme="theme"
             underline
-            :is-box-shadow="true"
+            :border-radius="0"
             class="power-editor-media-caption-block"
             :placeholder="getTitle('Write a caption...')"
         ></fv-text-box>
@@ -56,8 +61,11 @@ export default {
         alignCenter: {
             default: true,
         },
-        language: {
-            default: 'en',
+        node: {
+            default: () => ({})
+        },
+        getPos: {
+            default: () => {}
         },
         theme: {
             default: 'light',
@@ -167,11 +175,15 @@ export default {
             window.addEventListener('click', this.outsideEvent);
         },
         getTitle(name) {
-            return i18n(name, this.language);
+            return i18n(name, this.editor.storage.defaultStorage.language);
         },
         showCaptionBox () {
             if(!this.editor.isEditable) return;
             this.show.captionBox = true;
+        },
+        newline () {
+            this.editor.commands.focus();
+            this.editor.commands.insertContentAt(this.getPos() + this.node.nodeSize, '<br>');
         }
     },
     beforeDestroy () {
@@ -272,6 +284,12 @@ export default {
         opacity: 0;
         transition: opacity 1s;
 
+        &.bottom
+        {
+            top: inherit;
+            bottom: -25px;
+        }
+
         .power-editor-media-cmd-btn {
             width: 25px;
             height: 25px;
@@ -304,6 +322,7 @@ export default {
         font-size: 13.8px;
         color: rgba(95, 95, 95, 1);
         border-radius: 3px;
+        font-family: 'Times New Roman', Times, serif;
         text-align: center;
         display: flex;
         justify-content: center;

@@ -10,6 +10,7 @@
             :alignCenter.sync="node.attrs.alignCenter"
             :editor="editor"
             :theme="thisTheme"
+            :node="node" :getPos="getPos"
         >
             <fv-image
                 :src="node.attrs.src"

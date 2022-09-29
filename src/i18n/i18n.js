@@ -306,6 +306,10 @@ let i18n = {
     'Insert Link': {
         en: 'Insert Link',
         cn: '插入链接'
+    },
+    'Newline': {
+        en: 'Newline',
+        cn: '换行'
     }
 }
 

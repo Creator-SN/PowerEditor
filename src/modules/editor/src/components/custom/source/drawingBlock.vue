@@ -31,8 +31,8 @@
                 <fv-button class="power-editor-d-b-btn __clear" :borderRadius="50" :theme="thisTheme" @click="clear"><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
             </div>
         </div>
-        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="thisTheme">
-            <svg viewBox="0 0 500 250" ref="canvas">
+        <media-container :width.sync="node.attrs.width" :caption.sync="node.attrs.caption" :alignCenter.sync="node.attrs.alignCenter" :editor="editor" :theme="thisTheme" :node="node" :getPos="getPos">
+            <svg class="canvas-svg" viewBox="0 0 500 250" ref="canvas">
                 <template v-for="item in node.attrs.lines">
                     <path v-if="item.id !== id" :key="item.id" :d="item.path" :id="`id-${item.id}`" :stroke="item.color" :stroke-width="item.size" />
                 </template>
@@ -223,18 +223,19 @@ export default {
 
     .power-editor-d-b-container {
         position: absolute;
-        left: 0px;
         top: 100%;
         width: 100%;
+        max-width: 800px;
         height: auto;
         padding: 5px;
         background: rgba(245, 245, 245, 0.8);
-        border-radius: 6px;
+        border: rgba(120, 120, 120, 0.1) solid thin;
+        border-radius: 8px;
         box-sizing: border-box;
-        display: none;
+        display: flex;
         align-items: center;
         flex-wrap: wrap;
-        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(50px);
         -webkit-backdrop-filter: blur(50px);
 
@@ -252,8 +253,8 @@ export default {
             }
 
             .power-editor-d-b-btn {
-                width: 30px;
-                height: 30px;
+                width: 25px;
+                height: 25px;
 
                 &.__color {
                     margin-left: 5px;
@@ -262,7 +263,7 @@ export default {
         }
     }
 
-    svg {
+    .canvas-svg {
         background: #f1f3f5;
         cursor: crosshair;
     }
@@ -276,9 +277,10 @@ export default {
     &.dark {
         .power-editor-d-b-container {
             background: rgba(36, 36, 36, 1);
+            border: rgba(200, 200, 200, 0.1) solid thin;
         }
 
-        svg {
+        .canvas-svg {
             background: rgba(50, 49, 48, 1);
         }
     }

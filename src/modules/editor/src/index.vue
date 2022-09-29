@@ -214,19 +214,22 @@ export default {
     watch: {
         value(val) {
             this.editor.commands.setContent(val);
-            this.themeSync();
+            this.propsSync();
         },
         editable() {
             this.editor.setEditable(this.editable);
         },
+        language () {
+            this.propsSync();
+        },
         theme() {
-            this.themeSync();
+            this.propsSync();
         },
     },
     mounted() {
         this.init();
         this.eventInit();
-        this.themeSync();
+        this.propsSync();
         this.widthTimerInit();
     },
     methods: {
@@ -326,6 +329,7 @@ export default {
 
                 addStorage() {
                     return {
+                        language: 'en',
                         theme: 'light',
                     };
                 },
@@ -341,7 +345,8 @@ export default {
                 this.insert(`<img src="${el}" theme="${this.theme}"></img>\n`);
             });
         },
-        themeSync() {
+        propsSync() {
+            this.editor.storage.defaultStorage.language = this.language;
             this.editor.storage.defaultStorage.theme = this.theme;
         },
         widthTimerInit() {
