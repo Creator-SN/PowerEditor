@@ -182,6 +182,7 @@ export default {
             this.show.captionBox = true;
         },
         newline () {
+            if(!this.editor.isEditable) return;
             this.editor.commands.focus();
             this.editor.commands.insertContentAt(this.getPos() + this.node.nodeSize, '<br>');
         }
