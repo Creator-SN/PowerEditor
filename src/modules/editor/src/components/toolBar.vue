@@ -319,23 +319,23 @@
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
-            :background="getBackground(editor.isActive('codeBlock'))"
-            :foreground="getForeground(editor.isActive('codeBlock'))"
-            :title="getTitle('Code Block')"
-            @click="exec('toggleCodeBlock')"
-        >
-            <i class="ms-Icon ms-Icon--Code"></i>
-        </fv-button>
-        <fv-button
-            class="power-editor-cmd-btn"
-            :theme="thisTheme"
-            :isBoxShadow="true"
             :background="getBackground(editor.isActive('equationBlock'))"
             :foreground="getForeground(editor.isActive('equationBlock'))"
             :title="getTitle('Equation')"
             @click="insertEquation"
         >
             <i class="ms-Icon ms-Icon--Variable"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(editor.isActive('codeBlock'))"
+            :foreground="getForeground(editor.isActive('codeBlock'))"
+            :title="getTitle('Code Block')"
+            @click="exec('toggleCodeBlock')"
+        >
+            <i class="ms-Icon ms-Icon--Code"></i>
         </fv-button>
         <image-callout
             :mobileMode="mobileMode"

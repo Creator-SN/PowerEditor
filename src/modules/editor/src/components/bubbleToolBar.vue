@@ -89,7 +89,6 @@
                 <fv-button
                     class="power-editor-bubble-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
                     :background="getBackground(false)"
                     :foreground="getForeground(false, 'rgba(56, 171, 127, 1)')"
                     :title="getTitle('Table')"
@@ -112,22 +111,22 @@
         <fv-button
             class="power-editor-bubble-cmd-btn"
             :theme="thisTheme"
+            :background="getBackground(editor.isActive('equationBlock'))"
+            :foreground="getForeground(editor.isActive('equationBlock'))"
+            :title="getTitle('Equation')"
+            @click="insertEquation"
+        >
+            <i class="ms-Icon ms-Icon--Variable"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-bubble-cmd-btn"
+            :theme="thisTheme"
             :background="getBackground(editor.isActive('codeBlock'))"
             :foreground="getForeground(editor.isActive('codeBlock'))"
             :title="getTitle('Code Block')"
             @click="exec('toggleCodeBlock')"
         >
             <i class="ms-Icon ms-Icon--Code"></i>
-        </fv-button>
-        <fv-button
-            class="power-editor-bubble-cmd-btn"
-            :theme="thisTheme"
-            :background="getBackground(editor.isActive('equationBlock'))"
-            :foreground="getForeground(editor.isActive('equationBlock'))"
-            :title="getTitle('Equation')"
-            @click="insertEquationBlock"
-        >
-            <i class="ms-Icon ms-Icon--Variable"></i>
         </fv-button>
     </div>
 </template>
@@ -233,11 +232,38 @@ export default {
         insertEmbed(link) {
             this.editor.chain().focus().insertContent(link).run();
         },
-        insertInlineEquation() {
-            this.editor.chain().focus().insertContent(`<inline-equation></inline-equation>`).run();
+        insertInlineEquation(text = '') {
+            this.editor
+                .chain()
+                .focus()
+                .insertContent({
+                    type: 'inlineEquation',
+                    attrs: {
+                        theme: this.theme,
+                        value: text,
+                    },
+                })
+                .run();
         },
         insertEquationBlock() {
-            this.editor.chain().focus().insertContent(`<equation-block></equation-block>`).run();
+            this.editor
+                .chain()
+                .focus()
+                .insertContent({
+                    type: 'equationBlock',
+                    attrs: {
+                        theme: this.theme,
+                    },
+                })
+                .run();
+        },
+        insertEquation() {
+            let state = this.editor.view.state;
+            let selection = this.editor.view.state.selection;
+            let text = state.doc.textBetween(selection.from, selection.to, ' ');
+            if (text.length > 0) {
+                this.insertInlineEquation(text);
+            } else this.insertEquationBlock();
         },
         insertDrawingBlock() {
             this.editor.chain().focus().insertContent(`<drawing-block></drawing-block>`).run();
@@ -253,25 +279,25 @@ export default {
 .power-editor-bubble-tool-bar-container {
     position: relative;
     width: auto;
-    height: 35px;
+    height: 45px;
     padding: 3px;
     background: rgba(239, 239, 239, 1);
-    border: rgba(120, 120, 120, 0.1) solid thin;
-    border-radius: 3px;
+    border: rgba(120, 120, 120, 0.3) solid thin;
+    border-radius: 6px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     z-index: 5;
     overflow: hidden;
     overflow-x: hidden;
-    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
 
     &.dark {
         background: rgba(92, 92, 92, 1);
     }
 
     .power-editor-bubble-cmd-btn {
-        width: 35px;
+        width: 30px;
         height: 30px;
         margin: 0px 1px;
         flex-shrink: 0;

@@ -219,7 +219,7 @@ export default {
         editable() {
             this.editor.setEditable(this.editable);
         },
-        language () {
+        language() {
             this.propsSync();
         },
         theme() {
@@ -281,6 +281,9 @@ export default {
                     this.defaultStorageInit(),
                     BubbleMenu.configure({
                         element: document.querySelector('.power-editor-bubble-tool-bar'),
+                        tippyOptions: {
+                            maxWidth: 'none',
+                        },
                         shouldShow: ({ editor, view, state, oldState, from, to }) => {
                             // only show the bubble menu for images and links
                             if (state.selection.from === state.selection.to) return false;
