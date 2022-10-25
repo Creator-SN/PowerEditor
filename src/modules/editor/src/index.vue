@@ -458,6 +458,7 @@ export default {
         insertMarkdown(content) {
             let deserialized = markdownSupport.deserialize(this.editor.schema, content);
             this.editor.commands.setContent(deserialized);
+            return deserialized;
         },
         saveMarkdown() {
             return markdownSupport.serialize(this.editor.schema, this.editor.getJSON());
