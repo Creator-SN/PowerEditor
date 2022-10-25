@@ -106,6 +106,7 @@ import TableHeader from '@tiptap/extension-table-header';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 
 import { lowlight } from './js/lowlight';
+import markdownSupport from './js/markdown';
 
 import ImageBlock from './components/custom/extension/imageBlock.js';
 import EmbedBlock from './components/custom/extension/embedBlock.js';
@@ -454,6 +455,13 @@ export default {
         focus() {
             this.editor.commands.focus();
         },
+        insertMarkdown(content) {
+            let deserialized = markdownSupport.deserialize(this.editor.schema, content);
+            this.editor.commands.setContent(deserialized);
+        },
+        saveMarkdown() {
+            return markdownSupport.serialize(this.editor.schema, this.editor.getJSON());
+        },
         save() {
             this.$emit('save-json', this.editor.getJSON());
             this.$emit('save-html', this.editor.getHTML());
@@ -489,7 +497,7 @@ export default {
         top: 5px;
         width: calc(100% - 10px);
         height: 70px;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.6);
         border: rgba(36, 36, 36, 0.1) thin solid;
         border-radius: 8px;
         box-sizing: border-box;

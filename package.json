@@ -61,8 +61,9 @@
     "i18next": "^21.1.1",
     "katex": "^0.13.18",
     "lowlight": "^2.7.0",
+    "marked": "^4.1.1",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "^0.4.6",
+    "vfluentdesign": "^0.5.1",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -74,6 +75,7 @@
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "colors": "^1.4.0",
+    "entities": "1.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^6.2.2",
