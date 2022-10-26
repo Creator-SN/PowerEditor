@@ -192,7 +192,6 @@ function serialize(schema, content) {
         serializerNodes,
         serializerMarks
     );
-    console.log(proseMirrorDocument)
     return serializer.serialize(proseMirrorDocument, {
         tightLists: true,
     });

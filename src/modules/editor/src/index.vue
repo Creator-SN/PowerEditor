@@ -470,7 +470,6 @@ export default {
         save() {
             this.$emit('save-json', this.editor.getJSON());
             this.$emit('save-html', this.editor.getHTML());
-            console.log(this.saveMarkdown());
         },
     },
     beforeDestroy() {
