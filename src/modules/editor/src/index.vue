@@ -455,8 +455,12 @@ export default {
         focus() {
             this.editor.commands.focus();
         },
-        insertMarkdown(content) {
+        computeMarkdown (content) {
             let deserialized = markdownSupport.deserialize(this.editor.schema, content);
+            return deserialized;
+        },
+        insertMarkdown(content) {
+            let deserialized = this.computeMarkdown(content);
             this.editor.commands.setContent(deserialized);
             return deserialized;
         },
@@ -466,6 +470,7 @@ export default {
         save() {
             this.$emit('save-json', this.editor.getJSON());
             this.$emit('save-html', this.editor.getHTML());
+            console.log(this.saveMarkdown());
         },
     },
     beforeDestroy() {

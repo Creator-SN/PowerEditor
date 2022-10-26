@@ -102,16 +102,52 @@ const serializerNodes = {
         state.closeBlock(node);
     },
     ['powerTaskItem']: (state, node) => {
-        console.log(node)
         state.write(`- [${node.attrs.checked ? 'x' : ' '}] ${node.textContent}`);
         state.closeBlock(node);
+    },
+    ['table']: (state, node) => {
+        let children = node.content.content;
+
+        let headerCells = children[0];
+
+        state.write("|");
+        headerCells.forEach((cell) => {
+            state.renderNode(cell);
+            state.write("|");
+        });
+        state.ensureNewLine();
+        state.write("|");
+        headerCells.forEach(() => {
+            state.write("---|");
+        });
+        state.ensureNewLine();
+
+        for (let i = 1; i < children.length; i++) {
+            let row = children[i];
+            state.write("|");
+            row.forEach((row) => {
+                row.forEach((cell) => {
+                    state.write(cell.textContent);
+                    state.write("|");
+                });
+            });
+            state.ensureNewLine();
+        }
+
+        state.closeBlock(node);
+    },
+    ['pdfNote']: (state, node) => {
+        let children = node.content.content;
+        for(let child of children) {
+            state.renderContent(child);
+        }
     }
 };
 
 const tableMap = new WeakMap();
 
 function isInTable(node) {
-  return tableMap.has(node);
+    return tableMap.has(node);
 }
 
 function isPlainURL(link, parent, index, side) {
@@ -156,7 +192,7 @@ function serialize(schema, content) {
         serializerNodes,
         serializerMarks
     );
-
+    console.log(proseMirrorDocument)
     return serializer.serialize(proseMirrorDocument, {
         tightLists: true,
     });

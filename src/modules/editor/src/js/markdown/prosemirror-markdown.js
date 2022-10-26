@@ -681,7 +681,7 @@ class MarkdownSerializerState {
                 }
             }
             let inner = marks.length ? marks[marks.length - 1] : null;
-            let noEsc = inner && this.marks[inner.type.name].escape === false;
+            let noEsc = inner && this.marks[inner.type.name] && this.marks[inner.type.name].escape === false;
             let len = marks.length - (noEsc ? 1 : 0);
             // Try to reorder 'mixable' marks, such as em and strong, which
             // in Markdown may be opened and closed in different order, so
@@ -689,7 +689,7 @@ class MarkdownSerializerState {
             // active.
             outer: for (let i = 0; i < len; i++) {
                 let mark = marks[i];
-                if (!this.marks[mark.type.name].mixable)
+                if (!this.marks[mark.type.name] || !this.marks[mark.type.name].mixable)
                     break;
                 for (let j = 0; j < active.length; j++) {
                     let other = active[j];
@@ -789,7 +789,11 @@ class MarkdownSerializerState {
     */
     markString(mark, open, parent, index) {
         let info = this.marks[mark.type.name];
-        let value = open ? info.open : info.close;
+        let value = null
+        if(!info)
+            value = "";
+        else
+            value = open ? info.open : info.close;
         return typeof value == "string" ? value : value(this, mark, parent, index);
     }
     /**
