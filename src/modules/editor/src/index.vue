@@ -196,6 +196,9 @@ export default {
         extensions: {
             default: () => [],
         },
+        starterKit:{
+            default: () => {}
+        },
         language: {
             default: 'cn',
         },
@@ -246,6 +249,8 @@ export default {
                             width: 6,
                         },
                         codeBlock: false,
+                        // provide options for starterkit configuration
+                        ...this.starterKit
                     }),
                     Underline,
                     TextAlign.configure({
