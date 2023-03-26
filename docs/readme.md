@@ -49,6 +49,8 @@ export default {
 |   editablePaddingTop    |     [number]     |       No       |                      N/A                       | 可编辑模式下的顶部内边距, 不定义时不生效 |
 |   readOnlyPaddingTop    |     [number]     |       No       |                       5                        |          只读模式下的顶部内边距          |
 |          theme          | ['light','dark'] |       No       |                     light                      |               明暗主题风格               |
+|       starterKit        |     [object]     |       No       |                     ()=>{}                     |                                          |
+|       extensions        |     [array]      |       No       |                       []                       |                                          |
 
 ### Events
 
@@ -111,30 +113,17 @@ this.$refs.editor.save()
 
 ---
 
-|       属性(attr)        |    类型(type)    | 必填(required) |                                    默认值(default)                                    | 说明(statement) |
-| :---------------------: | :--------------: | :------------: | :-----------------------------------------------------------------------------------: | :-------------: |
-|          value          |     [string]     |       No       |                                          N/A                                          |                 |
-|       placeholder       |     [string]     |       No       |                                   Write something …                                   |                 |
-|       mentionList       |     [array]      |       No       |                                                                                       |                 |
-|       filterFunc        |    [function]    |       No       |                                                                                       |                 |
-|   chooseItemCallback    |    [function]    |       No       |                                                                                       |                 |
-|  mentionClickCallback   |    [function]    |       No       |                                                                                       |                 |
-|    headerForeground     | [string(color)]  |       No       |                                 rgba(0, 120, 212, 1)                                  |                 |
-|       showPopper        |      [bool]      |       No       |                                         false                                         |                 |
-|          theme          | ['light','dark'] |       No       |                                         light                                         |                 |
-|       extensions        |     [array]      |       No       |                                          []                                           |                 |
-|       starterKit        |     [object]     |       No       |                                          []                                           |                 |
-|        language         |     [string]     |       No       |                                          cn                                           |                 |
-|     contentMaxWidth     |     [string]     |       No       |                                         900px                                         |                 |
-|    editorBackground     |     [string]     |       No       |                                                                                       |                 |
-| editorOutSideBackground |     [string]     |       No       |                                                                                       |                 |
-|   mobileDisplayWidth    |     [number]     |       No       |                                          768                                          |                 |
-|       showToolBar       |    [boolean]     |       No       |                                         true                                          |                 |
-|    toolbarBackground    |     [string]     |       No       |                                                                                       |                 |
-|   toolbarBorderRadius   |     [number]     |       No       |                                           8                                           |                 |
-|   editablePaddingTop    |    [boolean]     |       No       |                                         false                                         |                 |
-|   readonlyPaddingTop    |     [number]     |       No       |                                           5                                           |                 |
-|     mentionItemAttr     |     [object]     |       No       | ()=>{mentionList,filterFunc,chooseItemCallback,mentionClickCallback,headerForeground} |                 |
+|      属性(attr)      |    类型(type)    | 必填(required) |   默认值(default)    | 说明(statement) |
+| :------------------: | :--------------: | :------------: | :------------------: | :-------------: |
+|        value         |     [string]     |       No       |         N/A          |                 |
+|     placeholder      |     [string]     |       No       |  Write something …   |                 |
+|     mentionList      |     [array]      |       No       |                      |                 |
+|      filterFunc      |    [function]    |       No       |                      |                 |
+|  chooseItemCallback  |    [function]    |       No       |                      |                 |
+| mentionClickCallback |    [function]    |       No       |                      |                 |
+|   headerForeground   | [string(color)]  |       No       | rgba(0, 120, 212, 1) |                 |
+|      showPopper      |      [bool]      |       No       |        false         |                 |
+|        theme         | ['light','dark'] |       No       |        light         |                 |
 
 其中, `mentionList`,`filterFunc`,`chooseItemCallback`,`mentionClickCallback`,`headerForeground`可在初始化`Power Editor`时对`MentionItemAttr`进行设定.
 
