@@ -63,7 +63,7 @@
     "lowlight": "^2.7.0",
     "marked": "^4.1.1",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "^0.5.7",
+    "vfluentdesign": "^0.5.8",
     "vue": "^2.6.11"
   },
   "devDependencies": {
