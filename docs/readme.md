@@ -30,12 +30,14 @@ export default {
 <power-editor :theme="theme" :editable="!readonly" style="width:100%" />
 
 ### Propoties
+
 ---
+
 |       属性(attr)        |    类型(type)    | 必填(required) |                默认值(default)                 |             说明(statement)              |
-|:-----------------------:|:----------------:|:--------------:|:----------------------------------------------:|:----------------------------------------:|
-|          value          |     [string]     |       No       | <p>I’m running PowerEditor with Vue.js. 🎉</p> |        文本内容, 支持纯文本及HTML        |
+| :---------------------: | :--------------: | :------------: | :--------------------------------------------: | :--------------------------------------: |
+|          value          |     [string]     |       No       | <p>I’m running PowerEditor with Vue.js. 🎉</p> |       文本内容, 支持纯文本及 HTML        |
 |        editable         |      [bool]      |       No       |                      true                      |              编辑器是否只读              |
-|       placeholder       |     [string]     |       No       |               Write something …                |            编辑器Placeholder             |
+|       placeholder       |     [string]     |       No       |               Write something …                |            编辑器 Placeholder            |
 |     contentMaxWidth     |     [number]     |       No       |                     900px                      |             内容最大显示宽度             |
 |    editorBackground     | [string(color)]  |       No       |                                                |             编辑器内部背景色             |
 | editorOutSideBackground | [string(color)]  |       No       |                                                |             编辑器外部背景色             |
@@ -47,14 +49,18 @@ export default {
 |   editablePaddingTop    |     [number]     |       No       |                      N/A                       | 可编辑模式下的顶部内边距, 不定义时不生效 |
 |   readOnlyPaddingTop    |     [number]     |       No       |                       5                        |          只读模式下的顶部内边距          |
 |          theme          | ['light','dark'] |       No       |                     light                      |               明暗主题风格               |
+|       starterKit        |     [object]     |       No       |                     ()=>{}                     |                                          |
+|       extensions        |     [array]      |       No       |                       []                       |                                          |
 
 ### Events
+
 ---
-|   事件名(Name)   | 参数类型(args) |       说明(statement)        |
-|:----------------:|:--------------:|:----------------------------:|
-| container-scroll |     object     |   Editor容器滚动时触发事件   |
-|    save-json     |     string     | 触发保存事件并以json形式保存 |
-|    save-html     |     string     | 触发保存事件并以html形式保存 |
+
+|   事件名(Name)   | 参数类型(args) |        说明(statement)         |
+| :--------------: | :------------: | :----------------------------: |
+| container-scroll |     object     |   Editor 容器滚动时触发事件    |
+|    save-json     |     string     | 触发保存事件并以 json 形式保存 |
+|    save-html     |     string     | 触发保存事件并以 html 形式保存 |
 
 ### Hooks
 
@@ -66,15 +72,16 @@ this.$refs.editor.save()
 
 此举会触发`save-json`和`save-html`事件
 
-
 ### Slot
+
 ---
+
 1. Custom-buttons 或 Custom-buttons-[index] (`index`从`0`开始代表每个分隔栏左侧的位置, `index`最大为`3`, 缺省时为保存按钮左侧)
 
 自定义`ToolBar`菜单工具栏按钮项
 
-- editor: 当前`tiptap` editor对象
-- defaultClass: 默认CSS样式名
+-   editor: 当前`tiptap` editor 对象
+-   defaultClass: 默认 CSS 样式名
 
 ```javascript
 <power-editor>
@@ -103,11 +110,13 @@ this.$refs.editor.save()
 组件所包含的属性如下
 
 ### Propoties
+
 ---
+
 |      属性(attr)      |    类型(type)    | 必填(required) |   默认值(default)    | 说明(statement) |
-|:--------------------:|:----------------:|:--------------:|:--------------------:|:---------------:|
+| :------------------: | :--------------: | :------------: | :------------------: | :-------------: |
 |        value         |     [string]     |       No       |         N/A          |                 |
-|     placeholder      |     [string]     |       No       |         true         |                 |
+|     placeholder      |     [string]     |       No       |  Write something …   |                 |
 |     mentionList      |     [array]      |       No       |                      |                 |
 |      filterFunc      |    [function]    |       No       |                      |                 |
 |  chooseItemCallback  |    [function]    |       No       |                      |                 |
