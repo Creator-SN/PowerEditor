@@ -1,5 +1,6 @@
 import components from '../../src/index.js'
-
+import "vfluentdesign/lib/index.css"
+import Vuex from "vuex"
 
 export default ({
     Vue, // the version of Vue being used in the VuePress app
@@ -7,5 +8,5 @@ export default ({
     router, // the router instance for the app
     siteData // site metadata
 }) => {
-    Vue.use(components)
+    Vue.use(components,Vuex)
 }

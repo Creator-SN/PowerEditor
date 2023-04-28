@@ -14,6 +14,13 @@ module.exports = {
         output: {
             libraryExport: 'default',
         },
+        externals:{
+            'vfluentdesign':{
+                "commonjs":"vfluentdesign",
+                "commonjs2":"vfluentdesign",
+                "root":"VFluent"
+            }
+        }
     },
     lintOnSave: true,
 };
