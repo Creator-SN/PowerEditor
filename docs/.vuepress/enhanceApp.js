@@ -1,5 +1,4 @@
 import components from '../../src/index.js'
-import "vfluentdesign/lib/index.css"
 import Vuex from "vuex"
 
 export default ({
