@@ -10,7 +10,9 @@ module.exports = {
         requireModuleExtension: true,
         sourceMap: false,
     },
+    productionSourceMap: false,
     configureWebpack: {
+        // devtool: "source-map",
         output: {
             libraryExport: 'default',
         },

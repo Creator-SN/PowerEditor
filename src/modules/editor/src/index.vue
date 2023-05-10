@@ -137,6 +137,10 @@ export default {
         placeholder: {
             default: 'Write something …',
         },
+        disabledPlaceholder: {
+            default: false,
+            type: Boolean,
+        },
         contentMaxWidth: {
             default: '900px',
             type: String,
@@ -184,10 +188,10 @@ export default {
                         return true;
                     },
                     chooseItemCallback: () => {
-                        console.log('chooseItemCallback');
+                        // console.log('chooseItemCallback');
                     },
                     mentionClickCallback: () => {
-                        console.log('mentionClickCallback');
+                        // console.log('mentionClickCallback');
                     },
                     headerForeground: 'rgba(0, 120, 212, 1)',
                 };
@@ -239,10 +243,7 @@ export default {
     methods: {
         init() {
             let el = this;
-            this.editor = new Editor({
-                editable: this.editable,
-                content: this.value,
-                extensions: [
+            const extensions = [
                     StarterKit.configure({
                         dropcursor: {
                             color: 'rgba(45, 170, 219, 0.3)',
@@ -260,10 +261,7 @@ export default {
                     Highlight.configure({ multicolor: true }),
                     Color,
                     Link,
-                    Placeholder.configure({
-                        emptyEditorClass: 'is-editor-empty',
-                        placeholder: () => this.placeholder,
-                    }),
+                    
                     CodeBlockLowlight.configure({
                         lowlight,
                     }),
@@ -296,8 +294,21 @@ export default {
                             return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
                         },
                     }),
-                    ...this.extensions,
-                ],
+                    ...this.extensions,        
+                ]
+            if (this.disabledPlaceholder==false){
+               
+                extensions.push(
+                    Placeholder.configure({
+                        emptyEditorClass: 'is-editor-empty',
+                        placeholder: () => this.placeholder,
+                    })
+                )
+            }
+            this.editor = new Editor({
+                editable: this.editable,
+                content: this.value,
+                extensions,
                 editorProps: {
                     //ProseMirror Editor Props//
                     // handlePaste(view, e, slice) {
