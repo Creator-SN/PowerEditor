@@ -173,35 +173,13 @@ export default {
             default: 5,
         },
         mentionItemAttr: {
-            default: () => {
-                return {
-                    mentionList: () => [
-                        // { key: 0, name: 'Mention Color', type: 'header' },
-                        // { key: 1, name: 'Blue', color: 'rgba(0, 120, 212, 1)', icon: 'WindowsLogo', iconColor: 'rgba(0, 153, 204, 1)' },
-                        // { key: 2, name: 'Purple', color: '#958DF1', icon: 'DelveAnalyticsLogo', iconColor: '#958DF1' },
-                        // { key: 3, name: 'Mention Text', type: 'header' },
-                        // { key: 9, name: '', type: 'divider' },
-                        // { key: 5, name: 'Text1' },
-                        // { key: 6, name: 'Text2' },
-                    ],
-                    filterFunc: () => {
-                        return true;
-                    },
-                    chooseItemCallback: () => {
-                        // console.log('chooseItemCallback');
-                    },
-                    mentionClickCallback: () => {
-                        // console.log('mentionClickCallback');
-                    },
-                    headerForeground: 'rgba(0, 120, 212, 1)',
-                };
-            },
+            default: () => ({}),
         },
         extensions: {
             default: () => [],
         },
-        starterKit:{
-            default: () => {}
+        starterKit: {
+            default: () => {},
         },
         language: {
             default: 'cn',
@@ -244,66 +222,63 @@ export default {
         init() {
             let el = this;
             const extensions = [
-                    StarterKit.configure({
-                        dropcursor: {
-                            color: 'rgba(45, 170, 219, 0.3)',
-                            width: 6,
-                        },
-                        codeBlock: false,
-                        // provide options for starterkit configuration
-                        ...this.starterKit
-                    }),
-                    Underline,
-                    TextAlign.configure({
-                        types: ['heading', 'paragraph'],
-                    }),
-                    TextStyle,
-                    Highlight.configure({ multicolor: true }),
-                    Color,
-                    Link,
-                    
-                    CodeBlockLowlight.configure({
-                        lowlight,
-                    }),
-                    ImageBlock,
-                    EmbedBlock,
-                    PowerTaskList,
-                    PowerTaskItem,
-                    InlineEquation,
-                    EquationBlock,
-                    MentionItem.configure({
-                        ...this.mentionItemAttr,
-                    }),
-                    DrawingBlock,
-                    Table.configure({
-                        HTMLAttributes: {},
-                        resizable: true,
-                    }),
-                    TableRow,
-                    TableHeader,
-                    TableCell,
-                    this.defaultStorageInit(),
-                    BubbleMenu.configure({
-                        element: document.querySelector('.power-editor-bubble-tool-bar'),
-                        tippyOptions: {
-                            maxWidth: 'none',
-                        },
-                        shouldShow: ({ editor, view, state, oldState, from, to }) => {
-                            // only show the bubble menu for images and links
-                            if (state.selection.from === state.selection.to) return false;
-                            return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
-                        },
-                    }),
-                    ...this.extensions,        
-                ]
-            if (this.disabledPlaceholder==false){
-               
+                StarterKit.configure({
+                    dropcursor: {
+                        color: 'rgba(45, 170, 219, 0.3)',
+                        width: 6,
+                    },
+                    codeBlock: false,
+                    // provide options for starterkit configuration
+                    ...this.starterKit,
+                }),
+                Underline,
+                TextAlign.configure({
+                    types: ['heading', 'paragraph'],
+                }),
+                TextStyle,
+                Highlight.configure({ multicolor: true }),
+                Color,
+                Link,
+
+                CodeBlockLowlight.configure({
+                    lowlight,
+                }),
+                ImageBlock,
+                EmbedBlock,
+                PowerTaskList,
+                PowerTaskItem,
+                InlineEquation,
+                EquationBlock,
+                MentionItem,
+                DrawingBlock,
+                Table.configure({
+                    HTMLAttributes: {},
+                    resizable: true,
+                }),
+                TableRow,
+                TableHeader,
+                TableCell,
+                this.defaultStorageInit(),
+                BubbleMenu.configure({
+                    element: document.querySelector('.power-editor-bubble-tool-bar'),
+                    tippyOptions: {
+                        maxWidth: 'none',
+                    },
+                    shouldShow: ({ editor, view, state, oldState, from, to }) => {
+                        // only show the bubble menu for images and links
+                        if (state.selection.from === state.selection.to) return false;
+                        return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
+                    },
+                }),
+                ...this.extensions,
+            ];
+            if (this.disabledPlaceholder == false) {
                 extensions.push(
                     Placeholder.configure({
                         emptyEditorClass: 'is-editor-empty',
                         placeholder: () => this.placeholder,
                     })
-                )
+                );
             }
             this.editor = new Editor({
                 editable: this.editable,
@@ -325,15 +300,6 @@ export default {
                     // },
                 },
             });
-            // For the extensions can use this function to get the current theme.//
-            this.editor.$PowerEditorTheme = () => {
-                return this.theme;
-            };
-            // For the extensions can use this function to sync theme.//
-            this.editor.$ContentContainer = this.$refs.container;
-            this.editor.$MentionItemTools = {
-                ...this.mentionItemAttr,
-            };
         },
         eventInit() {
             this.$refs.container.addEventListener('scroll', (event) => {
@@ -357,6 +323,33 @@ export default {
 
             return defaultStorage;
         },
+        propsSync() {
+            this.editor.storage.defaultStorage.language = this.language;
+            this.editor.storage.defaultStorage.theme = this.theme;
+            this.editor.storage.defaultStorage.editorContainer = this.$refs.container;
+            let mentionItemTools = {
+                mentionList: () => [
+                    // { key: 0, name: 'Mention Color', type: 'header' },
+                    // { key: 1, name: 'Blue', color: 'rgba(0, 120, 212, 1)', icon: 'WindowsLogo', iconColor: 'rgba(0, 153, 204, 1)' },
+                    // { key: 2, name: 'Purple', color: '#958DF1', icon: 'DelveAnalyticsLogo', iconColor: '#958DF1' },
+                    // { key: 3, name: 'Mention Text', type: 'header' },
+                    // { key: 9, name: '', type: 'divider' },
+                    // { key: 5, name: 'Text1' },
+                    // { key: 6, name: 'Text2' },
+                ],
+                filterFunc: () => {
+                    return true;
+                },
+                chooseItemCallback: () => {
+                    console.log('chooseItemCallback');
+                },
+                mentionClickCallback: () => {
+                    console.log('mentionClickCallback');
+                },
+                headerForeground: 'rgba(0, 120, 212, 1)',
+            };
+            this.editor.storage.defaultStorage.mentionItemTools = Object.assign(mentionItemTools, this.mentionItemAttr);
+        },
         insert(html) {
             this.editor.commands.insertContent(html);
         },
@@ -364,10 +357,6 @@ export default {
             base64_list.forEach((el) => {
                 this.insert(`<img src="${el}" theme="${this.theme}"></img>\n`);
             });
-        },
-        propsSync() {
-            this.editor.storage.defaultStorage.language = this.language;
-            this.editor.storage.defaultStorage.theme = this.theme;
         },
         widthTimerInit() {
             this.timer.widthTimer = setInterval(() => {
@@ -471,7 +460,7 @@ export default {
         focus() {
             this.editor.commands.focus();
         },
-        computeMarkdown (content) {
+        computeMarkdown(content) {
             let deserialized = markdownSupport.deserialize(this.editor.schema, content);
             return deserialized;
         },

@@ -56,7 +56,7 @@ export default Node.create({
             nodeInputRule({
                 find: inputRegex, type: this.type, getAttributes: () => {
                     return {
-                        theme: this.editor.$PowerEditorTheme(),
+                        theme: this.editor.storage.defaultStorage.theme,
                     };
                 }
             }),
@@ -72,7 +72,7 @@ export default Node.create({
                     // return some attrs, if any.
                     return {
                         value: match[1],
-                        theme: this.editor.$PowerEditorTheme(),
+                        theme: this.editor.storage.defaultStorage.theme,
                     };
                 },
             }),

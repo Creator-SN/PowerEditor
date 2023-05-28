@@ -69,7 +69,7 @@ export default Node.create({
                 getAttributes: (match) => {
                     return {
                         checked: match[match.length - 1] === 'x',
-                        theme: this.editor.$PowerEditorTheme(),
+                        theme: this.editor.storage.defaultStorage.theme,
                     };
                 },
                 content: {

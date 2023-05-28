@@ -14,7 +14,7 @@
                 <fv-list-view
                     :value="filterItems"
                     class="power-editor-mention-popper-list-view"
-                    :headerForeground="node.attrs.headerForeground"
+                    :headerForeground="editor.storage.defaultStorage.mentionItemTools.headerForeground"
                     ref="list"
                     @chooseItem="chooseItem"
                 >
@@ -42,7 +42,7 @@
         </transition>
         <span
             class="power-editor-mention-display-block"
-            @click="editor.$MentionItemTools.mentionClickCallback(node.attrs.currentItem, node.attrs.value)"
+            @click="editor.storage.defaultStorage.mentionItemTools.mentionClickCallback(node.attrs.currentItem, node.attrs.value)"
         >
             <p
                 v-if="!node.attrs.currentItem.image && !node.attrs.currentItem.icon"
@@ -162,8 +162,8 @@ export default {
         filterItems() {
             let result = [];
             // provide value as a parameter to filter the mentionList.
-            this.editor.$MentionItemTools.mentionList(this.node.attrs.value).forEach((el) => {
-                if (this.editor.$MentionItemTools.filterFunc(el, this.node.attrs.value)) {
+            this.editor.storage.defaultStorage.mentionItemTools.mentionList(this.node.attrs.value).forEach((el) => {
+                if (this.editor.storage.defaultStorage.mentionItemTools.filterFunc(el, this.node.attrs.value)) {
                     result.push(el);
                 }
             });
@@ -188,7 +188,7 @@ export default {
         },
         windowEventInit() {
             window.addEventListener('scroll', this.showPos);
-            this.editor.$ContentContainer.addEventListener('scroll', this.showPos);
+            this.editor.storage.defaultStorage.editorContainer.addEventListener('scroll', this.showPos);
         },
         showPos() {
             let el = this.$refs.target;
@@ -214,7 +214,7 @@ export default {
                 currentItem: event.item,
                 freeze: true,
             });
-            this.editor.$MentionItemTools.chooseItemCallback(event.item, this.node.attrs.value);
+            this.editor.storage.defaultStorage.mentionItemTools.chooseItemCallback(event.item, this.node.attrs.value);
             this.close();
         },
         valueTrigger(val) {
@@ -243,7 +243,7 @@ export default {
     beforeDestroy() {
         window.removeEventListener('click', this.outsideEvent);
         window.removeEventListener('scroll', this.showPos);
-        this.editor.$ContentContainer.removeEventListener('scroll', this.showPos);
+        this.editor.storage.defaultStorage.editorContainer.removeEventListener('scroll', this.showPos);
     },
 };
 </script>
