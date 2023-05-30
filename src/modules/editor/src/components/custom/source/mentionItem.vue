@@ -11,6 +11,15 @@
                 class="power-editor-mention-popper-container"
                 :style="{ left: `${left}px`, top: `${top}px` }"
             >
+                <div v-show="loading" class="power-editor-mention-popper-list-loading-block">
+                    <fv-progressRing
+                        loading="true"
+                        r="10"
+                        borderWidth="2"
+                        :foreground="editor.storage.defaultStorage.mentionItemTools.headerForeground"
+                        background="white"
+                    ></fv-progressRing>
+                </div>
                 <fv-list-view
                     :value="filterItems"
                     class="power-editor-mention-popper-list-view"
@@ -72,7 +81,10 @@
                 @keydown.backspace="delRecover"
                 @keydown.tab="skipNode"
             />
-            <p :title="node.attrs.value" class="power-editor-mention-placeholder">{{node.attrs.value ? node.attrs.value : node.attrs.placeholder}}</p>
+            <p
+                :title="node.attrs.value"
+                class="power-editor-mention-placeholder"
+            >{{node.attrs.value ? node.attrs.value : node.attrs.placeholder}}</p>
         </span>
     </node-view-wrapper>
 </template>
@@ -142,6 +154,8 @@ export default {
                 }
                 if (!_self) this.close();
             },
+            filterItems: [],
+            loading: false,
             thisTheme: this.editor.storage.defaultStorage.theme,
         };
     },
@@ -153,23 +167,13 @@ export default {
         },
         'node.attrs.value'() {
             this.delRecover();
+            this.getFilterItems();
         },
-        'editor.storage.defaultStorage.theme' (val) {
-            this.thisTheme = val
-        }
-    },
-    computed: {
-        filterItems() {
-            let result = [];
-            // provide value as a parameter to filter the mentionList.
-            this.editor.storage.defaultStorage.mentionItemTools.mentionList(this.node.attrs.value).forEach((el) => {
-                if (this.editor.storage.defaultStorage.mentionItemTools.filterFunc(el, this.node.attrs.value)) {
-                    result.push(el);
-                }
-            });
-            return result;
+        'editor.storage.defaultStorage.theme'(val) {
+            this.thisTheme = val;
         },
     },
+    computed: {},
     mounted() {
         this.outSideClickInit();
         this.windowEventInit();
@@ -180,6 +184,7 @@ export default {
                 this.$refs.list.focus = true;
             }
         }, 300);
+        this.getFilterItems();
     },
 
     methods: {
@@ -207,6 +212,19 @@ export default {
             setTimeout(() => {
                 this.$refs.target.focus();
             }, 300);
+        },
+        async getFilterItems() {
+            this.loading = true;
+            let result = [];
+            // provide value as a parameter to filter the mentionList.
+            let mentionList = await this.editor.storage.defaultStorage.mentionItemTools.mentionList(this.node.attrs.value);
+            for (let el of mentionList) {
+                if (await this.editor.storage.defaultStorage.mentionItemTools.filterFunc(el, this.node.attrs.value)) {
+                    result.push(el);
+                }
+            }
+            this.filterItems = result;
+            this.loading = false;
         },
         chooseItem(event) {
             this.updateAttributes({
@@ -307,13 +325,24 @@ export default {
         box-sizing: border-box;
         display: flex;
         align-items: center;
+        flex-direction: column;
         box-shadow: 8px 10px 20px rgba(0, 0, 0, 0.2);
         z-index: 1;
+
+        .power-editor-mention-popper-list-loading-block {
+            position: absolute;
+            width: 100%;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .power-editor-mention-popper-list-view {
             position: relative;
             width: 100%;
             height: 100%;
+            flex: 1;
             border-radius: 6px;
         }
     }
