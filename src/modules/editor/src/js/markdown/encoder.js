@@ -19,7 +19,6 @@ export class Encoder {
 
     encoder(text) {
         const tokens = this.md.parse(text, {})
-        console.log(tokens)
 
         const doc = {
             type: "doc",
