@@ -1,5 +1,5 @@
 
-const DecNodeFuncs = {
+let DecNodeFuncs = {
 
     heading(node, flags) {
         const { level } = node.attrs;
@@ -74,7 +74,7 @@ const DecNodeFuncs = {
     equationBlock(node, flags) {
         return `\n$$${node.attrs.value}$$\n`;
     },
-    drawingBlock (node, flags) {
+    drawingBlock(node, flags) {
         let lines = node.attrs.lines;
         let pathList = [];
         for (let line of lines) {
@@ -122,10 +122,10 @@ const DecNodeFuncs = {
             suffix: `\n</table>\n`
         };
     },
-    mentionItem (node, flags) {
+    mentionItem(node, flags) {
         return `\`@${node.attrs.value}\``;
     },
-    embedblock (node, flags) {
+    embedblock(node, flags) {
         return `\n<video src="${node.attrs.src}" width="800px" height="600px" controls="controls"></video>\n`;
     },
 
@@ -170,10 +170,8 @@ const DecNodeFuncs = {
     }
 }
 
-
-
 export class Decoder {
-    constructor() {
+    constructor(decNodeFuncsPlugins = {}, flags = {}) {
         this.flags = {
             inline: false,
             inlineWrapper: false,
@@ -187,6 +185,14 @@ export class Decoder {
             tableCell: false,
             tableRow: false,
             table: false
+        }
+        this.flags = Object.assign(this.flags, flags);
+        this.DecNodeFuncs = DecNodeFuncs;
+        for (let key in decNodeFuncsPlugins) {
+            if (this.DecNodeFuncs.hasOwnProperty(key)) {
+                console.warn(`Decoder already has a function named ${key}, the function will be overwritten.`);
+            }
+            this.DecNodeFuncs[key] = decNodeFuncsPlugins[key];
         }
     }
 
@@ -212,7 +218,7 @@ export class Decoder {
             node.flags = Object.assign({}, node.parent.flags);
         }
         let type = node.type;
-        if (type === 'text') return DecNodeFuncs.text(node);
+        if (type === 'text') return this.DecNodeFuncs.text(node);
         if (node.flags.hasOwnProperty(type)) {
             if (node.flags[type] !== false) {
                 node.flags[type] += 1;
@@ -237,12 +243,12 @@ export class Decoder {
             result += this.renderNode(child);
         }
 
-        if (!DecNodeFuncs.hasOwnProperty(type)) {
+        if (!this.DecNodeFuncs.hasOwnProperty(type)) {
             console.warn(`Unknown node type: ${type}`);
             return result;
         }
 
-        let thisResult = DecNodeFuncs[type](node, node.flags);
+        let thisResult = this.DecNodeFuncs[type](node, node.flags);
         if (typeof thisResult === 'string')
             return thisResult + result;
         else

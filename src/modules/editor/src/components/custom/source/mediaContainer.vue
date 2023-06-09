@@ -1,35 +1,106 @@
 <template>
-    <div class="power-editor-media-container" :class="[{ dark: theme === 'dark' }, { 'active-effects': active }]" :style="{ width: moveable ? `${elWidthEnd}px` : `${currentWidth}%` }">
-        <div v-show="alignCenter" class="power-editor-media-control-resize-block" @mousedown="forward($event, -1)" @mouseup="stop" @touchstart="forward($event.targetTouches[0], -1)" @touchend="stop">
+    <div
+        class="power-editor-media-container"
+        :class="[{ dark: theme === 'dark' }, { 'active-effects': active }]"
+        :style="{ width: moveable ? `${elWidthEnd}px` : `${currentWidth}%` }"
+    >
+        <div
+            v-show="alignCenter && (editor.isEditable || editor.storage.defaultStorage.showControlOnReadonly)"
+            class="power-editor-media-control-resize-block"
+            @mousedown="forward($event, -1)"
+            @mouseup="stop"
+            @touchstart="forward($event.targetTouches[0], -1)"
+            @touchend="stop"
+        >
             <i></i>
         </div>
         <div class="power-editor-media-slot-container">
             <slot> Media Container </slot>
         </div>
-        <div class="power-editor-media-control-resize-block sec" @mousedown="forward" @mouseup="stop" @touchstart="forward($event.targetTouches[0])" @touchend="stop">
+        <div
+            v-show="editor.isEditable || editor.storage.defaultStorage.showControlOnReadonly"
+            class="power-editor-media-control-resize-block sec"
+            @mousedown="forward"
+            @mouseup="stop"
+            @touchstart="forward($event.targetTouches[0])"
+            @touchend="stop"
+        >
             <i></i>
         </div>
-        <div draggable="true" data-drag-handle class="power-editor-media-drag-btn" @mousedown="active = true" @mouseup="active = false" @touchstart="active = true" @touchend="active = false">
+        <div
+            v-show="editor.isEditable"
+            draggable="true"
+            data-drag-handle
+            class="power-editor-media-drag-btn"
+            @mousedown="active = true"
+            @mouseup="active = false"
+            @touchstart="active = true"
+            @touchend="active = false"
+        >
             <i class="ms-Icon ms-Icon--GripperDotsVertical"></i>
         </div>
-        <div class="power-editor-media-control-btn-block">
-            <fv-button class="power-editor-media-cmd-btn" :theme="theme" fontSize="12" :isBoxShadow="true" :title="getTitle('TextField')" @click="showCaptionBox">
+        <div
+            v-show="editor.isEditable || editor.storage.defaultStorage.showControlOnReadonly"
+            class="power-editor-media-control-btn-block"
+        >
+            <fv-button
+                v-show="editor.isEditable"
+                class="power-editor-media-cmd-btn"
+                :theme="theme"
+                fontSize="12"
+                :isBoxShadow="true"
+                :title="getTitle('TextField')"
+                @click="showCaptionBox"
+            >
                 <i class="ms-Icon ms-Icon--TextField"></i>
             </fv-button>
-            <fv-button class="power-editor-media-cmd-btn" :theme="theme" fontSize="12" :isBoxShadow="true" :title="getTitle('AlignLeft')" @click="thisAlignCenter = false">
+            <fv-button
+                class="power-editor-media-cmd-btn"
+                :theme="theme"
+                fontSize="12"
+                :isBoxShadow="true"
+                :title="getTitle('AlignLeft')"
+                @click="thisAlignCenter = false"
+            >
                 <i class="ms-Icon ms-Icon--AlignLeft"></i>
             </fv-button>
-            <fv-button class="power-editor-media-cmd-btn" :theme="theme" fontSize="12" :isBoxShadow="true" :title="getTitle('AlignCenter')" @click="thisAlignCenter = true">
+            <fv-button
+                class="power-editor-media-cmd-btn"
+                :theme="theme"
+                fontSize="12"
+                :isBoxShadow="true"
+                :title="getTitle('AlignCenter')"
+                @click="thisAlignCenter = true"
+            >
                 <i class="ms-Icon ms-Icon--AlignCenter"></i>
             </fv-button>
         </div>
-        <div class="power-editor-media-control-btn-block bottom">
-            <fv-button class="power-editor-media-cmd-btn" :theme="theme" icon="ReturnKeySm" fontSize="12" :isBoxShadow="true" :title="getTitle('TextField')" style="width: 80px;" @click="newline">
+        <div
+            v-show="editor.isEditable"
+            class="power-editor-media-control-btn-block bottom"
+        >
+            <fv-button
+                class="power-editor-media-cmd-btn"
+                :theme="theme"
+                icon="ReturnKeySm"
+                fontSize="12"
+                :isBoxShadow="true"
+                :title="getTitle('TextField')"
+                style="width: 80px;"
+                @click="newline"
+            >
                 {{getTitle('Newline')}}
             </fv-button>
         </div>
-        <div v-show="active" class="power-editor-media-mask-block"></div>
-        <p v-show="thisCaption !== '' && !show.captionBox" class="power-editor-media-container-caption" @click="showCaptionBox">{{thisCaption}}</p>
+        <div
+            v-show="active"
+            class="power-editor-media-mask-block"
+        ></div>
+        <p
+            v-show="thisCaption !== '' && !show.captionBox"
+            class="power-editor-media-container-caption"
+            @click="showCaptionBox"
+        >{{thisCaption}}</p>
         <fv-text-box
             v-show="show.captionBox"
             v-model="thisCaption"
@@ -52,8 +123,8 @@ export default {
         },
         editor: {
             default: () => {
-                return {}
-            }
+                return {};
+            },
         },
         caption: {
             default: '',
@@ -62,10 +133,10 @@ export default {
             default: true,
         },
         node: {
-            default: () => ({})
+            default: () => ({}),
         },
         getPos: {
-            default: () => {}
+            default: () => {},
         },
         theme: {
             default: 'light',
@@ -177,19 +248,19 @@ export default {
         getTitle(name) {
             return i18n(name, this.editor.storage.defaultStorage.language);
         },
-        showCaptionBox () {
-            if(!this.editor.isEditable) return;
+        showCaptionBox() {
+            if (!this.editor.isEditable) return;
             this.show.captionBox = true;
         },
-        newline () {
-            if(!this.editor.isEditable) return;
+        newline() {
+            if (!this.editor.isEditable) return;
             this.editor.commands.focus();
             this.editor.commands.insertContentAt(this.getPos() + this.node.nodeSize, '<br>');
-        }
+        },
     },
-    beforeDestroy () {
+    beforeDestroy() {
         window.removeEventListener('click', this.outsideEvent);
-    }
+    },
 };
 </script>
 
@@ -212,8 +283,7 @@ export default {
             color: whitesmoke;
         }
 
-        .power-editor-media-container-caption
-        {
+        .power-editor-media-container-caption {
             color: rgba(230, 230, 230, 1);
         }
     }
@@ -285,8 +355,7 @@ export default {
         opacity: 0;
         transition: opacity 1s;
 
-        &.bottom
-        {
+        &.bottom {
             top: inherit;
             bottom: 0px;
         }
@@ -318,8 +387,7 @@ export default {
         margin-top: 15px;
     }
 
-    .power-editor-media-container-caption
-    {
+    .power-editor-media-container-caption {
         font-size: 13.8px;
         color: rgba(95, 95, 95, 1);
         border-radius: 3px;
@@ -329,13 +397,11 @@ export default {
         justify-content: center;
         align-items: center;
 
-        &:hover
-        {
+        &:hover {
             background: rgba(200, 200, 200, 0.1);
         }
 
-        &:active
-        {
+        &:active {
             background: rgba(200, 200, 200, 0.15);
         }
     }

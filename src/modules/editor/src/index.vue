@@ -184,6 +184,15 @@ export default {
         starterKit: {
             default: () => {},
         },
+        showControlOnReadonly: {
+            default: true,
+        },
+        mdDecNodeFuncsPlugins: {
+            default: () => ({}),
+        },
+        mdFlags: {
+            default: () => ({}),
+        },
         language: {
             default: 'cn',
         },
@@ -319,6 +328,7 @@ export default {
 
                 addStorage() {
                     return {
+                        showControlOnReadonly: false,
                         language: 'en',
                         theme: 'light',
                     };
@@ -328,6 +338,7 @@ export default {
             return defaultStorage;
         },
         propsSync() {
+            this.editor.storage.defaultStorage.showControlOnReadonly = this.showControlOnReadonly;
             this.editor.storage.defaultStorage.language = this.language;
             this.editor.storage.defaultStorage.theme = this.theme;
             this.editor.storage.defaultStorage.editorContainer = this.$refs.container;
@@ -475,7 +486,7 @@ export default {
             return deserialized;
         },
         saveMarkdown() {
-            let dec = new Decoder();
+            let dec = new Decoder(this.mdDecNodeFuncsPlugins, this.mdFlags);
             return dec.decode(this.editor.getJSON());
         },
         save() {
