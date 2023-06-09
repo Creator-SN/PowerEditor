@@ -203,7 +203,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: auto;
+        overflow: overlay;
 
         .power-editor-table-insert-block {
             position: relative;

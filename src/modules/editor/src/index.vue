@@ -97,6 +97,8 @@ import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
+import Subscript from '@tiptap/extension-subscript'
+import Superscript from '@tiptap/extension-superscript'
 import Placeholder from '@tiptap/extension-placeholder';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Table from '@tiptap/extension-table';
@@ -107,6 +109,7 @@ import BubbleMenu from '@tiptap/extension-bubble-menu';
 
 import { lowlight } from './js/lowlight';
 import markdownSupport from './js/markdown';
+import { Encoder, Decoder } from './js/markdown';
 
 import ImageBlock from './components/custom/extension/imageBlock.js';
 import EmbedBlock from './components/custom/extension/embedBlock.js';
@@ -129,7 +132,7 @@ export default {
     },
     props: {
         value: {
-            default: `<p>I’m running PowerEditor with Vue.js. 🎉</p>`,
+            default: ``,
         },
         editable: {
             default: true,
@@ -158,7 +161,7 @@ export default {
             default: true,
         },
         toolbarHeight: {
-            default: 70,
+            default: 50,
         },
         toolbarBackground: {
             default: '',
@@ -239,7 +242,8 @@ export default {
                 Highlight.configure({ multicolor: true }),
                 Color,
                 Link,
-
+                Subscript,
+                Superscript,
                 CodeBlockLowlight.configure({
                     lowlight,
                 }),
@@ -461,7 +465,8 @@ export default {
             this.editor.commands.focus();
         },
         computeMarkdown(content) {
-            let deserialized = markdownSupport.deserialize(this.editor.schema, content);
+            let md = new Encoder();
+            let deserialized = md.encoder(content);
             return deserialized;
         },
         insertMarkdown(content) {
@@ -470,7 +475,8 @@ export default {
             return deserialized;
         },
         saveMarkdown() {
-            return markdownSupport.serialize(this.editor.schema, this.editor.getJSON());
+            let dec = new Decoder();
+            return dec.decode(this.editor.getJSON());
         },
         save() {
             this.$emit('save-json', this.editor.getJSON());
@@ -526,7 +532,7 @@ export default {
         padding-top: 60px;
         box-sizing: border-box;
         transition: padding 0.3s;
-        overflow: auto;
+        overflow: overlay;
         overflow-x: hidden;
 
         &.read-only {

@@ -146,7 +146,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: auto;
+        overflow: overlay;
         overflow-x: hidden;
 
         .power-editor-cmd-btn {

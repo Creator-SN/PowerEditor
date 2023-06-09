@@ -5,6 +5,43 @@
         :style="{height: `${toolbarHeight}px`, 'border-radius': `${toolbarBorderRadius}px`}"
     >
         <fv-button
+            v-show="showSave"
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(false)"
+            :foreground="getForeground(false, {
+                light: 'rgba(147, 79, 125, 1)',
+                dark: 'rgba(169, 58, 132, 1)'
+            })"
+            :title="getTitle('Save')"
+            @click="save"
+        >
+            <i class="ms-Icon ms-Icon--Save"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(false)"
+            :foreground="getForeground(false, 'rgba(73, 150, 180, 1)')"
+            :title="getTitle('Undo')"
+            @click="exec('undo')"
+        >
+            <i class="ms-Icon ms-Icon--Undo"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(false)"
+            :foreground="getForeground(false, 'rgba(73, 150, 180, 1)')"
+            :title="getTitle('Redo')"
+            @click="exec('redo')"
+        >
+            <i class="ms-Icon ms-Icon--Redo"></i>
+        </fv-button>
+        <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
@@ -48,7 +85,10 @@
         >
             <i class="ms-Icon ms-Icon--Underline"></i>
         </fv-button>
-        <slot name="custom-buttons-0" defaultClass="power-editor-cmd-btn"></slot>
+        <slot
+            name="custom-buttons-0"
+            defaultClass="power-editor-cmd-btn"
+        ></slot>
         <hr />
         <fv-button
             class="power-editor-cmd-btn"
@@ -99,6 +139,28 @@
             class="power-editor-cmd-btn"
             :theme="thisTheme"
             :isBoxShadow="true"
+            :background="getBackground(editor.isActive('superscript'))"
+            :foreground="getForeground(editor.isActive('superscript'))"
+            :title="getTitle('Task')"
+            @click="exec('toggleSuperscript')"
+        >
+            <i class="ms-Icon ms-Icon--Superscript"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(editor.isActive('subscript'))"
+            :foreground="getForeground(editor.isActive('subscript'))"
+            :title="getTitle('Task')"
+            @click="exec('toggleSubscript')"
+        >
+            <i class="ms-Icon ms-Icon--Subscript"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
             :background="getBackground(editor.isActive('powerTaskList'))"
             :foreground="getForeground(editor.isActive('powerTaskList'))"
             :title="getTitle('Task')"
@@ -117,7 +179,10 @@
         >
             <i class="ms-Icon ms-Icon--ClearFormatting"></i>
         </fv-button>
-        <slot name="custom-buttons-1" defaultClass="power-editor-cmd-btn"></slot>
+        <slot
+            name="custom-buttons-1"
+            defaultClass="power-editor-cmd-btn"
+        ></slot>
         <hr />
         <fv-button
             class="power-editor-cmd-btn"
@@ -153,7 +218,10 @@
         >
             <i class="ms-Icon ms-Icon--ShowBcc"></i>
         </fv-button>
-        <slot name="custom-buttons-2" defaultClass="power-editor-cmd-btn"></slot>
+        <slot
+            name="custom-buttons-2"
+            defaultClass="power-editor-cmd-btn"
+        ></slot>
         <hr />
         <fv-button
             class="power-editor-cmd-btn"
@@ -224,7 +292,10 @@
         >
             <i class="ms-Icon ms-Icon--DecreaseIndentLegacy"></i>
         </fv-button>
-        <slot name="custom-buttons-3" defaultClass="power-editor-cmd-btn"></slot>
+        <slot
+            name="custom-buttons-3"
+            defaultClass="power-editor-cmd-btn"
+        ></slot>
         <hr />
         <color-callout
             :mobileMode="mobileMode"
@@ -397,42 +468,10 @@
                 </fv-button>
             </template>
         </embed-callout>
-
-        <fv-button
-            class="power-editor-cmd-btn"
-            :theme="thisTheme"
-            :isBoxShadow="true"
-            :background="getBackground(false)"
-            :foreground="getForeground(false, 'rgba(73, 150, 180, 1)')"
-            :title="getTitle('Undo')"
-            @click="exec('undo')"
-        >
-            <i class="ms-Icon ms-Icon--Undo"></i>
-        </fv-button>
-        <fv-button
-            class="power-editor-cmd-btn"
-            :theme="thisTheme"
-            :isBoxShadow="true"
-            :background="getBackground(false)"
-            :foreground="getForeground(false, 'rgba(73, 150, 180, 1)')"
-            :title="getTitle('Redo')"
-            @click="exec('redo')"
-        >
-            <i class="ms-Icon ms-Icon--Redo"></i>
-        </fv-button>
-        <slot name="custom-buttons" defaultClass="power-editor-cmd-btn"></slot>
-        <fv-button
-            v-show="showSave"
-            class="power-editor-cmd-btn"
-            :theme="thisTheme"
-            :isBoxShadow="true"
-            :background="getBackground(false)"
-            :foreground="getForeground(false)"
-            :title="getTitle('Save')"
-            @click="save"
-        >
-            <i class="ms-Icon ms-Icon--Save"></i>
-        </fv-button>
+        <slot
+            name="custom-buttons"
+            defaultClass="power-editor-cmd-btn"
+        ></slot>
     </div>
 </template>
 
@@ -475,7 +514,7 @@ export default {
             default: 70,
         },
         toolbarBorderRadius: {
-            default: ""
+            default: '',
         },
         language: {
             default: 'en',
@@ -524,11 +563,13 @@ export default {
                 dark: 'rgba(245, 245, 245, 1)',
             }
         ) {
+            // state: true = active, false = inactive
             if (state) return this.highlightColor.f;
             if (typeof color === 'string') return color;
             return color[this.thisTheme];
         },
         getBackground(state) {
+            // state: true = active, false = inactive
             if (state) return this.highlightColor.b;
             if (this.thisTheme === 'dark') return 'rgba(36, 36, 36, 1)';
             return '';
@@ -615,7 +656,7 @@ export default {
     display: flex;
     align-items: flex-end;
     z-index: 5;
-    overflow-x: auto;
+    overflow-x: overlay;
     overflow-y: hidden;
 
     .power-editor-cmd-btn {

@@ -73,7 +73,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        overflow: auto;
+        overflow: overlay;
 
         .power-editor-e-c-block {
             position: relative;

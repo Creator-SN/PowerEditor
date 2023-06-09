@@ -15,26 +15,62 @@ footer: MIT Licensed | Copyright © 2022 Creator SN
 export default {
     data () {
         return {
+            value: `<p>I’m running PowerEditor with Vue.js. 🎉</p>`,
             readonly: false,
+            mdContent: "",
             theme: "light"
+        }
+    },
+    mounted () {
+        
+    },
+    methods: {
+        openMarkdown () {
+            let files = this.$refs.input.files;
+            if (files.length > 0) {
+                let file = files[0];
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    this.mdContent = e.target.result;
+                    this.parseMD(this.mdContent)
+                }
+                reader.readAsText(file);
+            }
+        },
+        parseMD (str) {
+            let obj = this.$refs.editor.computeMarkdown(str);
+            this.value = obj;
+        },
+        saveJson (content) {
+            console.log(content);
+        },
+        saveHTML (content) {
+            console.log(content);
+        },
+        outputMarkdown () {
+            let content = this.$refs.editor.saveMarkdown();
+            console.log(content);
         }
     }
 }
 </script>
 
 <div style="display: flex;">
+<input v-show="false" type="file" accept=".md" ref="input" @change="openMarkdown"/>
 <fv-button :theme="theme" borderRadius="35" style="width: 35px; height: 35px; margin: 15px 0px;" @click="theme = theme == 'light' ? 'dark' : 'light'"><i class="ms-Icon" :class="[`ms-Icon--${theme === 'light' ? 'Sunny' : 'ClearNight'}`]"></i></fv-button>
-<fv-button :theme="theme" borderRadius="35" style="width: 35px; height: 35px; margin: 15px;" @click="readonly = readonly == true ? false : true"><i class="ms-Icon" :class="[`ms-Icon--${readonly === true ? 'PageEdit' : 'ReadingMode'}`]"></i></fv-button>
+<fv-button :theme="theme" borderRadius="35" style="width: 35px; height: 35px; margin: 15px 0px 0px 15px;" @click="$refs.input.click()"><i class="ms-Icon" :class="[`ms-Icon--OpenFile`]"></i></fv-button>
+<fv-button :theme="theme" borderRadius="35" style="width: 35px; height: 35px; margin: 15px 0px 0px 15px;" @click="readonly = readonly == true ? false : true"><i class="ms-Icon" :class="[`ms-Icon--${readonly === true ? 'PageEdit' : 'ReadingMode'}`]"></i></fv-button>
+<fv-button :theme="theme" borderRadius="35" style="width: 35px; height: 35px; margin: 15px 0px 0px 15px;" @click="outputMarkdown"><i class="ms-Icon" :class="[`ms-Icon--SaveAs`]"></i></fv-button>
 </div>
 
-<power-editor :theme="theme" :editable="!readonly" style="width:100%" />
+<power-editor :value="value" :theme="theme" :editable="!readonly" ref="editor" style="width:100%" @save-json="saveJson" @save-html="saveHTML" />
 
 ### Propoties
 
 ---
 
 |       属性(attr)        |    类型(type)    | 必填(required) |                默认值(default)                 |             说明(statement)              |
-| :---------------------: | :--------------: | :------------: | :--------------------------------------------: | :--------------------------------------: |
+|:-----------------------:|:----------------:|:--------------:|:----------------------------------------------:|:----------------------------------------:|
 |          value          |     [string]     |       No       | <p>I’m running PowerEditor with Vue.js. 🎉</p> |       文本内容, 支持纯文本及 HTML        |
 |        editable         |      [bool]      |       No       |                      true                      |              编辑器是否只读              |
 |       placeholder       |     [string]     |       No       |               Write something …                |            编辑器 Placeholder            |
@@ -57,7 +93,7 @@ export default {
 ---
 
 |   事件名(Name)   | 参数类型(args) |        说明(statement)         |
-| :--------------: | :------------: | :----------------------------: |
+|:----------------:|:--------------:|:------------------------------:|
 | container-scroll |     object     |   Editor 容器滚动时触发事件    |
 |    save-json     |     string     | 触发保存事件并以 json 形式保存 |
 |    save-html     |     string     | 触发保存事件并以 html 形式保存 |
@@ -114,7 +150,7 @@ this.$refs.editor.save()
 ---
 
 |      属性(attr)      |    类型(type)    | 必填(required) |   默认值(default)    | 说明(statement) |
-| :------------------: | :--------------: | :------------: | :------------------: | :-------------: |
+|:--------------------:|:----------------:|:--------------:|:--------------------:|:---------------:|
 |        value         |     [string]     |       No       |         N/A          |                 |
 |     placeholder      |     [string]     |       No       |  Write something …   |                 |
 |     mentionList      |     [array]      |       No       |                      |                 |
