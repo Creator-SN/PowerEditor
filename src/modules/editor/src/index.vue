@@ -97,8 +97,8 @@ import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import { Color } from '@tiptap/extension-color';
 import Link from '@tiptap/extension-link';
-import Subscript from '@tiptap/extension-subscript'
-import Superscript from '@tiptap/extension-superscript'
+import Subscript from '@tiptap/extension-subscript';
+import Superscript from '@tiptap/extension-superscript';
 import Placeholder from '@tiptap/extension-placeholder';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Table from '@tiptap/extension-table';
@@ -108,7 +108,6 @@ import TableHeader from '@tiptap/extension-table-header';
 import BubbleMenu from '@tiptap/extension-bubble-menu';
 
 import { lowlight } from './js/lowlight';
-import markdownSupport from './js/markdown';
 import { Encoder, Decoder } from './js/markdown';
 
 import ImageBlock from './components/custom/extension/imageBlock.js';
@@ -476,7 +475,7 @@ export default {
             this.editor.commands.focus();
         },
         computeMarkdown(content) {
-            let md = new Encoder();
+            let md = new Encoder([StarterKit, Table, TableRow, TableHeader, TableCell]);
             let deserialized = md.encoder(content);
             return deserialized;
         },

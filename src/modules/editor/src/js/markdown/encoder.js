@@ -1,11 +1,13 @@
-import MarkdownIt from "markdown-it"
-import markdownItKatex from 'markdown-it-katex'
-import markdownItSubscript from "markdown-it-sub"
-import markdownItSuperscript from "markdown-it-sup"
-import markdownItMark from "markdown-it-mark"
+import MarkdownIt from "markdown-it";
+import markdownItKatex from 'markdown-it-katex';
+import markdownItSubscript from "markdown-it-sub";
+import markdownItSuperscript from "markdown-it-sup";
+import markdownItMark from "markdown-it-mark";
+
+import { generateJSON } from "@tiptap/core";
 
 export class Encoder {
-    constructor() {
+    constructor(htmlParseNodes = []) {
         this.md = new MarkdownIt({
             html: true,
             linkify: true,
@@ -15,10 +17,13 @@ export class Encoder {
             .use(markdownItSubscript)
             .use(markdownItSuperscript)
             .use(markdownItMark)
+
+        this.htmlParseNodes = htmlParseNodes;
     }
 
     encoder(text) {
         const tokens = this.md.parse(text, {})
+        console.log(tokens)
 
         const doc = {
             type: "doc",
@@ -515,15 +520,8 @@ export class Encoder {
                     break;
                 }
                 case "html_block": {
-                    // 不能转换，危险操作, 但是保留
-                    const obj = {
-                        type: "codeBlock",
-                        content: [{
-                            type: "text",
-                            text: formatText(token.content)
-                        }]
-                    }
-                    pointer.content.push(obj)
+                    let htmlDoc = generateJSON(token.content, this.htmlParseNodes);
+                    pointer.content.push(htmlDoc.content[0]);
                     break;
                 }
                 case "math_block": {
