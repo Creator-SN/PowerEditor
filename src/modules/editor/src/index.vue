@@ -312,7 +312,7 @@ export default {
                     // },
                 },
                 onUpdate() {
-                    this.$emit('content-change');
+                    el.$emit('change');
                 },
             });
         },

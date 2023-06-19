@@ -101,7 +101,7 @@ export default {
 |   事件名(Name)   | 参数类型(args) |         说明(statement)         |
 |:----------------:|:--------------:|:-------------------------------:|
 | container-scroll |     object     |    Editor 容器滚动时触发事件    |
-|  content-change  |     object     | Editor 内容改变时触发事件(包含) |
+|      change      |     object     | Editor 内容改变时触发事件(包含) |
 |    save-json     |     string     | 触发保存事件并以 json 形式保存  |
 |    save-html     |     string     | 触发保存事件并以 html 形式保存  |
 
