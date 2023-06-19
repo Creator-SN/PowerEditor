@@ -212,6 +212,7 @@ export default {
         value(val) {
             this.editor.commands.setContent(val);
             this.propsSync();
+            this.$emit('content-change', val);
         },
         editable() {
             this.editor.setEditable(this.editable);
