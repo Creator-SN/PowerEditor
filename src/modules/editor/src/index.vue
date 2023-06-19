@@ -311,6 +311,9 @@ export default {
                     //     return true;
                     // },
                 },
+                onUpdate() {
+                    this.$emit('content-change');
+                },
             });
         },
         eventInit() {
