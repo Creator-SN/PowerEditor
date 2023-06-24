@@ -229,6 +229,7 @@ export default {
         this.eventInit();
         this.propsSync();
         this.widthTimerInit();
+        this.$emit('on-mounted', this.editor);
     },
     methods: {
         init() {
@@ -642,7 +643,6 @@ export default {
                 border-radius: 0.5rem;
 
                 code {
-                    color: inherit;
                     padding: 0;
                     background: none;
                     font-size: 0.8rem;

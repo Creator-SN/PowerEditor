@@ -98,13 +98,14 @@ export default {
 
 ---
 
-|   事件名(Name)   | 参数类型(args) |        说明(statement)         |
-|:----------------:|:--------------:|:------------------------------:|
-| container-scroll |     object     |   Editor 容器滚动时触发事件    |
-|      change      |     object     |   Editor 内容改变时触发事件    |
-|  content-change  |     object     | Editor 外部修改内容时触发事件  |
-|    save-json     |     string     | 触发保存事件并以 json 形式保存 |
-|    save-html     |     string     | 触发保存事件并以 html 形式保存 |
+|   事件名(Name)   | 参数类型(args) |              说明(statement)              |
+|:----------------:|:--------------:|:-----------------------------------------:|
+|    on-mounted    |     object     | Editor 初始化完成时触发事件, 返回`editor` |
+| container-scroll |     object     |         Editor 容器滚动时触发事件         |
+|      change      |     object     |         Editor 内容改变时触发事件         |
+|  content-change  |     object     |       Editor 外部修改内容时触发事件       |
+|    save-json     |     string     |      触发保存事件并以 json 形式保存       |
+|    save-html     |     string     |      触发保存事件并以 html 形式保存       |
 
 ### Hooks
 
