@@ -4194,12 +4194,17 @@ core-js@3.30.1:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.30.1.tgz#fc9c5adcc541d8e9fa3e381179433cbf795628ba"
   integrity sha512-ZNS5nbiSwDTq4hFosEDqm65izl2CWmLz0hARJMyNQBgkUZMIF51cQiMvIQKA6hvuaeWxQDP3hEedM1JZIgTldQ==
 
+core-js@3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.3.tgz#09ea102412a368d5f73d24f082e41ac90c633a49"
+  integrity sha512-BVvHidX8uAmLCYPfLpXTEex7jz1uZJ1mW+shhIsBdA716O8Fg6TOwSgenSyO/bvEtnGdOTpKRZPSh4bSVI1k9w==
+
 core-js@^2.4.0:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.4.3, core-js@^3.6.4, core-js@^3.6.5:
+core-js@^3.6.4, core-js@^3.6.5:
   version "3.30.2"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.30.2.tgz#6528abfda65e5ad728143ea23f7a14f0dcf503fc"
   integrity sha512-uBJiDmwqsbJCWHAwjrx3cvjbMXP7xD72Dmsn5LOJpiRmE3WbBbN5rCqQ2Qh6Ek6/eOrjlWngEynBWo4VxerQhg==
@@ -6024,10 +6029,10 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
-fluent-reveal-effect@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/fluent-reveal-effect/-/fluent-reveal-effect-1.2.0.tgz#9345ad62e4274382e9f2027a69b19edb59bd3b0d"
-  integrity sha512-Scy+/Lw5Up0kVyQO7/Ldt3PE6/Vjv2Lz2Yd06oVFBdWKyWfxVIBBnPFM4WSGkr4BcVNAMsgDTfKfOyKjD32DxQ==
+fluent-reveal-effect@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/fluent-reveal-effect/-/fluent-reveal-effect-1.1.1.tgz#e2b6a526b4f9f59149c83f61304db930203c0c91"
+  integrity sha512-xULvnzGwSJ+yrEbuWIyr8pVHpOf1XZfbBjvSXrMcKW/Hf5hY3hOu7q+KPlg5xyxT0USHUZ0Yo+imLpXb4fEN/Q==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -6399,10 +6404,10 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha512-+xGQY0YyAWCnqy7Cd++hc2JqMYzlm0dG30Jd0beaA64sROr8C4nt8Yc9V5Ro3avlSUDTN0ulqP/VBKi1/lLygw==
 
-gsap@^3.1.1:
-  version "3.11.5"
-  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.11.5.tgz#97ef65091f43868be387803f9db277e8cd5bd041"
-  integrity sha512-Q89nKCLgoX5xUjznh9LcaIUkz54k1voNucT1Rpf9SJNFIQznBwFqt5qUUQbeVInFyN/n18OUJkpeI6CNEDt74w==
+gsap@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/gsap/-/gsap-3.1.1.tgz#b3f5f646563d4099aab9681d16703613f5de6a8c"
+  integrity sha512-ISkCKuXMtBbmbchJxWXuZydXnnWVV9SqNqd8vAevvtq0yzyBapMbXLxwambK73S/2kpTIVzYW8eJXlDD7yHhvw==
 
 gzip-size@^5.0.0:
   version "5.1.1"
@@ -9142,10 +9147,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-office-ui-fabric-core@^11.0.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/office-ui-fabric-core/-/office-ui-fabric-core-11.1.0.tgz#3758f8ef244c6a43adb557f534ed2102f3bc9f21"
-  integrity sha512-uV7CbMBAqbHRa7ihNlgbDMIdiKb49TCamhsfuK7Yx7JXx05WdN/lZPWLmPnAALVQAFuO95ZJMAwNjyyEeXk47A==
+office-ui-fabric-core@11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/office-ui-fabric-core/-/office-ui-fabric-core-11.0.0.tgz#73f43c8d1bd40e87971c7cda0ff1aa7bfa246410"
+  integrity sha512-K6+KGnBXXjfSxxZpp+4oDXVLgUc//7OnXrn8F08VoJnGhEz27WUf4ZuMa32SjGoqirWlb4JlKkXbOpC9cis6dQ==
 
 on-finished@2.4.1:
   version "2.4.1"
@@ -9166,7 +9171,7 @@ once@^1.3.0, once@^1.3.1, once@^1.4.0:
   dependencies:
     wrappy "1"
 
-onecolor@^3.1.0:
+onecolor@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/onecolor/-/onecolor-3.1.0.tgz#b72522270a49569ac20d244b3cd40fe157fda4d2"
   integrity sha512-YZSypViXzu3ul5LMu/m6XjJ9ol8qAy9S2VjHl5E6UlhUH1KGKWabyEJifn0Jjpw23bYDzC2ucKMPGiH5kfwSGQ==
@@ -11200,10 +11205,10 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-sortablejs@1.10.2:
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.10.2.tgz#6e40364d913f98b85a14f6678f92b5c1221f5290"
-  integrity sha512-YkPGufevysvfwn5rfdlGyrGjt7/CRHwvRPogD/lC+TnvcN29jDpCifKP+rBqf+LRldfXSTh+0CGLcSg0VIxq3A==
+sortablejs@^1.10.1:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.0.tgz#53230b8aa3502bb77a29e2005808ffdb4a5f7e2a"
+  integrity sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==
 
 source-list-map@^2.0.0:
   version "2.0.1"
@@ -11664,10 +11669,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-swiper@^8.3.2:
-  version "8.4.7"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-8.4.7.tgz#0301d385c3efc8efe8b66a64187edcb30e3067ee"
-  integrity sha512-VwO/KU3i9IV2Sf+W2NqyzwWob4yX9Qdedq6vBtS0rFqJ6Fa5iLUJwxQkuD4I38w0WDJwmFl8ojkdcRFPHWD+2g==
+swiper@8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-8.3.2.tgz#55a2637125b0514e58715aa51e040dc070203b47"
+  integrity sha512-8wsC7ORYvVSnLUoxs2+xmfLrDPNjBVQXMCFbOlqtHeON6wtu/blOyySDr8TCBCdse1bdcIbn7m8xJNxVFL8o4Q==
   dependencies:
     dom7 "^4.0.4"
     ssr-window "^4.0.2"
@@ -12373,18 +12378,18 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vfluentdesign@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-1.1.1.tgz#c47f44a233bd1770a983accb7ae1228f2016c6b1"
-  integrity sha512-i1tDVq5m+hOq+qApJm6DzIBl7G+k1M+VoofsvBkNzB79SuivftIn46U93vbcWXpgHSa3BuXt8/mfmqOMU1yPrA==
+vfluentdesign@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-1.2.1.tgz#ed58f757a0801e11f30361f0dc9736bc96754fb0"
+  integrity sha512-qkGRFJfUvXMyS5sMztreTuPtb9r3z7aQ2Xu+ab5vpaygED3FqzvuxoUClFDtQf//oalibyYcHBRZv8k6HAi+Sg==
   dependencies:
-    core-js "^3.4.3"
-    fluent-reveal-effect "^1.1.1"
-    gsap "^3.1.1"
-    office-ui-fabric-core "^11.0.0"
-    onecolor "^3.1.0"
-    swiper "^8.3.2"
-    vuedraggable "^2.23.2"
+    core-js "3.4.3"
+    fluent-reveal-effect "1.1.1"
+    gsap "3.1.1"
+    office-ui-fabric-core "11.0.0"
+    onecolor "3.1.0"
+    swiper "8.3.2"
+    vuedraggable "2.23.2"
 
 vm-browserify@^1.0.1:
   version "1.1.2"
@@ -12494,12 +12499,12 @@ vue@2.7.14, vue@^2.6.10:
     "@vue/compiler-sfc" "2.7.14"
     csstype "^3.1.0"
 
-vuedraggable@^2.23.2:
-  version "2.24.3"
-  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-2.24.3.tgz#43c93849b746a24ce503e123d5b259c701ba0d19"
-  integrity sha512-6/HDXi92GzB+Hcs9fC6PAAozK1RLt1ewPTLjK0anTYguXLAeySDmcnqE8IC0xa7shvSzRjQXq3/+dsZ7ETGF3g==
+vuedraggable@2.23.2:
+  version "2.23.2"
+  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-2.23.2.tgz#0d95d7fdf4f02f56755a26b3c9dca5c7ca9cfa72"
+  integrity sha512-PgHCjUpxEAEZJq36ys49HfQmXglattf/7ofOzUrW2/rRdG7tu6fK84ir14t1jYv4kdXewTEa2ieKEAhhEMdwkQ==
   dependencies:
-    sortablejs "1.10.2"
+    sortablejs "^1.10.1"
 
 vuepress-html-webpack-plugin@^3.2.0:
   version "3.2.0"
