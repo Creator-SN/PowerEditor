@@ -81,7 +81,7 @@ import go from 'highlight.js/lib/languages/go'
 import http from 'highlight.js/lib/languages/http'
 // import hy from 'highlight.js/lib/languages/hy'
 // import inform7 from 'highlight.js/lib/languages/inform7'
-// import ini from 'highlight.js/lib/languages/ini'
+import ini from 'highlight.js/lib/languages/ini'
 // import irpf90 from 'highlight.js/lib/languages/irpf90'
 // import isbl from 'highlight.js/lib/languages/isbl'
 import java from 'highlight.js/lib/languages/java'
@@ -101,14 +101,14 @@ import less from 'highlight.js/lib/languages/less'
 // import lsl from 'highlight.js/lib/languages/lsl'
 import lua from 'highlight.js/lib/languages/lua'
 import makefile from 'highlight.js/lib/languages/makefile'
-// import mathematica from 'highlight.js/lib/languages/mathematica'
-// import matlab from 'highlight.js/lib/languages/matlab'
+import mathematica from 'highlight.js/lib/languages/mathematica'
+import matlab from 'highlight.js/lib/languages/matlab'
 // import maxima from 'highlight.js/lib/languages/maxima'
 // import mel from 'highlight.js/lib/languages/mel'
 // import mercury from 'highlight.js/lib/languages/mercury'
 // import mipsasm from 'highlight.js/lib/languages/mipsasm'
 // import mizar from 'highlight.js/lib/languages/mizar'
-// import perl from 'highlight.js/lib/languages/perl'
+import perl from 'highlight.js/lib/languages/perl'
 // import mojolicious from 'highlight.js/lib/languages/mojolicious'
 // import monkey from 'highlight.js/lib/languages/monkey'
 // import moonscript from 'highlight.js/lib/languages/moonscript'
@@ -271,7 +271,7 @@ lowlight.registerLanguage('go', go)
 lowlight.registerLanguage('http', http)
 // lowlight.registerLanguage('hy', hy)
 // lowlight.registerLanguage('inform7', inform7)
-// lowlight.registerLanguage('ini', ini)
+lowlight.registerLanguage('ini', ini)
 // lowlight.registerLanguage('irpf90', irpf90)
 // lowlight.registerLanguage('isbl', isbl)
 lowlight.registerLanguage('java', java)
@@ -291,14 +291,14 @@ lowlight.registerLanguage('less', less)
 // lowlight.registerLanguage('lsl', lsl)
 lowlight.registerLanguage('lua', lua)
 lowlight.registerLanguage('makefile', makefile)
-// lowlight.registerLanguage('mathematica', mathematica)
-// lowlight.registerLanguage('matlab', matlab)
+lowlight.registerLanguage('mathematica', mathematica)
+lowlight.registerLanguage('matlab', matlab)
 // lowlight.registerLanguage('maxima', maxima)
 // lowlight.registerLanguage('mel', mel)
 // lowlight.registerLanguage('mercury', mercury)
 // lowlight.registerLanguage('mipsasm', mipsasm)
 // lowlight.registerLanguage('mizar', mizar)
-// lowlight.registerLanguage('perl', perl)
+lowlight.registerLanguage('perl', perl)
 // lowlight.registerLanguage('mojolicious', mojolicious)
 // lowlight.registerLanguage('monkey', monkey)
 // lowlight.registerLanguage('moonscript', moonscript)

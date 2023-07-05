@@ -100,7 +100,7 @@ import Link from '@tiptap/extension-link';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import Placeholder from '@tiptap/extension-placeholder';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import CodeBlockLowlight from './components/custom/extension/codeBlockX.js';
 import Table from '@tiptap/extension-table';
 import TableRow from '@tiptap/extension-table-row';
 import TableCell from '@tiptap/extension-table-cell';
@@ -256,6 +256,10 @@ export default {
                 Superscript,
                 CodeBlockLowlight.configure({
                     lowlight,
+                    HTMLAttributes: {
+                        class: 'tiptap-code',
+                    },
+                    languageClassPrefix: 'language-',
                 }),
                 ImageBlock,
                 EmbedBlock,
@@ -646,6 +650,14 @@ export default {
                     padding: 0;
                     background: none;
                     font-size: 0.8rem;
+
+                    &::before {
+                        content: attr(data-language);
+                        
+                        margin-bottom: 10px;
+                        color: rgba(245, 245, 245, 0.6);
+                        display: block;
+                    }
                 }
 
                 .hljs-comment,
