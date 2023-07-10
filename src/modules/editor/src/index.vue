@@ -70,7 +70,7 @@
                 :editor="editor"
                 :theme="theme"
                 ref="editor"
-                :style="{background: editorBackground, 'max-width': contentMaxWidth }"
+                :style="{'padding-bottom': editable ? `${editablePaddingBottom}px` : `${readOnlyPaddingBottom}px`, background: editorBackground, 'max-width': contentMaxWidth }"
             />
         </div>
         <div class="power-editor-bubble-tool-bar">
@@ -173,6 +173,12 @@ export default {
         },
         readOnlyPaddingTop: {
             default: 5,
+        },
+        editablePaddingBottom: {
+            default: 315,
+        },
+        readOnlyPaddingBottom: {
+            default: 55,
         },
         mentionItemAttr: {
             default: () => ({}),
@@ -519,7 +525,7 @@ export default {
     position: relative;
     width: 300px;
     height: 600px;
-    background: rgba(240, 240, 240, 1);
+    background: rgba(250, 250, 250, 1);
     border-radius: 8px;
     box-sizing: border-box;
     display: flex;
@@ -653,7 +659,7 @@ export default {
 
                     &::before {
                         content: attr(data-language);
-                        
+
                         margin-bottom: 10px;
                         color: rgba(245, 245, 245, 0.6);
                         display: block;

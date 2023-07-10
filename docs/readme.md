@@ -85,6 +85,8 @@ export default {
 |   toolbarBorderRadius   |     [number]     |       No       |                       8                        |              菜单栏边框圆角              |
 |   editablePaddingTop    |     [number]     |       No       |                      N/A                       | 可编辑模式下的顶部内边距, 不定义时不生效 |
 |   readOnlyPaddingTop    |     [number]     |       No       |                       5                        |          只读模式下的顶部内边距          |
+|  editablePaddingBottom  |     [number]     |       No       |                      315                       |         可编辑模式下的底部内边距         |
+|  readOnlyPaddingBottom  |     [number]     |       No       |                       55                       |          只读模式下的底部内边距          |
 |     mentionItemAttr     |     [object]     |       No       |                      N/A                       |             MentionItem 属性             |
 |       starterKit        |     [object]     |       No       |                     ()=>{}                     |        `StarterKit`相关自定义配置        |
 |  showControlOnReadonly  |      [bool]      |       No       |                      true                      |         只读模式下是否显示控制栏         |
