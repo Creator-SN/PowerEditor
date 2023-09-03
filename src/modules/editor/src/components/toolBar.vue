@@ -4,6 +4,10 @@
         :class="[{ dark: thisTheme === 'dark' }]"
         :style="{height: `${toolbarHeight}px`, 'border-radius': `${toolbarBorderRadius}px`}"
     >
+        <slot
+            name="custom-buttons-front"
+            defaultClass="power-editor-cmd-btn"
+        ></slot>
         <fv-button
             v-show="showSave"
             class="power-editor-cmd-btn"
@@ -19,6 +23,10 @@
         >
             <i class="ms-Icon ms-Icon--Save"></i>
         </fv-button>
+        <slot
+            name="custom-buttons-0"
+            defaultClass="power-editor-cmd-btn"
+        ></slot>
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
@@ -86,7 +94,7 @@
             <i class="ms-Icon ms-Icon--Underline"></i>
         </fv-button>
         <slot
-            name="custom-buttons-0"
+            name="custom-buttons-1"
             defaultClass="power-editor-cmd-btn"
         ></slot>
         <hr />
@@ -180,7 +188,7 @@
             <i class="ms-Icon ms-Icon--ClearFormatting"></i>
         </fv-button>
         <slot
-            name="custom-buttons-1"
+            name="custom-buttons-2"
             defaultClass="power-editor-cmd-btn"
         ></slot>
         <hr />
@@ -219,7 +227,7 @@
             <i class="ms-Icon ms-Icon--ShowBcc"></i>
         </fv-button>
         <slot
-            name="custom-buttons-2"
+            name="custom-buttons-3"
             defaultClass="power-editor-cmd-btn"
         ></slot>
         <hr />
@@ -293,7 +301,7 @@
             <i class="ms-Icon ms-Icon--DecreaseIndentLegacy"></i>
         </fv-button>
         <slot
-            name="custom-buttons-3"
+            name="custom-buttons-4"
             defaultClass="power-editor-cmd-btn"
         ></slot>
         <hr />

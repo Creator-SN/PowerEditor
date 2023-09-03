@@ -141,7 +141,7 @@ this.$refs.editor.insertMarkdown(markdown)
 
 ---
 
-1. Custom-buttons 或 Custom-buttons-[index] (`index`从`0`开始代表每个分隔栏左侧的位置, `index`最大为`3`, 缺省时为保存按钮左侧)
+1. Custom-buttons, Custom-buttons-front 或 Custom-buttons-[index] (`index`从`0`开始代表每个分隔栏左侧的位置, `index`最大为`4`, 缺省时为最右侧尾部, `custom-buttons-front`为最左侧头部)
 
 自定义`ToolBar`菜单工具栏按钮项
 

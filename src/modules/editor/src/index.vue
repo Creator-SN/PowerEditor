@@ -22,6 +22,13 @@
                         :defaultClass="x.defaultClass"
                     ></slot>
                 </template>
+                <template v-slot:custom-buttons-front="x">
+                    <slot
+                        name="custom-buttons-front"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
+                </template>
                 <template v-slot:custom-buttons-0="x">
                     <slot
                         name="custom-buttons-0"
@@ -46,6 +53,13 @@
                 <template v-slot:custom-buttons-3="x">
                     <slot
                         name="custom-buttons-3"
+                        :editor="editor"
+                        :defaultClass="x.defaultClass"
+                    ></slot>
+                </template>
+                <template v-slot:custom-buttons-4="x">
+                    <slot
+                        name="custom-buttons-4"
                         :editor="editor"
                         :defaultClass="x.defaultClass"
                     ></slot>
