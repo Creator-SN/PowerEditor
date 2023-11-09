@@ -1,6 +1,6 @@
 {
   "name": "@creatorsn/powereditor",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "private": false,
   "author": {
     "name": "Creator-SN",
@@ -70,7 +70,7 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "1.2.26"
+    "vfluentdesign": "1.2.28"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.0",
