@@ -12373,10 +12373,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vfluentdesign@1.2.26:
-  version "1.2.26"
-  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-1.2.26.tgz#fd6b0cd819a6c76e10ab71d3cf523d66da4e398d"
-  integrity sha512-NahrgdGsQD07hjt5KTbeTehOdCsEuEBo7hBdc4APAcmhK4cMYOJOvmlBrmHhUNp1U5uuxULLxmDsx5FqnKbX9A==
+vfluentdesign@1.2.28:
+  version "1.2.28"
+  resolved "https://registry.yarnpkg.com/vfluentdesign/-/vfluentdesign-1.2.28.tgz#207b032a4de19c16c744fb57d7ca505e9d8ea8b7"
+  integrity sha512-Ij2+7z93Dg5FmUYjj3nUN/0t84mpEw/m97jEyrGrD0boMUCMf/9pZm/m59YJ34jo5HUDsiJRmAYIIrn5bt407w==
   dependencies:
     core-js "3.31.1"
     gsap "3.1.1"
