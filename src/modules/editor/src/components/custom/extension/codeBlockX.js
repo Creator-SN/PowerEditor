@@ -1,21 +1,11 @@
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { mergeAttributes } from '@tiptap/core';
+import { VueNodeViewRenderer } from "@tiptap/vue-2";
+
+import codeBlockX from "../source/codeBlockX.vue";
 
 export default CodeBlockLowlight.extend({
-    renderHTML({ node, HTMLAttributes }) {
-        return [
-            'pre',
-            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-            [
-                'code',
-                {
-                    class: node.attrs.language
-                        ? this.options.languageClassPrefix + node.attrs.language
-                        : null,
-                    'data-language': node.attrs.language || '',
-                },
-                0,
-            ],
-        ]
+    addNodeView() {
+        return VueNodeViewRenderer(codeBlockX)
     }
 });

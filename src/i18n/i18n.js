@@ -310,6 +310,10 @@ let i18n = {
     'Newline': {
         en: 'Newline',
         cn: '换行'
+    },
+    'Format Painter': {
+        en: 'Format Painter',
+        cn: '格式刷'
     }
 }
 

@@ -24,9 +24,14 @@ export default Node.create({
         return {
             togglePowerTaskList:
                 () =>
-                ({ commands }) => {
+                    ({ commands }) => {
+                        return commands.toggleList('powerTaskList', 'powerTaskItem');
+                    },
+            setPowerTaskList: () => ({ editor, commands }) => {
+                let status = editor.isActive('powerTaskList');
+                if (!status)
                     return commands.toggleList('powerTaskList', 'powerTaskItem');
-                },
+            }
         };
     },
 

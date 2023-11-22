@@ -47,10 +47,22 @@
         <fv-button
             class="power-editor-bubble-cmd-btn"
             :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
+            :foreground="getForeground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
+            :title="getTitle('Format Painter')"
+            @click="formatPainterClick"
+            @dblclick.native="formatPainterDoubleClick"
+        >
+            <i class="ms-Icon ms-Icon--Personalize"></i>
+        </fv-button>
+        <fv-button
+            class="power-editor-bubble-cmd-btn"
+            :theme="thisTheme"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('ClearFormatting')"
-            @click="exec('clearNodes')"
+            @click="() => {exec('clearNodes'); exec('unsetAllMarks');}"
         >
             <i class="ms-Icon ms-Icon--ClearFormatting"></i>
         </fv-button>
@@ -163,6 +175,9 @@ export default {
     data() {
         return {
             thisTheme: this.theme,
+            timer: {
+                formatPainter: null,
+            },
         };
     },
     watch: {
@@ -267,6 +282,22 @@ export default {
         },
         insertDrawingBlock() {
             this.editor.chain().focus().insertContent(`<drawing-block></drawing-block>`).run();
+        },
+        formatPainterClick() {
+            if (this.editor.storage.formatPainter.formatPainterStatus === 'off') {
+                this.editor.commands.setFormatPainter();
+                this.editor.commands.detectFormat();
+            } else {
+                clearTimeout(this.timer.formatPainter);
+                this.timer.formatPainter = setTimeout(() => {
+                    this.editor.commands.unsetFormatPainter();
+                }, 300);
+            }
+        },
+        formatPainterDoubleClick() {
+            clearTimeout(this.timer.formatPainter);
+            this.editor.commands.stickyFormatPainter();
+            this.editor.commands.detectFormat();
         },
         save() {
             this.$emit('save-click');

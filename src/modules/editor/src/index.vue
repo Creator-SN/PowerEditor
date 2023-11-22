@@ -81,6 +81,7 @@
             <slot name="front-content"></slot>
             <editor-content
                 class="tip-tap-editor"
+                :class="[{'format-painter': formatPainterStatus !== 'off'}]"
                 :editor="editor"
                 :theme="theme"
                 ref="editor"
@@ -132,6 +133,7 @@ import InlineEquation from './components/custom/extension/inlineEquation.js';
 import EquationBlock from './components/custom/extension/equationBlock.js';
 import MentionItem from './components/custom/extension/mentionItem.js';
 import DrawingBlock from './components/custom/extension/drawingBlock.js';
+import FormatPainter from './components/custom/extension/formatPainter.js';
 
 import toolBar from './components/toolBar.vue';
 import bubbleToolBar from './components/bubbleToolBar.vue';
@@ -174,7 +176,7 @@ export default {
             default: true,
         },
         toolbarHeight: {
-            default: 50,
+            default: 55,
         },
         toolbarBackground: {
             default: '',
@@ -193,6 +195,9 @@ export default {
         },
         readOnlyPaddingBottom: {
             default: 55,
+        },
+        codeBlockLanguagesBox: {
+            default: true,
         },
         mentionItemAttr: {
             default: () => ({}),
@@ -242,6 +247,14 @@ export default {
         },
         theme() {
             this.propsSync();
+        },
+    },
+    computed: {
+        formatPainterStatus() {
+            if (!this.editor) return 'off';
+            if (!this.editor.storage) return 'off';
+            if (!this.editor.storage.formatPainter) return 'off';
+            return this.editor.storage.formatPainter.formatPainterStatus;
         },
     },
     mounted() {
@@ -308,6 +321,7 @@ export default {
                         return !(editor.isActive('imageblock') || editor.isActive('equationBlock') || editor.isActive('embedblock') || editor.isActive('drawingBlock'));
                     },
                 }),
+                FormatPainter,
                 ...this.extensions,
             ];
             if (this.disabledPlaceholder == false) {
@@ -349,6 +363,15 @@ export default {
                     oriEvent: event,
                 });
             });
+            this.$refs.container.addEventListener('mouseup', () => {
+                let status = this.editor.storage.formatPainter.formatPainterStatus;
+                if (status !== 'off') {
+                    this.editor.commands.pasteFormat();
+                    if (status === 'once') {
+                        this.editor.storage.formatPainter.formatPainterStatus = 'off';
+                    }
+                }
+            });
         },
         defaultStorageInit() {
             const defaultStorage = Extension.create({
@@ -366,6 +389,7 @@ export default {
             return defaultStorage;
         },
         propsSync() {
+            this.editor.storage.defaultStorage.codeBlockLanguagesBox = this.codeBlockLanguagesBox;
             this.editor.storage.defaultStorage.showControlOnReadonly = this.showControlOnReadonly;
             this.editor.storage.defaultStorage.language = this.language;
             this.editor.storage.defaultStorage.theme = this.theme;
@@ -592,6 +616,10 @@ export default {
             background: white;
             box-sizing: border-box;
             transition: all 0.3s;
+
+            &.format-painter {
+                cursor: url(./assets/format_cur.svg), auto;
+            }
         }
 
         .ProseMirror {
@@ -670,14 +698,6 @@ export default {
                     padding: 0;
                     background: none;
                     font-size: 0.8rem;
-
-                    &::before {
-                        content: attr(data-language);
-
-                        margin-bottom: 10px;
-                        color: rgba(245, 245, 245, 0.6);
-                        display: block;
-                    }
                 }
 
                 .hljs-comment,

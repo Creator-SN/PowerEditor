@@ -93,6 +93,18 @@
         >
             <i class="ms-Icon ms-Icon--Underline"></i>
         </fv-button>
+        <fv-button
+            class="power-editor-cmd-btn"
+            :theme="thisTheme"
+            :isBoxShadow="true"
+            :background="getBackground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
+            :foreground="getForeground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
+            :title="getTitle('Format Painter')"
+            @click="formatPainterClick"
+            @dblclick.native="formatPainterDoubleClick"
+        >
+            <i class="ms-Icon ms-Icon--Personalize"></i>
+        </fv-button>
         <slot
             name="custom-buttons-1"
             defaultClass="power-editor-cmd-btn"
@@ -183,7 +195,7 @@
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('ClearFormatting')"
-            @click="exec('clearNodes')"
+            @click="() => {exec('clearNodes'); exec('unsetAllMarks');}"
         >
             <i class="ms-Icon ms-Icon--ClearFormatting"></i>
         </fv-button>
@@ -534,6 +546,9 @@ export default {
     data() {
         return {
             thisTheme: this.theme,
+            timer: {
+                formatPainter: null,
+            },
         };
     },
     watch: {
@@ -641,6 +656,22 @@ export default {
         insertDrawingBlock() {
             this.editor.chain().focus().insertContent(`<drawing-block></drawing-block>`).run();
         },
+        formatPainterClick() {
+            if (this.editor.storage.formatPainter.formatPainterStatus === 'off') {
+                this.editor.commands.setFormatPainter();
+                this.editor.commands.detectFormat();
+            } else {
+                clearTimeout(this.timer.formatPainter);
+                this.timer.formatPainter = setTimeout(() => {
+                    this.editor.commands.unsetFormatPainter();
+                }, 300);
+            }
+        },
+        formatPainterDoubleClick() {
+            clearTimeout(this.timer.formatPainter);
+            this.editor.commands.stickyFormatPainter();
+            this.editor.commands.detectFormat();
+        },
         save() {
             this.$emit('save-click');
         },
@@ -649,7 +680,48 @@ export default {
 </script>
 
 <style lang="scss">
+@mixin narrow-scroll-bar {
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 8px;
+
+        &:hover {
+            width: 16px;
+        }
+    }
+    /*定义滚动条轨道
+ 内阴影+圆角*/
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+    /*定义滑块
+ 内阴影+圆角*/
+    &::-webkit-scrollbar-thumb {
+        border-right: rgba(191, 190, 189, 0.2) solid 5px;
+        background-color: rgba(191, 190, 189, 0);
+        transition: background-color 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            border-radius: 10px;
+            border-color: transparent;
+            background-color: rgba(191, 190, 189, 0.6);
+        }
+
+        &:active {
+            background-color: rgba(191, 190, 189, 0.5);
+        }
+
+        &:horizontal {
+            border-right: none;
+            border-bottom: rgba(191, 190, 189, 0.2) solid 5px;
+        }
+    }
+}
+
 .power-editor-tool-bar-container {
+    @include narrow-scroll-bar;
+
     position: absolute;
     left: 5px;
     top: 5px;

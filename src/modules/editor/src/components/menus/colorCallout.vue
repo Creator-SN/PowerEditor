@@ -46,7 +46,7 @@
                 class="power-editor-color-item"
                 :class="[{dark : theme == 'dark', choosen: editor.isActive('highlight', { color: item.color })}]"
                 :key="'highlight:' + index"
-                @click="execMoreX('toggleHighlight', { color: item.color })"
+                @click="execMoreX('setHighlight', { color: item.color })"
             >
                 <p
                     class="peci-example"
