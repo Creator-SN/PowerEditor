@@ -158,17 +158,16 @@ export default {
 .power-editor-code-block {
     position: relative;
 
-    padding-top: 15px;
+    padding-top: 25px;
+    background-color: rgba(20, 20, 20, 1);
+    border-radius: 8px;
 
     .power-editor-code-block-banner {
         position: absolute;
         left: 0px;
         top: 0px;
         width: 100%;
-        height: 35px;
-        background-color: rgba(13, 13, 13, 1);
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
+        height: 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
