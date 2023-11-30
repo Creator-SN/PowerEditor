@@ -159,7 +159,7 @@ export default {
     position: relative;
 
     padding-top: 25px;
-    background-color: rgba(20, 20, 20, 1);
+    background-color: rgba(13, 13, 13, 1);
     border-radius: 8px;
 
     .power-editor-code-block-banner {
