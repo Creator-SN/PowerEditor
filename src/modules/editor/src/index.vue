@@ -199,6 +199,9 @@ export default {
         codeBlockLanguagesBox: {
             default: true,
         },
+        codeBlockLineNumbers: {
+            default: false,
+        },
         mentionItemAttr: {
             default: () => ({}),
         },
@@ -390,6 +393,7 @@ export default {
         },
         propsSync() {
             this.editor.storage.defaultStorage.codeBlockLanguagesBox = this.codeBlockLanguagesBox;
+            this.editor.storage.defaultStorage.codeBlockLineNumbers = this.codeBlockLineNumbers;
             this.editor.storage.defaultStorage.showControlOnReadonly = this.showControlOnReadonly;
             this.editor.storage.defaultStorage.language = this.language;
             this.editor.storage.defaultStorage.theme = this.theme;
@@ -691,7 +695,6 @@ export default {
                 background: #0d0d0d;
                 color: #fff;
                 font-family: 'JetBrainsMono', monospace;
-                padding: 0.75rem 1rem;
                 border-radius: 0.5rem;
 
                 code {

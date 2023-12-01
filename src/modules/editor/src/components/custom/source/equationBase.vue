@@ -7,7 +7,7 @@
     >
         <transition name="power-editor-equation-popper-fade">
             <div
-                v-show="node.attrs.showPopper"
+                v-show="showPopper"
                 class="power-editor-equation-popper-container"
                 :style="{ left: `${left}px`, top: `${top}%` }"
                 @keyup.enter="!lock ? close() : ''"
@@ -106,11 +106,12 @@ export default {
             left: 0,
             top: 100,
             backup: this.node.attrs.value,
+            showPopper: false,
             equationString: '',
             errorMsg: '',
             active: false,
             outsideEvent: (event) => {
-                if (!this.node.attrs.showPopper) return 0;
+                if (!this.showPopper) return 0;
                 let x = event.target;
                 let _self = false;
                 while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
@@ -127,7 +128,7 @@ export default {
         };
     },
     watch: {
-        'node.attrs.showPopper'(val) {
+        showPopper(val) {
             if (val) {
                 this.showPos();
                 this.backup = this.node.attrs.value;
@@ -184,17 +185,13 @@ export default {
         },
         show() {
             if (!this.editor.isEditable) return;
-            this.updateAttributes({
-                showPopper: true,
-            });
+            this.showPopper = true;
             setTimeout(() => {
                 this.$refs.input.focus();
             }, 300);
         },
         close() {
-            this.updateAttributes({
-                showPopper: false,
-            });
+            this.showPopper = false;
             this.editor.commands.focus();
             const { tr } = this.editor.view.state;
             const selection = TextSelection.near(tr.doc.resolve(this.getPos() + this.node.nodeSize));
@@ -222,7 +219,9 @@ export default {
     transition: background-color 0.3s;
 
     &.selected {
-        background: rgba(45, 170, 219, 0.3);
+        .power-editor-equation-target {
+            background: rgba(45, 170, 219, 0.3);
+        }
     }
 
     &.div {
@@ -230,6 +229,18 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        &.selected {
+            background: rgba(45, 170, 219, 0.3);
+
+            .power-editor-equation-target {
+                background: transparent;
+                
+                &:hover {
+                    background: rgba(200, 200, 200, 0.6);
+                }
+            }
+        }
     }
 
     &.dark {
@@ -319,6 +330,7 @@ export default {
         max-width: 100%;
         padding: 5px 2px;
         border-radius: 3px;
+        box-sizing: border-box;
         overflow-x: auto;
         user-select: all;
 

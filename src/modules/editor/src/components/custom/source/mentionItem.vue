@@ -7,11 +7,14 @@
     >
         <transition name="power-editor-mention-popper-fade">
             <div
-                v-show="node.attrs.showPopper && filterItems.length > 0"
+                v-show="showPopper && filterItems.length > 0"
                 class="power-editor-mention-popper-container"
                 :style="{ left: `${left}px`, top: `${top}px` }"
             >
-                <div v-show="loading" class="power-editor-mention-popper-list-loading-block">
+                <div
+                    v-show="loading"
+                    class="power-editor-mention-popper-list-loading-block"
+                >
                     <fv-progressRing
                         loading="true"
                         r="10"
@@ -141,8 +144,9 @@ export default {
         return {
             left: 0,
             top: 100,
+            showPopper: false,
             outsideEvent: (event) => {
-                if (!this.node.attrs.showPopper) return 0;
+                if (!this.showPopper) return 0;
                 let x = event.target;
                 let _self = false;
                 while (x && x.tagName && x.tagName.toLowerCase() != 'body') {
@@ -160,7 +164,7 @@ export default {
         };
     },
     watch: {
-        'node.attrs.showPopper'(val) {
+        showPopper(val) {
             if (val) {
                 this.showPos();
             }
@@ -206,9 +210,7 @@ export default {
         },
         show() {
             if (!this.editor.isEditable) return;
-            this.updateAttributes({
-                showPopper: true,
-            });
+            this.showPopper = true;
             setTimeout(() => {
                 this.$refs.target.focus();
             }, 300);
@@ -251,9 +253,7 @@ export default {
             this.editor.commands.focus();
         },
         close() {
-            this.updateAttributes({
-                showPopper: false,
-            });
+            this.showPopper = false;
             this.$refs.list.focus = false;
             this.editor.commands.focus();
         },

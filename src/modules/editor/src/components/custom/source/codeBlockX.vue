@@ -31,7 +31,24 @@
                 </fv-button>
             </div>
         </div>
-        <pre><code><node-view-content /></code></pre>
+        <pre
+            class="power-editor-code-block-pre"
+            :class="[{lineNumber: editor.storage.defaultStorage.codeBlockLineNumbers}]"
+        ><code><node-view-content /></code></pre>
+        <div
+            v-if="editor.storage.defaultStorage.codeBlockLineNumbers"
+            contenteditable="false"
+            class="power-editor-code-block-line-number-block"
+        >
+            <div
+                v-for="(_, index) in node.textContent.split('\n')"
+                :key="index"
+                class="power-editor-code-block-line-number-item"
+                :title="index + 1"
+            >
+                {{index + 1}}
+            </div>
+        </div>
     </node-view-wrapper>
 </template>
   
@@ -158,8 +175,8 @@ export default {
 .power-editor-code-block {
     position: relative;
 
-    padding-top: 25px;
-    background-color: rgba(13, 13, 13, 1);
+    padding-top: 40px;
+    background-color: rgba(25, 25, 25, 1);
     border-radius: 8px;
 
     .power-editor-code-block-banner {
@@ -173,18 +190,64 @@ export default {
         align-items: center;
 
         .power-editor-code-block-banner-left-block {
+            height: 40px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            user-select: none;
+
             .power-editor-code-block-language {
                 margin-left: 10px;
                 font-size: 12px;
                 color: rgba(245, 245, 245, 0.6);
+                cursor: default;
             }
         }
 
         .power-editor-code-block-banner-right-block {
+            height: 40px;
             padding-right: 10px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
+        }
+    }
+
+    .power-editor-code-block-line-number-block {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 40px;
+        height: 100%;
+        padding-top: 52px;
+        padding-right: 5px;
+        color: rgba(110, 118, 123, 1);
+        box-sizing: border-box;
+        line-height: 1.4;
+        cursor: default;
+
+        .power-editor-code-block-line-number-item {
+            width: 100%;
+            height: calc(0.8rem * 1.4);
+            font-size: 12px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-align: right;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            user-select: none;
+        }
+    }
+
+    .power-editor-code-block-pre {
+        margin: 0px;
+        padding: 0.75rem 1rem;
+
+        &.lineNumber {
+            padding-left: 40px;
         }
     }
 }
