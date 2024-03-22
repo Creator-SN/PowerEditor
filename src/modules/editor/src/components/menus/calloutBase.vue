@@ -12,7 +12,7 @@
             :beak="12"
             :space="0"
             :theme="theme"
-            :popperClass="popperClass"
+            :popperClass="[...popperClass, 'power-editor-callout-base-pc-container']"
         >
             <slot
                 name="trigger"
@@ -45,7 +45,9 @@
                 class="power-editor-callout-base-mobile-container"
                 :class="[{ dark: theme === 'dark' }]"
                 length="calc(100% - 50px)"
+                :background="theme === 'dark' ? 'rgba(56, 56, 56, 0.9)' : 'rgba(252, 252, 252, 0.9)'"
                 :appendBody="true"
+                :z-index="20"
             >
                 <div class="p-e-c-b-m-banner">
                     <slot
@@ -58,7 +60,7 @@
                     <p
                         class="p-e-c-b-m-close"
                         @click="thisShow = false"
-                    >Cancel</p>
+                    >{{getTitle('Cancel')}}</p>
                 </div>
                 <div
                     class="p-e-c-b-m-content-block"
@@ -80,6 +82,8 @@
 </template>
 
 <script>
+import i18n from '@/i18n/i18n.js';
+
 export default {
     props: {
         popperClass: {
@@ -93,6 +97,9 @@ export default {
         },
         mobileMode: {
             default: false,
+        },
+        language: {
+            default: 'en',
         },
         theme: {
             default: 'light',
@@ -112,9 +119,20 @@ export default {
         },
     },
     methods: {
+        getTitle(name) {
+            return i18n(name, this.language);
+        },
         triggerShow() {
             this.thisShow = true;
         },
+    },
+    beforeDestroy() {
+        try {
+            const body = document.querySelector('body');
+            body.removeChild(this.$el);
+        } catch (e) {
+            console.warn('CalloutBase Remove Failed', e);
+        }
     },
 };
 </script>
@@ -128,28 +146,66 @@ export default {
     }
 }
 
+@mixin narrow-scroll-bar {
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 8px;
+
+        &:hover {
+            width: 16px;
+        }
+    }
+    /*定义滚动条轨道
+ 内阴影+圆角*/
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+    /*定义滑块
+ 内阴影+圆角*/
+    ::-webkit-scrollbar-thumb {
+        border-right: rgba(191, 190, 189, 0.2) solid 5px;
+        background-color: rgba(191, 190, 189, 0);
+        transition: background-color 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            border-radius: 10px;
+            border-color: transparent;
+            background-color: rgba(191, 190, 189, 0.6);
+        }
+
+        &:active {
+            background-color: rgba(191, 190, 189, 0.5);
+        }
+
+        &:horizontal {
+            border-right: none;
+            border-bottom: rgba(191, 190, 189, 0.2) solid 5px;
+        }
+    }
+}
+
+.power-editor-callout-base-pc-container {
+    @include narrow-scroll-bar;
+}
+
 .power-editor-callout-base-mobile-container {
-    background: rgba(247, 246, 243, 0.9);
+    @include narrow-scroll-bar;
+
+    border: rgba(0, 0, 0, 0.1) solid thin;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     display: flex;
     flex-direction: column;
-    z-index: 9;
+    z-index: 20;
 
     &.dark {
-        background: rgba(36, 36, 36, 0.9);
-
         .p-e-c-b-m-banner {
-            background: rgba(47, 52, 55, 0.95);
             color: whitesmoke;
 
             .p-e-c-b-m-close {
                 color: rgba(46, 170, 220, 1);
             }
-        }
-
-        .p-e-c-b-m-content-block {
-            background: rgba(56, 56, 56, 0.9);
         }
 
         * {
@@ -161,7 +217,6 @@ export default {
         position: relative;
         width: 100%;
         height: 45px;
-        background: rgba(255, 255, 255, 0.95);
         border-bottom: rgba(200, 200, 200, 0.1) solid thin;
         display: flex;
         justify-content: space-between;
@@ -187,7 +242,6 @@ export default {
         height: 100%;
         flex: 1;
         padding: 30px 15px;
-        background: rgba(252, 252, 252, 0.9);
         box-sizing: border-box;
         display: flex;
         justify-content: center;

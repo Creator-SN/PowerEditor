@@ -1,5 +1,5 @@
 <template>
-    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Emoji'" :theme="theme" :popperClass="['power-editor-emoji-callout']">
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Emoji'" :theme="theme" :language="language" :popperClass="['power-editor-emoji-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>

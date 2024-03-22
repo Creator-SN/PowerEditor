@@ -1,5 +1,5 @@
 <template>
-    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="getTitle('Insert Link')" :theme="theme" :popperClass="['power-editor-link-callout']">
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="getTitle('Insert Link')" :theme="theme" :language="language" :popperClass="['power-editor-link-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>

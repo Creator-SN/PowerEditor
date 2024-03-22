@@ -123,6 +123,10 @@ let i18n = {
         en: "Save",
         cn: "保存"
     },
+    "Cancel": {
+        en: "Cancel",
+        cn: "取消"
+    },
     'TextField': {
         en: 'Text Field',
         cn: '文本框'

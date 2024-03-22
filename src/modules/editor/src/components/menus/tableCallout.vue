@@ -4,6 +4,7 @@
         :mobileMode="mobileMode"
         :title="getTitle('Table')"
         :theme="theme"
+        :language="language"
         :popperClass="['power-editor-table-callout']"
     >
         <template v-slot:trigger="x">

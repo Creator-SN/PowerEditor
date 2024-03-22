@@ -1,5 +1,5 @@
 <template>
-    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="getTitle('Insert Embed')" :theme="theme" :popperClass="['power-editor-embed-callout']">
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="getTitle('Insert Embed')" :theme="theme" :language="language" :popperClass="['power-editor-embed-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>

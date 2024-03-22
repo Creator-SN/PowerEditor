@@ -4,6 +4,7 @@
         :mobileMode="mobileMode"
         :title="getTitle('Headers')"
         :theme="theme"
+        :language="language"
         :popperClass="['power-editor-header-callout']"
     >
         <template v-slot:trigger="x">

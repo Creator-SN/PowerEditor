@@ -4,6 +4,7 @@
         :mobileMode="mobileMode"
         :title="getTitle('Text Color')"
         :theme="theme"
+        :language="language"
         :popperClass="['power-editor-color-callout']"
     >
         <template v-slot:trigger="x">

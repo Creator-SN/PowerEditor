@@ -76,7 +76,7 @@
             :class="[{ 'read-only': !editable || !showToolBar }]"
             class="tip-tap-editor-container"
             ref="container"
-            :style="{ 'padding-top': editable && showToolBar ? `${editablePaddingTop ? editablePaddingTop : toolbarHeight - 10}px` : `${readOnlyPaddingTop}px`, background: editorOutSideBackground }"
+            :style="{ 'padding-top': editable && showToolBar ? `${editablePaddingTop ? editablePaddingTop : toolbarHeight + 10}px` : `${readOnlyPaddingTop}px`, background: editorOutSideBackground }"
         >
             <slot name="front-content"></slot>
             <editor-content
@@ -612,7 +612,6 @@ export default {
             width: 100%;
             max-width: 100%;
             margin: 0px auto;
-            margin-top: 15px;
             min-height: 95%;
             height: auto;
             padding: 15px;
