@@ -3,6 +3,7 @@
         :show.sync="show"
         :mobileMode="mobileMode"
         :title="getTitle('Headers')"
+        :foreground="foreground"
         :theme="theme"
         :language="language"
         :popperClass="['power-editor-header-callout']"
@@ -43,6 +44,9 @@ export default {
     props: {
         mobileMode: {
             default: false,
+        },
+        foreground: {
+            default: '',
         },
         getBackground: {
             default: () => {},

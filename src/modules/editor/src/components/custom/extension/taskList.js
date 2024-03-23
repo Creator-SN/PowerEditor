@@ -11,13 +11,14 @@ export default Node.create({
         return [
             {
                 tag: 'ul[data-type="powerTaskList"]',
+                priority: 51,
             },
         ];
     },
 
     renderHTML({ HTMLAttributes }) {
         // https://prosemirror.net/docs/ref/#model.DOMOutputSpec //
-        return ['ul', mergeAttributes(HTMLAttributes, { 'data-type': 'powerTaskList' }), 0];
+        return ['ul', mergeAttributes(HTMLAttributes, { 'data-type': this.name }), 0];
     },
 
     addCommands() {

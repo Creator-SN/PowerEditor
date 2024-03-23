@@ -134,6 +134,7 @@
         </fv-button>
         <heading-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             :editor="editor"
@@ -319,6 +320,7 @@
         <hr />
         <color-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             :editor="editor"
@@ -354,6 +356,7 @@
         </fv-button>
         <emoji-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             :editor="editor"
@@ -375,6 +378,7 @@
         </emoji-callout>
         <table-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             :editor="editor"
@@ -430,6 +434,7 @@
         </fv-button>
         <image-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             @insert-image="insertImg"
@@ -450,6 +455,7 @@
         </image-callout>
         <link-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             @insert-link="insertLink"
@@ -470,6 +476,7 @@
         </link-callout>
         <embed-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             @insert-embed="insertEmbed"
@@ -534,6 +541,9 @@ export default {
             default: 70,
         },
         toolbarBorderRadius: {
+            default: '',
+        },
+        foreground: {
             default: '',
         },
         language: {

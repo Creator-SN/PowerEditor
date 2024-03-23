@@ -1,4 +1,4 @@
-import { Node, mergeAttributes, nodeInputRule } from '@tiptap/core';
+import { Node, mergeAttributes, wrappingInputRule } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import { nodeInputWithContentRule } from '../inputRules/nodeInputWithContentRules';
 import taskItem from '../source/taskItem.vue';
@@ -10,7 +10,7 @@ export default Node.create({
 
     group: 'block',
 
-    content: 'paragraph',
+    content: 'paragraph block*',
 
     draggable: true,
 
@@ -63,7 +63,21 @@ export default Node.create({
 
     addInputRules() {
         return [
-            nodeInputWithContentRule({
+            // nodeInputWithContentRule({
+            //     find: inputRegex,
+            //     type: this.type,
+            //     getAttributes: (match) => {
+            //         return {
+            //             checked: match[match.length - 1] === 'x',
+            //             theme: this.editor.storage.defaultStorage.theme,
+            //         };
+            //     },
+            //     content: {
+            //         type: 'paragraph',
+            //     },
+            //     overlapIgnore: ['powerTaskItem'],
+            // }),
+            wrappingInputRule({
                 find: inputRegex,
                 type: this.type,
                 getAttributes: (match) => {
@@ -71,11 +85,7 @@ export default Node.create({
                         checked: match[match.length - 1] === 'x',
                         theme: this.editor.storage.defaultStorage.theme,
                     };
-                },
-                content: {
-                    type: 'paragraph',
-                },
-                overlapIgnore: ['powerTaskItem'],
+                }
             }),
         ];
     },

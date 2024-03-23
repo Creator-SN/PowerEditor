@@ -2,7 +2,7 @@ import { Node, mergeAttributes, nodeInputRule } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import mentionItem from '../source/mentionItem.vue';
 
-const inputRegex = /@$/;
+const inputRegex = /(@)$/;
 
 export default Node.create({
     name: 'mentionItem',

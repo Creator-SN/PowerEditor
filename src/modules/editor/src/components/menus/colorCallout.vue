@@ -3,6 +3,7 @@
         :show.sync="show"
         :mobileMode="mobileMode"
         :title="getTitle('Text Color')"
+        :foreground="foreground"
         :theme="theme"
         :language="language"
         :popperClass="['power-editor-color-callout']"
@@ -68,6 +69,9 @@ export default {
         calloutBase,
     },
     props: {
+        foreground: {
+            default: '',
+        },
         getBackground: {
             default: () => {},
         },

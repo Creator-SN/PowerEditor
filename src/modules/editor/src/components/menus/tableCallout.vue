@@ -3,6 +3,7 @@
         :show.sync="show"
         :mobileMode="mobileMode"
         :title="getTitle('Table')"
+        :foreground="foreground"
         :theme="theme"
         :language="language"
         :popperClass="['power-editor-table-callout']"
@@ -145,6 +146,9 @@ export default {
         mobileMode: {
             default: false,
         },
+        foreground: {
+            default: '',
+        },
         getBackground: {
             default: () => {},
         },
@@ -190,7 +194,7 @@ export default {
             if (this.mobileMode) {
                 this.show = false;
             }
-        }
+        },
     },
 };
 </script>

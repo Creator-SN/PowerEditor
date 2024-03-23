@@ -1,7 +1,20 @@
 <template>
-    <node-view-wrapper v-if="node" as="li" class="power-editor-task-item-container">
-        <fv-check-box v-model="node.attrs.checked" :theme="thisTheme" :disabled="!editor.isEditable" contenteditable="false"></fv-check-box>
-        <node-view-content ref="n" class="power-editor-task-item-content"></node-view-content>
+    <node-view-wrapper
+        v-if="node"
+        as="li"
+        class="power-editor-task-item-container"
+    >
+        <fv-check-box
+            v-model="node.attrs.checked"
+            :theme="thisTheme"
+            :disabled="!editor.isEditable"
+            :background="thisForeground"
+            contenteditable="false"
+        ></fv-check-box>
+        <node-view-content
+            ref="n"
+            class="power-editor-task-item-content"
+        ></node-view-content>
     </node-view-wrapper>
 </template>
 
@@ -57,17 +70,19 @@ export default {
     data() {
         return {
             thisTheme: this.editor.storage.defaultStorage.theme,
+            thisForeground: this.editor.storage.defaultStorage.foreground,
             timer: {},
         };
     },
     watch: {
-        'editor.storage.defaultStorage.theme' (val) {
-            this.thisTheme = val
-        }
+        'editor.storage.defaultStorage.theme'(val) {
+            this.thisTheme = val;
+        },
+        'editor.storage.defaultStorage.foreground'(val) {
+            this.thisForeground = val;
+        },
     },
-    mounted() {
-
-    },
+    mounted() {},
     methods: {
         preventEnter(event) {
             console.log(event);

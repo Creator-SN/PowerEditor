@@ -9,6 +9,7 @@
                 v-show="showToolBar"
                 :editor="editor"
                 :theme="theme"
+                :foreground="foreground"
                 :language="language"
                 :toolbarHeight="toolbarHeight"
                 :toolbarBorderRadius="toolbarBorderRadius"
@@ -93,6 +94,7 @@
                 v-if="editor && editable"
                 :editor="editor"
                 :theme="theme"
+                :foreground="foreground"
                 :language="language"
                 :tippy-options="{ duration: 100 }"
                 ref="bubbleToolBar"
@@ -162,6 +164,9 @@ export default {
         contentMaxWidth: {
             default: '900px',
             type: String,
+        },
+        foreground: {
+            default: '#958DF1',
         },
         editorBackground: {
             default: '',
@@ -395,6 +400,7 @@ export default {
             this.editor.storage.defaultStorage.codeBlockLanguagesBox = this.codeBlockLanguagesBox;
             this.editor.storage.defaultStorage.codeBlockLineNumbers = this.codeBlockLineNumbers;
             this.editor.storage.defaultStorage.showControlOnReadonly = this.showControlOnReadonly;
+            this.editor.storage.defaultStorage.foreground = this.foreground;
             this.editor.storage.defaultStorage.language = this.language;
             this.editor.storage.defaultStorage.theme = this.theme;
             this.editor.storage.defaultStorage.editorContainer = this.$refs.container;

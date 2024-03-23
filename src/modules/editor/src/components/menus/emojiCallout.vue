@@ -1,5 +1,13 @@
 <template>
-    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="'Emoji'" :theme="theme" :language="language" :popperClass="['power-editor-emoji-callout']">
+    <callout-base
+        :show.sync="show"
+        :mobileMode="mobileMode"
+        :title="'Emoji'"
+        :foreground="foreground"
+        :theme="theme"
+        :language="language"
+        :popperClass="['power-editor-emoji-callout']"
+    >
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
@@ -7,16 +15,34 @@
         <template v-slot:header="x">
             <div class="power-editor-emoji-banner">
                 <p style="font-size: 13.8px">{{ getTitle(x.title) }}</p>
-                <fv-button :theme="theme" :isBoxShadow="true" @click="insertRandom">{{getTitle('Random')}}</fv-button>
+                <fv-button
+                    :theme="theme"
+                    :isBoxShadow="true"
+                    @click="insertRandom"
+                >{{getTitle('Random')}}</fv-button>
             </div>
         </template>
         <template v-slot:content>
-            <fv-infinite-scroll-view v-model="emoji_list" :batchSize="1" style="width: 100%; height: 100%;">
+            <fv-infinite-scroll-view
+                v-model="emoji_list"
+                :batchSize="1"
+                style="width: 100%; height: 100%;"
+            >
                 <template v-slot:default="x">
-                    <div class="power-editor-emoji-list" v-for="(group, index) in x.dynamicValue" :key="`type:${index}`">
+                    <div
+                        class="power-editor-emoji-list"
+                        v-for="(group, index) in x.dynamicValue"
+                        :key="`type:${index}`"
+                    >
                         <p class="title">{{ getTitle(group.name) }}</p>
                         <div class="power-editor-emoji-group">
-                            <i v-for="(item, i) in group.emojis" :key="i" class="emoji-item" v-html="item" @click="insertEmoji(item)"></i>
+                            <i
+                                v-for="(item, i) in group.emojis"
+                                :key="i"
+                                class="emoji-item"
+                                v-html="item"
+                                @click="insertEmoji(item)"
+                            ></i>
                         </div>
                     </div>
                 </template>
@@ -37,6 +63,9 @@ export default {
     props: {
         editor: {
             default: null,
+        },
+        foreground: {
+            default: '',
         },
         mobileMode: {
             default: false,
@@ -61,7 +90,7 @@ export default {
         },
         insertEmoji(emoji) {
             this.$emit('insert-emoji', emoji);
-            if(this.mobileMode) {
+            if (this.mobileMode) {
                 this.show = false;
             }
         },
@@ -69,7 +98,7 @@ export default {
             let i = (Math.random() * (this.emoji_list.length - 1)).toFixed(0);
             let j = (Math.random() * (this.emoji_list[i].emojis.length - 1)).toFixed(0);
             this.$emit('insert-emoji', this.emoji_list[i].emojis[j]);
-            if(this.mobileMode) {
+            if (this.mobileMode) {
                 this.show = false;
             }
         },

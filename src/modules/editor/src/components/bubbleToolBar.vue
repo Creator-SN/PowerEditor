@@ -68,6 +68,7 @@
         </fv-button>
         <color-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             :editor="editor"
@@ -91,6 +92,7 @@
         </color-callout>
         <table-callout
             :mobileMode="mobileMode"
+            :foreground="foreground"
             :theme="thisTheme"
             :language="language"
             :editor="editor"
@@ -164,6 +166,9 @@ export default {
         },
         mobileMode: {
             default: false,
+        },
+        foreground: {
+            default: '',
         },
         language: {
             default: 'en',

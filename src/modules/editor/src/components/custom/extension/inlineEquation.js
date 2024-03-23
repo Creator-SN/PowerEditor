@@ -3,7 +3,7 @@ import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import inlineEquation from '../source/equationBase.vue';
 import { nodePasteRule } from '../pasteRules/nodePasteRules';
 
-const inputRegex = /\$\s$/;
+const inputRegex = /(\$\s)$/;
 const pasteRegex = /^\$(.+)\$/g;
 // \$(.+?)\$
 // \$\$((.|\n)*?)\$\$

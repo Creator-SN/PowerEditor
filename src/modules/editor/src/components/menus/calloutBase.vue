@@ -59,6 +59,7 @@
                     </slot>
                     <p
                         class="p-e-c-b-m-close"
+                        :style="{color: theme === 'dark' ? 'whitesmoke' : foreground}"
                         @click="thisShow = false"
                     >{{getTitle('Cancel')}}</p>
                 </div>
@@ -98,6 +99,9 @@ export default {
         mobileMode: {
             default: false,
         },
+        foreground: {
+            default: '',
+        },
         language: {
             default: 'en',
         },
@@ -130,9 +134,7 @@ export default {
         try {
             const body = document.querySelector('body');
             body.removeChild(this.$el);
-        } catch (e) {
-            console.warn('CalloutBase Remove Failed', e);
-        }
+        } catch (e) {}
     },
 };
 </script>
