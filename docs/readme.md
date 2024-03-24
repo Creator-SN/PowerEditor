@@ -92,6 +92,7 @@ export default {
 |  showControlOnReadonly  |      [bool]      |       No       |                      true                      |         只读模式下是否显示控制栏         |
 |  mdDecNodeFuncsPlugins  |     [object]     |       No       |                      N/A                       |        Markdown 解码器自定义配置         |
 |         mdFlags         |     [object]     |       No       |                      N/A                       |      Markdown 解码器自定义层级标记       |
+|       foreground        | [string(color)]  |       No       |                    #958DF1                     |               编辑器前景色               |
 |          theme          | ['light','dark'] |       No       |                     light                      |               明暗主题风格               |
 |       starterKit        |     [object]     |       No       |                     ()=>{}                     |                                          |
 |       extensions        |     [array]      |       No       |                       []                       |                                          |
