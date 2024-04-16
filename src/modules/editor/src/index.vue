@@ -211,6 +211,9 @@ export default {
         codeBlockLineNumbers: {
             default: false,
         },
+        imgInterceptor: {
+            default: null,
+        },
         mentionItemAttr: {
             default: () => ({}),
         },
@@ -414,6 +417,7 @@ export default {
                 return i18n(name, this.language);
             };
             this.editor.storage.defaultStorage.editorContainer = this.$refs.container;
+            this.editor.storage.defaultStorage.imgInterceptor = this.imgInterceptor;
             let mentionItemTools = {
                 mentionList: () => [
                     // { key: 0, name: 'Mention Color', type: 'header' },

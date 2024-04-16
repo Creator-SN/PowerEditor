@@ -149,7 +149,6 @@ export default {
         if (lan) this.selectedLanguage = lan;
         else this.selectedLanguage = this.languages[0];
     },
-
     methods: {
         copyCode() {
             if (this.status.copy) {

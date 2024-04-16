@@ -87,6 +87,7 @@ export default {
 |   readOnlyPaddingTop    |     [number]     |       No       |                       5                        |          只读模式下的顶部内边距          |
 |  editablePaddingBottom  |     [number]     |       No       |                      315                       |         可编辑模式下的底部内边距         |
 |  readOnlyPaddingBottom  |     [number]     |       No       |                       55                       |          只读模式下的底部内边距          |
+|     imgInterceptor      |    [function]    |       No       |                      N/A                       | 图片上传拦截器, 用于后置处理图像内的数据 |
 |     mentionItemAttr     |     [object]     |       No       |                      N/A                       |             MentionItem 属性             |
 |       starterKit        |     [object]     |       No       |                     ()=>{}                     |        `StarterKit`相关自定义配置        |
 |  showControlOnReadonly  |      [bool]      |       No       |                      true                      |         只读模式下是否显示控制栏         |
@@ -313,3 +314,39 @@ textStyle(text, mark) {
 标记同样也是遵循标记名等于函数名的规则, 且必须返回一个字符串或对象, 当返回对象时, 该对象包含`prefix`和`suffix`两个属性, 分别代表标记的前缀和后缀。
 
 传入方式同节点函数一致。
+
+### 3. ImgInterceptor
+
+你可以通过`imgInterceptor`函数对图片中的数据进行后置处理, 以实现自定义的图片上传功能。当创建图片时或图片中的数据发生变化时, 该函数将被触发。
+
+该函数接收一个包含以下函数的对象:
+
+- **showStatus**: 显示状态函数, 包含一个参数`status`, 用于控制是否显式状态
+    - param: `status` - `true`表示显示状态, `false`表示隐藏状态
+    - return: `undefined`
+- **updateStatus**: 更新状态函数, 依次包含`loading`, `progress`, `info`三个参数, 其中`loading`表示是否显式加载状态, `progress`表示加载进度, `info`表示加载信息
+    - param: `loading` - `true`表示显示加载状态, `false`表示隐藏加载状态
+    - param: `progress` - 加载进度, 为`0-100`之间的数字
+    - param: `info` - 加载信息, 为字符串
+    - return: `undefined`
+- **interceptImage**: 拦截图片函数, 包含一个参数`replaceSrc`, 用于在加载过程中替换图片中的`src`, 并返回图片原始`src`
+    - param: `replaceSrc` - 用于替换图片中的`src`
+    - return: `src` - 图片原始`src`
+- **updateImage**: 更新图片函数, 包含一个参数`src`, 用于更新图片中的`src`
+    - param: `src` - 用于更新图片中的`src`
+    - return: `undefined`
+- **updateLock**: 更新锁函数, 包含一个参数`lock`, 用于判断拦截器是否被锁定, 需要手动调用, 默认为`true`表示未锁定
+    - param: `lock` - `true`表示锁定, `false`表示解锁
+    - return: `undefined`
+
+```javascript
+let imgInterceptor = ({
+    showStatus,
+    updateStatus,
+    interceptImage,
+    updateImage,
+    updateLock
+}) => {
+    // 你的代码
+}
+```
