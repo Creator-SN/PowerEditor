@@ -10,13 +10,18 @@
             :alignCenter.sync="node.attrs.alignCenter"
             :editor="editor"
             :theme="thisTheme"
-            :node="node" :getPos="getPos"
+            :foreground="thisForeground"
+            :node="node"
+            :getPos="getPos"
         >
             <fv-image
                 :src="node.attrs.src"
                 style="width: 100%; height: auto"
             ></fv-image>
-            <div class="power-editor-image-selection-mask" :class="[{selected: selected}]"></div>
+            <div
+                class="power-editor-image-selection-mask"
+                :class="[{selected: selected}]"
+            ></div>
         </media-container>
     </node-view-wrapper>
 </template>
@@ -73,16 +78,20 @@ export default {
     },
     data() {
         return {
-            thisTheme: this.editor.storage.defaultStorage.theme
+            thisTheme: this.editor.storage.defaultStorage.theme,
+            thisForeground: this.editor.storage.defaultStorage.foreground,
         };
     },
     watch: {
         // selected(val) {
         //     console.log(val);
         // },
-        'editor.storage.defaultStorage.theme' (val) {
-            this.thisTheme = val
-        }
+        'editor.storage.defaultStorage.theme'(val) {
+            this.thisTheme = val;
+        },
+        'editor.storage.defaultStorage.foreground'(val) {
+            this.thisForeground = val;
+        },
     },
 };
 </script>

@@ -13,19 +13,22 @@
                 @keyup.enter="!lock ? close() : ''"
             >
                 <textarea
-                    v-model="node.attrs.value"
+                    v-model="thisValue"
                     class="power-editor-equation-popper-input"
                     :placeholder="node.attrs.placeholder"
                     ref="input"
+                    :style="{height: `${inputHight}px`}"
                     @keydown.enter="$event.preventDefault()"
-                />
+                ></textarea>
                 <fv-button
                     class="power-editor-equation-popper-btn"
-                    :theme="thisTheme"
+                    :theme="'dark'"
                     :disabled="lock"
+                    icon="AcceptMedium"
+                    :background="thisForeground"
                     :is-box-shadow="true"
                     @click="close"
-                ><i class="ms-Icon ms-Icon--Accept"></i></fv-button>
+                >{{getTitle('Done')}}</fv-button>
             </div>
         </transition>
         <div
@@ -43,8 +46,8 @@
         <span
             class="power-editor-equation-target"
             :placeholder="node.attrs.emptyPlaceholder"
-            :class="{ empty: node.attrs.value === '' }"
-            v-html="node.attrs.value === '' ? node.attrs.emptyPlaceholder : equationString"
+            :class="{ empty: thisValue === '' }"
+            v-html="thisValue === '' ? node.attrs.emptyPlaceholder : equationString"
             ref="target"
             :style="{ color: `${lock ? 'red' : ''}` }"
             @click="show"
@@ -105,7 +108,7 @@ export default {
         return {
             left: 0,
             top: 100,
-            backup: this.node.attrs.value,
+            thisValue: this.node.attrs.value,
             showPopper: false,
             equationString: '',
             errorMsg: '',
@@ -121,9 +124,12 @@ export default {
                     }
                     x = x.parentNode;
                 }
-                if (!_self) this.closeWithBackup();
+                if (!_self) this.close(false);
             },
             thisTheme: this.editor.storage.defaultStorage.theme,
+            thisForeground: this.editor.storage.defaultStorage.foreground,
+            getTitle: this.editor.storage.defaultStorage.getTitle,
+            inputHight: '',
             lock: false,
         };
     },
@@ -131,17 +137,22 @@ export default {
         showPopper(val) {
             if (val) {
                 this.showPos();
-                this.backup = this.node.attrs.value;
             }
         },
-        'node.attrs.value'(val) {
+        thisValue(val) {
             if (val === '') {
                 this.equationString = '';
                 this.lock = false;
             } else this.render();
+            this.$nextTick(() => {
+                this.inputHight = this.$refs.input.scrollHeight;
+            });
         },
         'editor.storage.defaultStorage.theme'(val) {
             this.thisTheme = val;
+        },
+        'editor.storage.defaultStorage.foreground'(val) {
+            this.thisForeground = val;
         },
         selected(val) {
             if (val) this.show();
@@ -160,14 +171,14 @@ export default {
         },
         render() {
             try {
-                this.equationString = this.$katex.renderToString(this.node.attrs.value, {
+                this.equationString = this.$katex.renderToString(this.thisValue, {
                     throwOnError: true,
                 });
                 this.lock = false;
             } catch (e) {
                 if (e instanceof this.$katex.ParseError) {
                     // KaTeX can't parse the expression
-                    this.errorMsg = ("Error in LaTeX '" + this.node.attrs.value + "': " + e.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    this.errorMsg = ("Error in LaTeX '" + this.thisValue + "': " + e.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
                 } else {
                     throw e; // other error
                 }
@@ -190,19 +201,15 @@ export default {
                 this.$refs.input.focus();
             }, 300);
         },
-        close() {
+        close(confirm = true) {
             this.showPopper = false;
+            if (confirm) this.updateAttributes({ value: this.thisValue });
+            else this.thisValue = this.node.attrs.value;
             this.editor.commands.focus();
             const { tr } = this.editor.view.state;
             const selection = TextSelection.near(tr.doc.resolve(this.getPos() + this.node.nodeSize));
             tr.setSelection(selection);
             this.editor.view.dispatch(tr);
-        },
-        closeWithBackup() {
-            this.close();
-            this.updateAttributes({
-                value: this.backup,
-            });
         },
     },
     beforeDestroy() {
@@ -235,7 +242,7 @@ export default {
 
             .power-editor-equation-target {
                 background: transparent;
-                
+
                 &:hover {
                     background: rgba(200, 200, 200, 0.6);
                 }
@@ -276,25 +283,26 @@ export default {
         position: absolute;
         left: 0px;
         top: 100%;
-        width: 300px;
-        height: 75px;
+        width: 350px;
+        height: auto;
         padding: 5px;
         background: whitesmoke;
+        border: rgba(120, 120, 120, 0.1) solid thin;
         border-radius: 3px;
         box-sizing: border-box;
         display: flex;
         align-items: flex-start;
-        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
         overflow: hidden;
         z-index: 1;
 
         .power-editor-equation-popper-btn {
-            width: 30px;
+            width: 80px;
             margin-left: 5px;
         }
 
         .power-editor-equation-popper-input {
-            height: 100%;
+            height: auto;
             margin-right: 5px;
             padding: 5px;
             flex: 1;
@@ -305,7 +313,8 @@ export default {
             box-sizing: border-box;
             outline: none;
             resize: none;
-            transition: all 0.3s;
+            transition: background 0.3s;
+            overflow: hidden;
 
             &:hover {
                 background: rgba(255, 255, 255, 0.6);

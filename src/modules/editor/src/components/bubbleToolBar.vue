@@ -8,6 +8,7 @@
             :theme="thisTheme"
             :background="getBackground(editor.isActive('bold'))"
             :foreground="getForeground(editor.isActive('bold'))"
+            :border-color="'transparent'"
             :title="getTitle('Bold')"
             @click="exec('toggleBold')"
         >
@@ -18,6 +19,7 @@
             :theme="thisTheme"
             :background="getBackground(editor.isActive('italic'))"
             :foreground="getForeground(editor.isActive('italic'))"
+            :border-color="'transparent'"
             :title="getTitle('Italic')"
             @click="exec('toggleItalic')"
         >
@@ -28,6 +30,7 @@
             :theme="thisTheme"
             :background="getBackground(editor.isActive('strike'))"
             :foreground="getForeground(editor.isActive('strike'))"
+            :border-color="'transparent'"
             :title="getTitle('Strikethrough')"
             @click="exec('toggleStrike')"
         >
@@ -38,6 +41,7 @@
             :theme="thisTheme"
             :background="getBackground(editor.isActive('underline'))"
             :foreground="getForeground(editor.isActive('underline'))"
+            :border-color="'transparent'"
             :title="getTitle('Underline')"
             @click="exec('toggleUnderline')"
         >
@@ -47,9 +51,9 @@
         <fv-button
             class="power-editor-bubble-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
             :background="getBackground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
             :foreground="getForeground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
+            :border-color="'transparent'"
             :title="getTitle('Format Painter')"
             @click="formatPainterClick"
             @dblclick.native="formatPainterDoubleClick"
@@ -61,6 +65,7 @@
             :theme="thisTheme"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
+            :border-color="'transparent'"
             :title="getTitle('ClearFormatting')"
             @click="() => {exec('clearNodes'); exec('unsetAllMarks');}"
         >
@@ -83,6 +88,7 @@
                     :theme="thisTheme"
                     :background="getBackground(false)"
                     :foreground="getForeground(false, 'rgba(239, 107, 87, 1)')"
+                    :border-color="'transparent'"
                     :title="getTitle('Color')"
                     @click="x.show !== false ? x.show() : ''"
                 >
@@ -105,6 +111,7 @@
                     :theme="thisTheme"
                     :background="getBackground(false)"
                     :foreground="getForeground(false, 'rgba(56, 171, 127, 1)')"
+                    :border-color="'transparent'"
                     :title="getTitle('Table')"
                     @click="x.show !== false ? x.show() : ''"
                 >
@@ -117,6 +124,7 @@
             :theme="thisTheme"
             :background="getBackground(editor.isActive('code'))"
             :foreground="getForeground(editor.isActive('code'))"
+            :border-color="'transparent'"
             :title="getTitle('Code')"
             @click="exec('toggleCode')"
         >
@@ -127,6 +135,7 @@
             :theme="thisTheme"
             :background="getBackground(editor.isActive('equationBlock'))"
             :foreground="getForeground(editor.isActive('equationBlock'))"
+            :border-color="'transparent'"
             :title="getTitle('Equation')"
             @click="insertEquation"
         >
@@ -137,6 +146,7 @@
             :theme="thisTheme"
             :background="getBackground(editor.isActive('codeBlock'))"
             :foreground="getForeground(editor.isActive('codeBlock'))"
+            :border-color="'transparent'"
             :title="getTitle('Code Block')"
             @click="exec('toggleCodeBlock')"
         >
@@ -226,8 +236,8 @@ export default {
         },
         getBackground(state) {
             if (state) return this.highlightColor.b;
-            if (this.thisTheme === 'dark') return 'rgba(36, 36, 36, 1)';
-            return 'rgba(250, 250, 250, 1)';
+            if (this.thisTheme === 'dark') return 'rgba(50, 50, 50, 1)';
+            return 'rgba(239, 239, 239, 1)';
         },
         exec(cmd) {
             if (cmd) this.editor.chain().focus()[cmd]().run();
@@ -315,8 +325,8 @@ export default {
 .power-editor-bubble-tool-bar-container {
     position: relative;
     width: auto;
-    height: 45px;
-    padding: 3px;
+    height: 35px;
+    padding: 1px 3px;
     background: rgba(239, 239, 239, 1);
     border: rgba(120, 120, 120, 0.3) solid thin;
     border-radius: 6px;
@@ -325,17 +335,20 @@ export default {
     align-items: center;
     z-index: 5;
     overflow: hidden;
-    overflow-x: hidden;
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    overflow-x: overlay;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1), 3px 2px 8px rgba(0, 0, 0, 0.2);
 
     &.dark {
-        background: rgba(92, 92, 92, 1);
+        background: rgba(50, 50, 50, 1);
+
+        hr {
+            background: rgba(200, 200, 200, 0.1);
+        }
     }
 
     .power-editor-bubble-cmd-btn {
-        width: 30px;
-        height: 30px;
-        margin: 0px 1px;
+        width: 35px;
+        height: 33px;
         flex-shrink: 0;
 
         i {
@@ -348,7 +361,7 @@ export default {
         margin: 0px 5px;
         height: 30px;
         flex-shrink: 0;
-        background: rgba(230, 230, 230, 1);
+        background: rgba(90, 90, 90, 0.1);
         border: none;
         border-radius: 2px;
     }

@@ -18,18 +18,30 @@
                     :placeholder="getTitle('Row')"
                     :theme="theme"
                     class="power-editor-table-text-box"
+                    underline
+                    :border-width="2"
+                    :is-box-shadow="true"
+                    :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :focus-border-color="foreground"
                 ></fv-text-box>
                 <fv-text-box
                     v-model="column"
                     :placeholder="getTitle('Column')"
                     :theme="theme"
                     class="power-editor-table-text-box"
+                    underline
+                    :border-width="2"
+                    :is-box-shadow="true"
+                    :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :focus-border-color="foreground"
                 ></fv-text-box>
                 <fv-button
                     theme="dark"
                     :disabled="!row || !column || isNaN(row) || isNaN(column)"
                     :is-box-shadow="true"
-                    background="rgba(56, 171, 127, 1)"
+                    :background="foreground"
+                    :border-radius="6"
+                    style="width: 40px; height: 40px;"
                     @click="execMoreX('insertTable', {
                         rows: parseInt(row),
                         cols: parseInt(column),
@@ -43,7 +55,7 @@
                 <fv-button
                     theme="dark"
                     class="power-editor-table-control-item"
-                    background="rgba(165, 47, 52, 1)"
+                    background="rgba(212, 78, 82, 1)"
                     :is-box-shadow="true"
                     :title="getTitle('Delete Column')"
                     @click="exec('deleteColumn')"
@@ -53,7 +65,7 @@
                 <fv-button
                     theme="dark"
                     class="power-editor-table-control-item"
-                    background="rgba(165, 47, 52, 1)"
+                    background="rgba(212, 78, 82, 1)"
                     :is-box-shadow="true"
                     :title="getTitle('Delete Row')"
                     @click="execX('deleteRow')"
@@ -64,7 +76,7 @@
                 <fv-button
                     theme="dark"
                     class="power-editor-table-control-item"
-                    background="rgba(0, 120, 212, 1)"
+                    :background="foreground"
                     :is-box-shadow="true"
                     :title="getTitle('Add Row Before')"
                     @click="execX('addRowBefore')"
@@ -74,7 +86,7 @@
                 <fv-button
                     theme="dark"
                     class="power-editor-table-control-item"
-                    background="rgba(0, 120, 212, 1)"
+                    :background="foreground"
                     :is-box-shadow="true"
                     :title="getTitle('Add Row After')"
                     @click="execX('addRowAfter')"
@@ -87,7 +99,7 @@
                 <fv-button
                     theme="dark"
                     class="power-editor-table-control-item"
-                    background="rgba(0, 120, 212, 1)"
+                    :background="foreground"
                     :is-box-shadow="true"
                     :title="getTitle('Add Column Before')"
                     @click="execX('addColumnBefore')"
@@ -100,7 +112,7 @@
                 <fv-button
                     theme="dark"
                     class="power-editor-table-control-item"
-                    background="rgba(0, 120, 212, 1)"
+                    :background="foreground"
                     :is-box-shadow="true"
                     :title="getTitle('Add Column After')"
                     @click="execX('addColumnAfter')"
@@ -221,7 +233,7 @@ export default {
 
             .power-editor-table-text-box {
                 width: 80px;
-                height: 30px;
+                height: 40px;
                 flex: 1;
                 margin: 0px 5px;
                 text-align: center;

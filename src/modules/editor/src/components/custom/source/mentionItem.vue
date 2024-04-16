@@ -19,14 +19,14 @@
                         loading="true"
                         r="10"
                         borderWidth="2"
-                        :foreground="editor.storage.defaultStorage.mentionItemTools.headerForeground"
+                        :foreground="thisForeground"
                         background="white"
                     ></fv-progressRing>
                 </div>
                 <fv-list-view
                     :value="filterItems"
+                    :theme="thisTheme"
                     class="power-editor-mention-popper-list-view"
-                    :headerForeground="editor.storage.defaultStorage.mentionItemTools.headerForeground"
                     ref="list"
                     @chooseItem="chooseItem"
                 >
@@ -45,7 +45,7 @@
                             style="margin-right: 15px;"
                         ></i>
                         <p
-                            :style="{ color: x.valueTrigger(x.item.type) == 'header' ? node.attrs.headerForeground : '' }"
+                            :style="{ color: x.valueTrigger(x.item.type) == 'header' ? thisForeground : '' }"
                             style="flex: 1;"
                         >{{x.valueTrigger(x.item.name)}}</p>
                     </template>
@@ -161,6 +161,7 @@ export default {
             filterItems: [],
             loading: false,
             thisTheme: this.editor.storage.defaultStorage.theme,
+            thisForeground: this.editor.storage.defaultStorage.mentionItemTools.headerForeground(),
         };
     },
     watch: {
@@ -175,6 +176,9 @@ export default {
         },
         'editor.storage.defaultStorage.theme'(val) {
             this.thisTheme = val;
+        },
+        'editor.storage.defaultStorage.mentionItemTools.headerForeground'() {
+            this.thisForeground = this.editor.storage.defaultStorage.mentionItemTools.headerForeground();
         },
     },
     computed: {},
@@ -319,14 +323,14 @@ export default {
         top: 100%;
         width: 260px;
         height: 300px;
-        background: whitesmoke;
+        background: rgba(255, 255, 255, 1);
         border: rgba(50, 49, 48, 0.1) solid thin;
         border-radius: 6px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         flex-direction: column;
-        box-shadow: 8px 10px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1), 8px 6px 20px rgba(0, 0, 0, 0.1);
         z-index: 1;
 
         .power-editor-mention-popper-list-loading-block {

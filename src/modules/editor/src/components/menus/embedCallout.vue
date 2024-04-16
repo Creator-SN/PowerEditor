@@ -25,14 +25,24 @@
                     :placeholder="getTitle('Caption')"
                     :theme="theme"
                     icon="TextField"
-                    style="width: 90%; margin-top: 5px"
+                    underline
+                    :border-width="2"
+                    :is-box-shadow="true"
+                    :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :focus-border-color="foreground"
+                    style="width: 100%; margin-top: 5px"
                 />
                 <fv-text-box
                     v-model="link"
                     icon="Link"
                     :placeholder="getTitle('Insert Embed Url...')"
                     :theme="theme"
-                    style="width: 90%; margin-top: 5px"
+                    underline
+                    :border-width="2"
+                    :is-box-shadow="true"
+                    :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :focus-border-color="foreground"
+                    style="width: 100%; margin-top: 5px"
                 />
             </div>
             <div class="power-editor-e-c-control-block">
@@ -119,7 +129,6 @@ export default {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
 
             &.dark {
             }

@@ -101,13 +101,20 @@ export default {
         return {
             show: false,
             colorList: [
+                { name: 'gray', color: '#787774' },
                 { name: 'purple', color: '#958DF1' },
+                { name: 'pink', color: '#f58eda' },
                 { name: 'red', color: '#F98181' },
                 { name: 'orange', color: '#FBBC88' },
                 { name: 'yellow', color: '#FAF594' },
-                { name: 'blue', color: '#70CFF8' },
+                { name: 'blue', color: '#4086cb' },
                 { name: 'teal', color: '#94FADB' },
                 { name: 'green', color: '#B9F18D' },
+                { name: 'rose', color: '#ee7686' },
+                { name: 'fresh_blue', color: '#70CFF8' },
+                { name: 'ice_blue', color: '#9fc2ca' },
+                { name: 'dark_blue', color: '#0c4a83' },
+                { name: 'fresh_green', color: '#55ddb6' },
             ],
             highlightList: [
                 { name: 'red', color: 'red' },
@@ -117,6 +124,11 @@ export default {
                 { name: 'green', color: '#8ce99a' },
                 { name: 'blue', color: '#74c0fc' },
                 { name: 'purple', color: '#b197fc' },
+                { name: 'light_green', color: '#d1f6e7' },
+                { name: 'light_yellow', color: '#fdf0c6' },
+                { name: 'light_red', color: '#ffe3e3' },
+                { name: 'light_purple', color: '#e9e1f9' },
+                { name: 'light_orange', color: '#ffe5c7' },
             ],
         };
     },

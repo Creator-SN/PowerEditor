@@ -96,6 +96,7 @@ export default {
 |          theme          | ['light','dark'] |       No       |                     light                      |               明暗主题风格               |
 |       starterKit        |     [object]     |       No       |                     ()=>{}                     |                                          |
 |       extensions        |     [array]      |       No       |                       []                       |                                          |
+|        showSave         |      [bool]      |       No       |                      true                      |             是否显示保存按钮             |
 
 ### Events
 
@@ -205,7 +206,9 @@ this.$refs.editor.insertMarkdown(markdown)
     mentionClickCallback: (chooseItem, value) => {
         console.log('mentionClickCallback');
     },
-    headerForeground: 'rgba(0, 120, 212, 1)',
+    headerForeground: () => {
+        return this.foreground;
+    },
 }
 ```
 

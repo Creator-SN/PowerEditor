@@ -318,7 +318,59 @@ let i18n = {
     'Format Painter': {
         en: 'Format Painter',
         cn: '格式刷'
-    }
+    },
+    'Done': {
+        en: 'Done',
+        cn: '完成'
+    },
+    'gray': {
+        en: 'Gray',
+        cn: '灰色'
+    },
+    'pink': {
+        en: 'Pink',
+        cn: '粉色'
+    },
+    'rose': {
+        en: 'Rose',
+        cn: '玫瑰色'
+    },
+    'fresh_blue': {
+        en: 'Fresh Blue',
+        cn: '鲜艳蓝'
+    },
+    'ice_blue': {
+        en: 'Ice Blue',
+        cn: '冰蓝色'
+    },
+    'dark_blue': {
+        en: 'Dark Blue',
+        cn: '深蓝色'
+    },
+    'fresh_green': {
+        en: 'Fresh Green',
+        cn: '鲜艳绿'
+    },
+    'light_green': {
+        en: 'Light Green',
+        cn: '浅绿色'
+    },
+    'light_yellow': {
+        en: 'Light Yellow',
+        cn: '浅黄色'
+    },
+    'light_red': {
+        en: 'Light Red',
+        cn: '浅红色'
+    },
+    'light_purple': {
+        en: 'Light Purple',
+        cn: '浅紫色'
+    },
+    'light_orange': {
+        en: 'Light Orange',
+        cn: '浅橙色'
+    },
 }
 
 export default (text, language = 'en') => {

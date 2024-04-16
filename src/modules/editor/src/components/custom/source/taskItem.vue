@@ -10,6 +10,7 @@
             :disabled="!editor.isEditable"
             :background="thisForeground"
             contenteditable="false"
+            @click="updateValue"
         ></fv-check-box>
         <node-view-content
             ref="n"
@@ -86,6 +87,11 @@ export default {
     methods: {
         preventEnter(event) {
             console.log(event);
+        },
+        updateValue(event) {
+            this.updateAttributes({
+                checked: event,
+            });
         },
     },
     beforeDestroy() {

@@ -14,6 +14,7 @@
                 :toolbarHeight="toolbarHeight"
                 :toolbarBorderRadius="toolbarBorderRadius"
                 :mobileMode="mobileMode"
+                :showSave="showSave"
                 @save-click="save"
             >
                 <template v-slot:custom-buttons="x">
@@ -99,6 +100,7 @@
                 :tippy-options="{ duration: 100 }"
                 ref="bubbleToolBar"
                 :mobileMode="mobileMode"
+                :showSave="showSave"
             ></bubble-tool-bar>
         </div>
     </div>
@@ -139,6 +141,8 @@ import FormatPainter from './components/custom/extension/formatPainter.js';
 
 import toolBar from './components/toolBar.vue';
 import bubbleToolBar from './components/bubbleToolBar.vue';
+
+import i18n from '@/i18n/i18n.js';
 
 export default {
     name: 'PowerEditor',
@@ -224,6 +228,9 @@ export default {
         },
         mdFlags: {
             default: () => ({}),
+        },
+        showSave: {
+            default: true,
         },
         language: {
             default: 'cn',
@@ -403,11 +410,20 @@ export default {
             this.editor.storage.defaultStorage.foreground = this.foreground;
             this.editor.storage.defaultStorage.language = this.language;
             this.editor.storage.defaultStorage.theme = this.theme;
+            this.editor.storage.defaultStorage.getTitle = (name) => {
+                return i18n(name, this.language);
+            };
             this.editor.storage.defaultStorage.editorContainer = this.$refs.container;
             let mentionItemTools = {
                 mentionList: () => [
                     // { key: 0, name: 'Mention Color', type: 'header' },
-                    // { key: 1, name: 'Blue', color: 'rgba(0, 120, 212, 1)', icon: 'WindowsLogo', iconColor: 'rgba(0, 153, 204, 1)' },
+                    // {
+                    //     key: 1,
+                    //     name: 'Blue',
+                    //     color: 'rgba(0, 120, 212, 1)',
+                    //     icon: 'WindowsLogo',
+                    //     iconColor: 'rgba(0, 153, 204, 1)',
+                    // },
                     // { key: 2, name: 'Purple', color: '#958DF1', icon: 'DelveAnalyticsLogo', iconColor: '#958DF1' },
                     // { key: 3, name: 'Mention Text', type: 'header' },
                     // { key: 9, name: '', type: 'divider' },
@@ -423,7 +439,9 @@ export default {
                 mentionClickCallback: () => {
                     console.log('mentionClickCallback');
                 },
-                headerForeground: 'rgba(0, 120, 212, 1)',
+                headerForeground: () => {
+                    return this.foreground;
+                },
             };
             this.editor.storage.defaultStorage.mentionItemTools = Object.assign(mentionItemTools, this.mentionItemAttr);
         },
@@ -586,7 +604,7 @@ export default {
         top: 5px;
         width: calc(100% - 10px);
         height: 70px;
-        background: rgba(255, 255, 255, 0.6);
+        background: rgba(240, 240, 240, 0.6);
         border: rgba(36, 36, 36, 0.1) thin solid;
         border-radius: 8px;
         box-sizing: border-box;
@@ -774,7 +792,7 @@ export default {
             hr {
                 border: none;
                 border-top: 2px solid rgba(#0d0d0d, 0.1);
-                margin: 2rem 0;
+                margin: 1rem 0;
             }
 
             .tableWrapper {

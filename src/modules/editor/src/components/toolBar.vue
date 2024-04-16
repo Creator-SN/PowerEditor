@@ -605,7 +605,7 @@ export default {
             // state: true = active, false = inactive
             if (state) return this.highlightColor.b;
             if (this.thisTheme === 'dark') return 'rgba(36, 36, 36, 1)';
-            return '';
+            return 'rgba(255, 255, 255, 1)';
         },
         exec(cmd) {
             if (cmd) this.editor.chain().focus()[cmd]().run();
@@ -749,6 +749,12 @@ export default {
     overflow-x: overlay;
     overflow-y: hidden;
 
+    &.dark {
+        hr {
+            background: rgba(200, 200, 200, 0.1);
+        }
+    }
+
     .power-editor-cmd-btn {
         width: 35px;
         height: 35px;
@@ -763,9 +769,11 @@ export default {
     hr {
         width: 1.5px;
         margin-left: 5px;
+        margin-top: 0px;
+        margin-bottom: 0px;
         height: 30px;
         flex-shrink: 0;
-        background: rgba(230, 230, 230, 1);
+        background: rgba(90, 90, 90, 0.1);
         border: none;
         border-radius: 2px;
     }

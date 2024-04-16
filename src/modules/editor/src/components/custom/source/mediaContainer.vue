@@ -105,10 +105,17 @@
             v-show="show.captionBox"
             v-model="thisCaption"
             :theme="theme"
-            underline
-            :border-radius="0"
             class="power-editor-media-caption-block"
             :placeholder="getTitle('Write a caption...')"
+            underline
+            :border-width="2"
+            :is-box-shadow="true"
+            :border-color="'rgba(200, 200, 200, 0.1)'"
+            :focus-border-color="foreground"
+            @keyup.enter="() => {
+                show.captionBox = false;
+                newline();
+            }"
         ></fv-text-box>
     </div>
 </template>
@@ -132,6 +139,9 @@ export default {
         alignCenter: {
             default: true,
         },
+        foreground: {
+            default: '',
+        },
         node: {
             default: () => ({}),
         },
@@ -144,7 +154,7 @@ export default {
     },
     data() {
         return {
-            thisCaption: this.caption,
+            thisCaption: this.caption ? '' : this.caption,
             thisAlignCenter: this.alignCenter,
             elWidthStart: 0,
             elWidthEnd: 0,
@@ -185,7 +195,7 @@ export default {
             this.$emit('update:alignCenter', val);
         },
         caption(val) {
-            this.thisCaption = val;
+            this.thisCaption = val ? '' : val;
         },
         thisCaption(val) {
             this.$emit('update:caption', val);

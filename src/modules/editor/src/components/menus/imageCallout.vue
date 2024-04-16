@@ -41,6 +41,11 @@
                     v-model="url"
                     :placeholder="getTitle('Insert Image Url.')"
                     :theme="theme"
+                    underline
+                    :border-width="2"
+                    :is-box-shadow="true"
+                    :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :focus-border-color="foreground"
                     style="width: 90%; border: thin; outline: none"
                     ref="img_link"
                 />
