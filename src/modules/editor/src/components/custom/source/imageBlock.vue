@@ -160,6 +160,11 @@ export default {
         },
         imgInterceptorFunc() {
             let funcAttrs = {
+                node: this.node,
+                extension: this.extension,
+                getPos: this.getPos,
+                updateAttributes: this.updateAttributes,
+                deleteNode: this.deleteNode,
                 showStatus: this.showStatus,
                 updateStatus: this.updateStatus,
                 interceptImage: this.interceptImage,

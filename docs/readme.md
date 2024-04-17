@@ -339,8 +339,21 @@ textStyle(text, mark) {
     - param: `lock` - `true`表示锁定, `false`表示解锁
     - return: `undefined`
 
+同时, 该函数包含以下节点对象:
+
+- **node**: 当前节点对象
+- **extension**: 当前节点扩展对象
+- **getPos**: 获取当前节点位置函数
+- **updateAttributes**: 更新属性函数
+- **deleteNode**: 删除节点函数
+
 ```javascript
 let imgInterceptor = ({
+    node,
+    extension,
+    getPos,
+    updateAttributes,
+    deleteNode,
     showStatus,
     updateStatus,
     interceptImage,

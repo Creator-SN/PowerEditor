@@ -47,9 +47,9 @@
                 v-show="editor.isEditable"
                 class="power-editor-media-cmd-btn"
                 :theme="theme"
-                fontSize="12"
+                fontSize="10"
                 :isBoxShadow="true"
-                :title="getTitle('TextField')"
+                :title="getTitle('Caption')"
                 @click="showCaptionBox"
             >
                 <i class="ms-Icon ms-Icon--TextField"></i>
@@ -57,7 +57,7 @@
             <fv-button
                 class="power-editor-media-cmd-btn"
                 :theme="theme"
-                fontSize="12"
+                fontSize="10"
                 :isBoxShadow="true"
                 :title="getTitle('AlignLeft')"
                 @click="thisAlignCenter = false"
@@ -67,7 +67,7 @@
             <fv-button
                 class="power-editor-media-cmd-btn"
                 :theme="theme"
-                fontSize="12"
+                fontSize="10"
                 :isBoxShadow="true"
                 :title="getTitle('AlignCenter')"
                 @click="thisAlignCenter = true"
@@ -83,10 +83,10 @@
                 class="power-editor-media-cmd-btn"
                 :theme="theme"
                 icon="ReturnKeySm"
-                fontSize="12"
+                fontSize="10"
                 :isBoxShadow="true"
                 :title="getTitle('TextField')"
-                style="width: 80px;"
+                style="width: 60px;"
                 @click="newline"
             >
                 {{getTitle('Newline')}}
@@ -107,6 +107,8 @@
             :theme="theme"
             class="power-editor-media-caption-block"
             :placeholder="getTitle('Write a caption...')"
+            ref="caption"
+            background="transparent"
             underline
             :border-width="2"
             :is-box-shadow="true"
@@ -243,7 +245,7 @@ export default {
             this.direction = direction;
             this.elWidthStart = this.$el.clientWidth;
             this.elWidthEnd = this.elWidthStart;
-            this.ppi = this.currentWidth / this.elWidthStart;
+            this.ppi = (this.currentWidth > 100 ? 100 : this.currentWidth) / this.elWidthStart;
         },
         stop() {
             this.active = false;
@@ -261,6 +263,9 @@ export default {
         showCaptionBox() {
             if (!this.editor.isEditable) return;
             this.show.captionBox = true;
+            this.$nextTick(() => {
+                this.$refs.caption.focus();
+            });
         },
         newline() {
             if (!this.editor.isEditable) return;
