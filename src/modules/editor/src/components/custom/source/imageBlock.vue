@@ -18,6 +18,7 @@
             <fv-image
                 :src="node.attrs.src"
                 ref="image"
+                :onlazy="thisLazyLoad"
                 style="width: 100%; height: auto"
                 :style="{height: !node.attrs.src && statusInfo.show ? statusInfo.tmpHeight + 'px' : ''}"
             ></fv-image>
@@ -108,6 +109,7 @@ export default {
                 lock: true,
             },
             thisTheme: this.editor.storage.defaultStorage.theme,
+            thisLazyLoad: this.editor.storage.defaultStorage.imgLazyLoad,
             thisForeground: this.editor.storage.defaultStorage.foreground,
             imgInterceptor: this.editor.storage.defaultStorage.imgInterceptor,
         };
@@ -121,6 +123,9 @@ export default {
         },
         'editor.storage.defaultStorage.theme'(val) {
             this.thisTheme = val;
+        },
+        'editor.storage.defaultStorage.imgLazyLoad'(val) {
+            this.thisLazyLoad = val;
         },
         'editor.storage.defaultStorage.foreground'(val) {
             this.thisForeground = val;
