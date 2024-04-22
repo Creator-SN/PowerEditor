@@ -4,7 +4,7 @@ import inlineEquation from '../source/equationBase.vue';
 import { nodePasteRule } from '../pasteRules/nodePasteRules';
 
 const inputRegex = /(\$\s)$/;
-const pasteRegex = /^\$(.+)\$/g;
+const pasteRegex = /^(\$)(.+?)(\$)/g;
 // \$(.+?)\$
 // \$\$((.|\n)*?)\$\$
 
@@ -73,7 +73,7 @@ export default Node.create({
                 getAttributes: match => {
                     // return some attrs, if any.
                     return {
-                        value: match[1],
+                        value: match[2],
                         theme: this.editor.storage.defaultStorage.theme,
                     };
                 },
@@ -87,6 +87,10 @@ export default Node.create({
                 let state = this.editor.view.state;
                 let selection = this.editor.view.state.selection;
                 let text = state.doc.textBetween(selection.from, selection.to, ' ');
+                // if text is $...$ then remove $ from start and end
+                if (text.startsWith('$') && text.endsWith('$')) {
+                    text = text.slice(1, -1);
+                }
                 if (text.length > 0) {
                     return this.editor.chain().focus().insertContent(`<inline-equation theme="${this.editor.storage.defaultStorage.theme}" value="${text}"></inline-equation>`).run();
                 } else return;
