@@ -4,13 +4,19 @@
         :class="[{ dark: thisTheme === 'dark' }]"
         :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }"
     >
-        <div class="power-editor-d-b-container">
+        <div
+            v-show="editor.isEditable"
+            class="power-editor-d-b-container"
+        >
             <div class="power-editor-d-b-block l1">
                 <fv-button
                     :theme="thisTheme"
+                    :font-size="12"
                     :borderRadius="50"
                     :disabled="size <= 1"
+                    :background="thisTheme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'"
                     class="power-editor-d-b-btn __size"
+                    :isBoxShadow="true"
                     @click="size = size > 1 ? size - 1 : size"
                 ><i class="ms-Icon ms-Icon--Remove"></i></fv-button>
                 <fv-slider
@@ -18,8 +24,10 @@
                     :theme="thisTheme"
                     :mininum="1"
                     :maxinum="10"
+                    icon="RadioBullet"
                     :showLabel="true"
-                    style="width: 150px; margin-left: 5px"
+                    :color="thisForeground"
+                    style="width: 150px; height: 100%; margin-left: 5px"
                 >
                     <template slot-scope="prop">
                         <span style="height: 100%; margin-left: 5px; font-size: 12px; display: flex; align-items: center">{{ prop.value }}</span>
@@ -27,18 +35,22 @@
                 </fv-slider>
                 <fv-button
                     :theme="thisTheme"
+                    :font-size="12"
                     :borderRadius="50"
                     :disabled="size >= 10"
+                    :background="thisTheme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'"
                     class="power-editor-d-b-btn __size"
+                    :isBoxShadow="true"
                     @click="size = size < 10 ? size + 1 : size"
                 ><i class="ms-Icon ms-Icon--Add"></i></fv-button>
             </div>
-            <div class="power-editor-d-b-block">
+            <div class="power-editor-d-b-block overlay">
                 <fv-button
                     class="power-editor-d-b-btn __color"
                     v-for="(item, index) in colorList"
                     :key="'color:' + index"
-                    :theme="thisTheme"
+                    theme="dark"
+                    :font-size="12"
                     :borderRadius="50"
                     :background="item.color"
                     :isBoxShadow="color !== item.color"
@@ -48,26 +60,31 @@
             <div class="power-editor-d-b-block">
                 <fv-button
                     class="power-editor-d-b-btn __clear"
+                    :font-size="12"
                     :borderRadius="50"
+                    :background="thisTheme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'"
                     :theme="thisTheme"
+                    :isBoxShadow="true"
                     @click="clear"
                 ><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
             </div>
         </div>
         <media-container
             :width.sync="node.attrs.width"
-            :caption.sync="node.attrs.caption"
+            :caption="node.attrs.caption"
             :alignCenter.sync="node.attrs.alignCenter"
             :editor="editor"
             :theme="thisTheme"
             :foreground="thisForeground"
             :node="node"
             :getPos="getPos"
+            @update:caption="updateAttributes({caption: $event})"
         >
             <svg
                 class="canvas-svg"
                 viewBox="0 0 500 250"
                 ref="canvas"
+                :class="[{readonly: !editor.isEditable}]"
             >
                 <template v-for="item in node.attrs.lines">
                     <path
@@ -151,13 +168,20 @@ export default {
             drawing: false,
             id: this.$SUtility.Guid(),
             colorList: [
+                { name: 'gray', color: '#787774' },
                 { name: 'purple', color: '#958DF1' },
+                { name: 'pink', color: '#f58eda' },
                 { name: 'red', color: '#F98181' },
                 { name: 'orange', color: '#FBBC88' },
                 { name: 'yellow', color: '#FAF594' },
-                { name: 'blue', color: '#70CFF8' },
+                { name: 'blue', color: '#4086cb' },
                 { name: 'teal', color: '#94FADB' },
                 { name: 'green', color: '#B9F18D' },
+                { name: 'rose', color: '#ee7686' },
+                { name: 'fresh_blue', color: '#70CFF8' },
+                { name: 'ice_blue', color: '#9fc2ca' },
+                { name: 'dark_blue', color: '#0c4a83' },
+                { name: 'fresh_green', color: '#55ddb6' },
             ],
             thisTheme: this.editor.storage.defaultStorage.theme,
             thisForeground: this.editor.storage.defaultStorage.foreground,
@@ -175,6 +199,7 @@ export default {
 
     methods: {
         onStartDrawing(event) {
+            if (!this.editor.isEditable) return;
             this.drawing = true;
             this.points = [];
             this.path = this.svg.append('path').data([this.points]).attr('id', `id-${this.id}`).attr('stroke', this.color).attr('stroke-width', this.size);
@@ -185,12 +210,14 @@ export default {
         },
 
         onMove(event) {
+            if (!this.editor.isEditable) return;
             event.preventDefault();
             this.points.push(d3.pointers(event)[0]);
             this.tick();
         },
 
         onEndDrawing() {
+            if (!this.editor.isEditable) return;
             this.svg.on('mousemove', null);
             this.svg.on('touchmove', null);
 
@@ -273,16 +300,16 @@ export default {
         top: 100%;
         width: 100%;
         max-width: 800px;
-        height: auto;
+        height: 35px;
         padding: 5px;
-        background: rgba(245, 245, 245, 0.8);
+        background: rgba(250, 250, 250, 0.8);
         border: rgba(120, 120, 120, 0.1) solid thin;
         border-radius: 8px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(50px);
         -webkit-backdrop-filter: blur(50px);
 
@@ -295,13 +322,23 @@ export default {
             flex-wrap: wrap;
 
             &.l1 {
-                width: 250px;
+                width: 200px;
+                height: 100%;
                 justify-content: space-around;
             }
 
+            &.overlay {
+                width: 50%;
+                max-width: 360px;
+                height: 100%;
+                flex-wrap: nowrap;
+                overflow-x: overlay;
+            }
+
             .power-editor-d-b-btn {
-                width: 25px;
-                height: 25px;
+                width: 20px;
+                height: 20px;
+                flex-shrink: 0;
 
                 &.__color {
                     margin-left: 5px;
@@ -313,6 +350,10 @@ export default {
     .canvas-svg {
         background: #f1f3f5;
         cursor: crosshair;
+
+        &.readonly {
+            cursor: default;
+        }
     }
 
     path {
@@ -323,12 +364,36 @@ export default {
 
     &.dark {
         .power-editor-d-b-container {
-            background: rgba(36, 36, 36, 1);
+            background: rgba(20, 20, 20, 1);
             border: rgba(200, 200, 200, 0.1) solid thin;
         }
 
         .canvas-svg {
             background: rgba(50, 49, 48, 1);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .power-editor-drawing-block-container {
+        .power-editor-d-b-container {
+            height: 70px;
+            align-items: flex-start;
+
+            .power-editor-d-b-block {
+                height: 30px;
+
+                &.l1 {
+                    width: 100%;
+                    height: 30px;
+                    justify-content: space-around;
+                }
+
+                &.overlay {
+                    width: calc(100% - 30px);
+                    height: 30px;
+                }
+            }
         }
     }
 }

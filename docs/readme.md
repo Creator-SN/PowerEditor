@@ -94,6 +94,7 @@ export default {
 |  mdDecNodeFuncsPlugins  |     [object]     |       No       |                      N/A                       |        Markdown 解码器自定义配置         |
 |         mdFlags         |     [object]     |       No       |                      N/A                       |      Markdown 解码器自定义层级标记       |
 |       foreground        | [string(color)]  |       No       |                    #958DF1                     |               编辑器前景色               |
+|       imgPreview        |      [bool]      |       No       |                      true                      |             是否显示图片预览             |
 |       imgLazyLoad       |      [bool]      |       No       |                     false                      |                图片懒加载                |
 |          theme          | ['light','dark'] |       No       |                     light                      |               明暗主题风格               |
 |       starterKit        |     [object]     |       No       |                     ()=>{}                     |                                          |

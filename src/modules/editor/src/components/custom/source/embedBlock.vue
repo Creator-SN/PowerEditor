@@ -6,7 +6,7 @@
     >
         <media-container
             :width.sync="node.attrs.width"
-            :caption.sync="node.attrs.caption"
+            :caption="node.attrs.caption"
             :alignCenter.sync="node.attrs.alignCenter"
             :editor="editor"
             :theme="thisTheme"
@@ -14,6 +14,7 @@
             :node="node"
             :getPos="getPos"
             ref="media"
+            @update:caption="updateAttributes({caption: $event})"
         >
             <iframe
                 :src="node.attrs.src"

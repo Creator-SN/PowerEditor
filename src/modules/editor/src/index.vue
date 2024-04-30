@@ -211,6 +211,9 @@ export default {
         codeBlockLineNumbers: {
             default: false,
         },
+        imgPreview: {
+            default: true,
+        },
         imgInterceptor: {
             default: null,
         },
@@ -414,6 +417,7 @@ export default {
             this.editor.storage.defaultStorage.codeBlockLineNumbers = this.codeBlockLineNumbers;
             this.editor.storage.defaultStorage.showControlOnReadonly = this.showControlOnReadonly;
             this.editor.storage.defaultStorage.imgLazyLoad = this.imgLazyLoad;
+            this.editor.storage.defaultStorage.imgPreview = this.imgPreview;
             this.editor.storage.defaultStorage.foreground = this.foreground;
             this.editor.storage.defaultStorage.language = this.language;
             this.editor.storage.defaultStorage.theme = this.theme;

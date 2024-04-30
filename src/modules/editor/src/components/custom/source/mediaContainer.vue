@@ -14,7 +14,11 @@
         >
             <i></i>
         </div>
-        <div class="power-editor-media-slot-container">
+        <div
+            class="power-editor-media-slot-container"
+            @dblclick="$emit('container-dblclick', $event)"
+            @click="$emit('container-click', $event)"
+        >
             <slot> Media Container </slot>
         </div>
         <div
@@ -156,7 +160,7 @@ export default {
     },
     data() {
         return {
-            thisCaption: this.caption ? '' : this.caption,
+            thisCaption: !this.caption ? '' : this.caption.toString(),
             thisAlignCenter: this.alignCenter,
             elWidthStart: 0,
             elWidthEnd: 0,
@@ -197,7 +201,7 @@ export default {
             this.$emit('update:alignCenter', val);
         },
         caption(val) {
-            this.thisCaption = val ? '' : val;
+            this.thisCaption = !val ? '' : val.toString();
         },
         thisCaption(val) {
             this.$emit('update:caption', val);
@@ -323,6 +327,7 @@ export default {
     }
 
     .power-editor-media-slot-container {
+        position: relative;
         transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
     }
 
@@ -372,7 +377,7 @@ export default {
 
         &.bottom {
             top: inherit;
-            bottom: 0px;
+            bottom: 2px;
         }
 
         .power-editor-media-cmd-btn {
@@ -399,10 +404,13 @@ export default {
     .power-editor-media-caption-block {
         position: relative;
         width: 100%;
-        margin-top: 15px;
+        margin-top: 5px;
     }
 
     .power-editor-media-container-caption {
+        position: relative;
+        height: 35px;
+        margin: 0px;
         font-size: 13.8px;
         color: rgba(95, 95, 95, 1);
         border-radius: 3px;
