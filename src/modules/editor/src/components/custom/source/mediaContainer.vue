@@ -378,6 +378,7 @@ export default {
         &.bottom {
             top: inherit;
             bottom: 2px;
+            z-index: 1;
         }
 
         .power-editor-media-cmd-btn {
