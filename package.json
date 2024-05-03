@@ -70,7 +70,7 @@
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "simplify-js": "^1.2.4",
-    "vfluentdesign": "1.2.45"
+    "vfluentdesign": "1.2.47"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.0",
