@@ -137,6 +137,9 @@ export default {
         showPopper(val) {
             if (val) {
                 this.showPos();
+                this.$nextTick(() => {
+                    this.inputHight = this.$refs.input.scrollHeight;
+                });
             }
         },
         thisValue(val) {
