@@ -216,6 +216,9 @@ export default {
             this.statusInfo.progress = progress;
             this.statusInfo.info = info;
         },
+        getImage () {
+            return this.node.attrs.src;
+        },
         interceptImage(replaceSrc = '') {
             this.statusInfo.tmpSrc = this.node.attrs.src;
             this.statusInfo.tmpHeight = this.$refs.image.$el.clientHeight;
@@ -241,6 +244,7 @@ export default {
                 deleteNode: this.deleteNode,
                 showStatus: this.showStatus,
                 updateStatus: this.updateStatus,
+                getImage: this.getImage,
                 interceptImage: this.interceptImage,
                 updateImage: this.updateImage,
                 updateLock: this.updateLock,

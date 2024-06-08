@@ -331,6 +331,8 @@ textStyle(text, mark) {
     - param: `progress` - 加载进度, 为`0-100`之间的数字
     - param: `info` - 加载信息, 为字符串
     - return: `undefined`
+- **getImage**: 获取图片函数, 用于获取图片中的`src`
+    - return: `src` - 图片`src`
 - **interceptImage**: 拦截图片函数, 包含一个参数`replaceSrc`, 用于在加载过程中替换图片中的`src`, 并返回图片原始`src`
     - param: `replaceSrc` - 用于替换图片中的`src`
     - return: `src` - 图片原始`src`
