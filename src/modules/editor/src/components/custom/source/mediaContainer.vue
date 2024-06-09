@@ -410,7 +410,8 @@ export default {
 
     .power-editor-media-container-caption {
         position: relative;
-        height: 35px;
+        min-height: 35px;
+        height: auto;
         margin: 0px;
         font-size: 13.8px;
         color: rgba(95, 95, 95, 1);
