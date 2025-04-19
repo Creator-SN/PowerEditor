@@ -4,6 +4,7 @@
         as="span"
         class="power-editor-mention-container"
         :class="{ dark: thisTheme === 'dark', selected: selected }"
+        :style="{'--selected-bg': thisForeground}"
     >
         <transition name="power-editor-mention-popper-fade">
             <div
@@ -285,8 +286,10 @@ export default {
     align-items: center;
     cursor: pointer;
 
+    --selected-bg: rgba(45, 170, 219, 1);
+
     &.selected {
-        background: rgba(45, 170, 219, 0.3);
+        background: var(--selected-bg, rgba(45, 170, 219, 1));
     }
 
     &:hover {

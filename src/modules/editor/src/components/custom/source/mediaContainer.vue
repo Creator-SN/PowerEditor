@@ -50,9 +50,9 @@
             <fv-button
                 v-show="editor.isEditable"
                 class="power-editor-media-cmd-btn"
+                :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.3)'"
                 :theme="theme"
                 fontSize="10"
-                :isBoxShadow="true"
                 :title="getTitle('Caption')"
                 @click="showCaptionBox"
             >
@@ -60,9 +60,9 @@
             </fv-button>
             <fv-button
                 class="power-editor-media-cmd-btn"
+                :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.3)'"
                 :theme="theme"
                 fontSize="10"
-                :isBoxShadow="true"
                 :title="getTitle('AlignLeft')"
                 @click="thisAlignCenter = false"
             >
@@ -70,9 +70,9 @@
             </fv-button>
             <fv-button
                 class="power-editor-media-cmd-btn"
+                :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.3)'"
                 :theme="theme"
                 fontSize="10"
-                :isBoxShadow="true"
                 :title="getTitle('AlignCenter')"
                 @click="thisAlignCenter = true"
             >
@@ -85,10 +85,10 @@
         >
             <fv-button
                 class="power-editor-media-cmd-btn"
+                :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.3)'"
                 :theme="theme"
                 icon="ReturnKeySm"
                 fontSize="10"
-                :isBoxShadow="true"
                 :title="getTitle('TextField')"
                 style="width: 60px;"
                 @click="newline"
@@ -294,7 +294,7 @@ export default {
     &.dark {
         .power-editor-media-control-resize-block {
             i {
-                background: rgba(245, 245, 245, 0.6);
+                background: rgba(255, 255, 255, 0.8);
             }
         }
 
@@ -343,7 +343,7 @@ export default {
         align-items: center;
         opacity: 0;
         cursor: e-resize;
-        transition: opacity 1s;
+        transition: opacity 0.3s;
         z-index: 2;
 
         &.sec {
@@ -356,7 +356,7 @@ export default {
             min-height: 10px;
             height: 30%;
             flex-shrink: 0;
-            background: rgba(36, 36, 36, 0.6);
+            background: rgba(12, 12, 12, 0.6);
             border-radius: 8px;
             backdrop-filter: blur(50px);
             -webkit-backdrop-filter: blur(50px);

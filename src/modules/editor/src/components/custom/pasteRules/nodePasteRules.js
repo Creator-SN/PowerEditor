@@ -20,12 +20,17 @@ export function nodePasteRule({
             }
 
             if (match.input) {
+                const { from, to } = range;
+                // const content = match[2]; // 提取公式内容
+
                 chain()
                     .deleteRange(range)
-                    .insertContent({
-                        type: type.name,
-                        attrs: attributes,
-                    })
+                    .insertContentAt(from, [
+                        {
+                            type: type.name,
+                            attrs: attributes,
+                        },
+                    ])
             }
         },
     })

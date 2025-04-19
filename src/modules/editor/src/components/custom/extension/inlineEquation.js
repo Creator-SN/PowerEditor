@@ -3,8 +3,10 @@ import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import inlineEquation from '../source/equationBase.vue';
 import { nodePasteRule } from '../pasteRules/nodePasteRules';
 
-const inputRegex = /(\$\s)$/;
-const pasteRegex = /^(\$)(.+?)(\$)/g;
+// 检测是否正在输入数学表达式（以 $ 或 \( 结尾）
+const inputRegex = /(\$\s|\\\(\s)$/;
+// 检测粘贴内容中的数学表达式（$...$ 或 \(...\)）
+const pasteRegex = /(\$|\\\()(.+?)(\$|\\\))/g;
 // \$(.+?)\$
 // \$\$((.|\n)*?)\$\$
 

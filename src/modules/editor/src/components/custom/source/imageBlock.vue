@@ -1,10 +1,5 @@
 <template>
-    <node-view-wrapper
-        v-if="node"
-        class="power-editor-image-container"
-        :class="[{dark: thisTheme === 'dark'}]"
-        :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }"
-    >
+    <node-view-wrapper v-if="node" class="power-editor-image-container" :class="[{ dark: thisTheme === 'dark' }]" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
         <media-container
             :width.sync="node.attrs.width"
             :caption="node.attrs.caption"
@@ -14,21 +9,18 @@
             :foreground="thisForeground"
             :node="node"
             :getPos="getPos"
-            @update:caption="updateAttributes({caption: $event})"
+            @update:caption="updateAttributes({ caption: $event })"
             @container-dblclick="preview('editable')"
             @container-click="preview('readonly')"
         >
             <fv-image
-                :src="node.attrs.src ? node.attrs.src : (statusInfo.tmpSrc ? statusInfo.tmpSrc : '')"
+                :src="node.attrs.src ? node.attrs.src : statusInfo.tmpSrc ? statusInfo.tmpSrc : ''"
                 ref="image"
                 :onlazy="thisLazyLoad"
                 style="width: 100%; height: auto"
-                :style="{height: !node.attrs.src && statusInfo.show ? statusInfo.tmpHeight + 'px' : ''}"
+                :style="{ height: !node.attrs.src && statusInfo.show ? statusInfo.tmpHeight + 'px' : '' }"
             ></fv-image>
-            <div
-                v-show="statusInfo.show"
-                class="power-editor-image-status-container"
-            >
+            <div v-show="statusInfo.show" class="power-editor-image-status-container">
                 <fv-progress-ring
                     v-model="statusInfo.progress"
                     :loading="statusInfo.loading"
@@ -37,39 +29,22 @@
                     :color="thisTheme === 'dark' ? 'white' : 'black'"
                     :background="thisTheme === 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
                 ></fv-progress-ring>
-                <p
-                    v-show="statusInfo.info"
-                    class="power-editor-image-status-title"
-                >{{statusInfo.info}}</p>
+                <p v-show="statusInfo.info" class="power-editor-image-status-title">{{ statusInfo.info }}</p>
             </div>
-            <div
-                class="power-editor-image-selection-mask"
-                :class="[{selected: selected}]"
-            ></div>
+            <div class="power-editor-image-selection-mask" :class="[{ selected: selected }]" :style="{ '--selected-bg': thisForeground }"></div>
         </media-container>
         <transition name="show-preview">
-            <div
-                v-show="previewImg.show"
-                class="power-editor-image-preview-block"
-                @click="previewImg.show = false"
-            >
-                <fv-img
-                    :src="node.attrs.src"
-                    class="power-editor-preview-img"
-                    :style="{scale: previewImg.scalePercent + '%', cursor: previewImg.scalePercent < 150 ? 'zoom-in' : 'zoom-out'}"
-                    @click.native="previewImg.scalePercent < 100 ? setScale($event, 100) : (previewImg.scalePercent < 150 ? setScale($event, 150) : setScale($event, 100))"
-                ></fv-img>
-                <div
-                    class="power-editor-preview-tool-bar"
-                    @click="$event.stopPropagation()"
-                >
-                    <fv-button
-                        class="power-editor-preview-img-btn"
-                        theme="dark"
-                        :disabled="previewImg.scalePercent <= 50"
-                        background="rgba(36, 36, 36, 0.3)"
-                        @click="scale($event, -50)"
-                    >
+            <div v-show="previewImg.show" class="power-editor-image-preview-block" @click="previewImg.show = false">
+                <div class="power-editor-preview-img-container">
+                    <fv-img
+                        :src="node.attrs.src"
+                        class="power-editor-preview-img"
+                        :style="{ scale: previewImg.scalePercent + '%', cursor: previewImg.scalePercent < 150 ? 'zoom-in' : 'zoom-out' }"
+                        @click.native="previewImg.scalePercent < 100 ? setScale($event, 100) : previewImg.scalePercent < 150 ? setScale($event, 150) : setScale($event, 100)"
+                    ></fv-img>
+                </div>
+                <div class="power-editor-preview-tool-bar" @click="$event.stopPropagation()">
+                    <fv-button class="power-editor-preview-img-btn" theme="dark" :disabled="previewImg.scalePercent <= 50" background="rgba(36, 36, 36, 0.3)" @click="scale($event, -50)">
                         <i class="ms-Icon ms-Icon--CalculatorSubtract"></i>
                     </fv-button>
                     <fv-text-box
@@ -81,7 +56,7 @@
                         :border-width="2"
                         :is-box-shadow="true"
                         suffix="%"
-                        style="width: 80px; height: 35px;"
+                        style="width: 80px; height: 35px"
                         @debounce-input="setScale($event, $event)"
                     ></fv-text-box>
                     <fv-button
@@ -94,12 +69,7 @@
                     >
                         <i class="ms-Icon ms-Icon--CalculatorAddition"></i>
                     </fv-button>
-                    <fv-button
-                        class="power-editor-preview-img-btn"
-                        theme="dark"
-                        background="rgba(36, 36, 36, 0.3)"
-                        @click="previewImg.show = false"
-                    >
+                    <fv-button class="power-editor-preview-img-btn" theme="dark" background="rgba(36, 36, 36, 0.3)" @click="previewImg.show = false">
                         <i class="ms-Icon ms-Icon--BackToWindow"></i>
                     </fv-button>
                 </div>
@@ -216,7 +186,7 @@ export default {
             this.statusInfo.progress = progress;
             this.statusInfo.info = info;
         },
-        getImage () {
+        getImage() {
             return this.node.attrs.src;
         },
         interceptImage(replaceSrc = '') {
@@ -308,6 +278,8 @@ export default {
         }
     }
 
+    --selected-bg: rgba(45, 170, 219, 1);
+
     .power-editor-image-selection-mask {
         position: absolute;
         left: 0px;
@@ -315,9 +287,10 @@ export default {
         width: 100%;
         height: 100%;
         transition: all 0.3s;
+        opacity: 0.3;
 
         &.selected {
-            background: rgba(45, 170, 219, 0.3);
+            background: var(--selected-bg, rgba(45, 170, 219, 1));
         }
     }
 
@@ -352,11 +325,21 @@ export default {
         align-items: center;
         z-index: 10;
 
-        .power-editor-preview-img {
+        .power-editor-preview-img-container {
             position: relative;
-            width: 50%;
-            height: auto;
-            transition: all 0.3s;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: overlay;
+
+            .power-editor-preview-img {
+                position: relative;
+                width: 50%;
+                height: auto;
+                transition: all 0.3s;
+            }
         }
 
         .power-editor-preview-tool-bar {

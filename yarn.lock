@@ -9336,6 +9336,11 @@ onecolor@3.1.0:
   resolved "https://registry.yarnpkg.com/onecolor/-/onecolor-3.1.0.tgz#b72522270a49569ac20d244b3cd40fe157fda4d2"
   integrity sha512-YZSypViXzu3ul5LMu/m6XjJ9ol8qAy9S2VjHl5E6UlhUH1KGKWabyEJifn0Jjpw23bYDzC2ucKMPGiH5kfwSGQ==
 
+onecolor@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/onecolor/-/onecolor-4.1.0.tgz#289da70189ba6afd389d9eeccea80623d879333a"
+  integrity sha512-kDUtnWdWlt5iWx85wrGZxMh8tB4058Bk1YyVpb+Zjl+2wLH/OvqIacbchJma0gjGXocwUTueLwMDVYKrbI+0zA==
+
 onetime@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/onetime/-/onetime-2.0.1.tgz#067428230fd67443b2794b22bba528b6867962d4"

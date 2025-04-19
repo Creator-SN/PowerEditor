@@ -4,6 +4,7 @@
         :as="node.attrs.tag"
         class="power-editor-equation-container"
         :class="{ dark: thisTheme === 'dark', div: node.attrs.tag == 'div', selected: selected }"
+        :style="{'--selected-bg': focusForeground}"
     >
         <transition name="power-editor-equation-popper-fade">
             <div
@@ -49,13 +50,14 @@
             :class="{ empty: thisValue === '' }"
             v-html="thisValue === '' ? node.attrs.emptyPlaceholder : equationString"
             ref="target"
-            :style="{ color: `${lock ? 'red' : ''}` }"
+            :style="{ color: `${lock ? 'red' : ''}`, '--selected-bg': focusForeground }"
             @click="show"
         ></span>
     </node-view-wrapper>
 </template>
 
 <script>
+import onecolor from 'onecolor';
 import { NodeViewWrapper } from '@tiptap/vue-2';
 import { TextSelection } from 'prosemirror-state';
 
@@ -161,6 +163,18 @@ export default {
             if (val) this.show();
         },
     },
+    computed: {
+        focusForeground() {
+            try {
+                let color = onecolor(this.thisForeground);
+                color = color.alpha(0.3);
+                return color.cssa();
+            } catch (e) {
+                return '';
+            }
+        }
+    },
+    
     mounted() {
         this.outSideClickInit();
         this.render();
@@ -228,20 +242,23 @@ export default {
     height: auto;
     transition: background-color 0.3s;
 
+    --selected-bg: rgba(45, 170, 219, 0.3);
+
     &.selected {
         .power-editor-equation-target {
-            background: rgba(45, 170, 219, 0.3);
+            background: var(--selected-bg, rgba(45, 170, 219, 0.3));
         }
     }
 
     &.div {
         padding: 1px 0px;
+        border-radius: 3px;
         display: flex;
         justify-content: center;
         align-items: center;
 
         &.selected {
-            background: rgba(45, 170, 219, 0.3);
+            background: var(--selected-bg, rgba(45, 170, 219, 0.3));
 
             .power-editor-equation-target {
                 background: transparent;
@@ -344,6 +361,7 @@ export default {
         border-radius: 3px;
         box-sizing: border-box;
         overflow-x: auto;
+        overflow-y: visible;
         user-select: all;
 
         &.empty {

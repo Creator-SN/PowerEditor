@@ -185,7 +185,7 @@ export default {
             default: true,
         },
         toolbarHeight: {
-            default: 55,
+            default: 65,
         },
         toolbarBackground: {
             default: '',
@@ -294,8 +294,9 @@ export default {
             const extensions = [
                 StarterKit.configure({
                     dropcursor: {
-                        color: 'rgba(45, 170, 219, 0.3)',
-                        width: 6,
+                        color: this.foreground,
+                        width: 3,
+                        class: 'power-editor-drop-cursor-custom'
                     },
                     codeBlock: false,
                     // provide options for starterkit configuration
@@ -641,6 +642,12 @@ export default {
         &.read-only {
             padding-top: 5px;
             padding-bottom: 5px;
+        }
+
+        .power-editor-drop-cursor-custom
+        {
+            border-radius: 6px;
+            opacity: 0.3;
         }
 
         .tip-tap-editor {

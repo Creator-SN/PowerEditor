@@ -12,7 +12,7 @@
             v-show="showSave"
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
             :foreground="getForeground(false, {
                 light: 'rgba(147, 79, 125, 1)',
@@ -30,9 +30,9 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
-            :foreground="getForeground(false, 'rgba(73, 150, 180, 1)')"
+            :foreground="getForeground(false, foreground)"
             :title="getTitle('Undo')"
             @click="exec('undo')"
         >
@@ -41,9 +41,9 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
-            :foreground="getForeground(false, 'rgba(73, 150, 180, 1)')"
+            :foreground="getForeground(false, foreground)"
             :title="getTitle('Redo')"
             @click="exec('redo')"
         >
@@ -52,7 +52,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('bold'))"
             :foreground="getForeground(editor.isActive('bold'))"
             :title="getTitle('Bold')"
@@ -63,7 +63,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('italic'))"
             :foreground="getForeground(editor.isActive('italic'))"
             :title="getTitle('Italic')"
@@ -74,7 +74,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('strike'))"
             :foreground="getForeground(editor.isActive('strike'))"
             :title="getTitle('Strikethrough')"
@@ -85,7 +85,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('underline'))"
             :foreground="getForeground(editor.isActive('underline'))"
             :title="getTitle('Underline')"
@@ -96,7 +96,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
             :foreground="getForeground(editor.storage.formatPainter.formatPainterStatus !== 'off')"
             :title="getTitle('Format Painter')"
@@ -113,7 +113,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('blockquote'))"
             :foreground="getForeground(editor.isActive('blockquote'))"
             :title="getTitle('Block Quote')"
@@ -124,7 +124,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('Horizontal Rule')"
@@ -146,7 +146,7 @@
                 <fv-button
                     class="power-editor-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     :background="getBackground(false)"
                     :foreground="getForeground(false)"
                     :title="getTitle('Header')"
@@ -159,7 +159,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('superscript'))"
             :foreground="getForeground(editor.isActive('superscript'))"
             :title="getTitle('Task')"
@@ -170,7 +170,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('subscript'))"
             :foreground="getForeground(editor.isActive('subscript'))"
             :title="getTitle('Task')"
@@ -181,7 +181,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('powerTaskList'))"
             :foreground="getForeground(editor.isActive('powerTaskList'))"
             :title="getTitle('Task')"
@@ -192,7 +192,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('ClearFormatting')"
@@ -208,7 +208,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('bulletList'))"
             :foreground="getForeground(editor.isActive('bulletList'))"
             :title="getTitle('BulletedList')"
@@ -219,7 +219,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('orderedList'))"
             :foreground="getForeground(editor.isActive('orderedList'))"
             :title="getTitle('NumberedList')"
@@ -231,7 +231,7 @@
             v-if="false"
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('DetailsList')"
@@ -247,7 +247,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive({ textAlign: 'left' }))"
             :foreground="getForeground(editor.isActive({ textAlign: 'left' }))"
             :title="getTitle('AlignLeft')"
@@ -258,7 +258,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive({ textAlign: 'center' }))"
             :foreground="getForeground(editor.isActive({ textAlign: 'center' }))"
             :title="getTitle('AlignCenter')"
@@ -269,7 +269,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive({ textAlign: 'right' }))"
             :foreground="getForeground(editor.isActive({ textAlign: 'right' }))"
             :title="getTitle('AlignRight')"
@@ -280,7 +280,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive({ textAlign: 'justify' }))"
             :foreground="getForeground(editor.isActive({ textAlign: 'justify' }))"
             :title="getTitle('AlignJustify')"
@@ -293,7 +293,7 @@
             v-if="false"
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('IncreaseIndent')"
@@ -305,7 +305,7 @@
             v-if="false"
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
             :foreground="getForeground(false)"
             :title="getTitle('DecreaseIndent')"
@@ -333,7 +333,7 @@
                 <fv-button
                     class="power-editor-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     :background="getBackground(false)"
                     :foreground="getForeground(false, 'rgba(239, 107, 87, 1)')"
                     :title="getTitle('Color')"
@@ -346,7 +346,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(false)"
             :foreground="getForeground(false, 'rgba(222, 81, 140, 1)')"
             :title="getTitle('Draw')"
@@ -366,7 +366,7 @@
                 <fv-button
                     class="power-editor-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     :background="getBackground(false)"
                     :foreground="getForeground(false, 'rgba(255, 180, 0, 1)')"
                     :title="getTitle('Emoji')"
@@ -389,7 +389,7 @@
                 <fv-button
                     class="power-editor-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     :background="getBackground(false)"
                     :foreground="getForeground(false, 'rgba(56, 171, 127, 1)')"
                     :title="getTitle('Table')"
@@ -402,7 +402,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('code'))"
             :foreground="getForeground(editor.isActive('code'))"
             :title="getTitle('Code')"
@@ -413,7 +413,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('equationBlock'))"
             :foreground="getForeground(editor.isActive('equationBlock'))"
             :title="getTitle('Equation')"
@@ -424,7 +424,7 @@
         <fv-button
             class="power-editor-cmd-btn"
             :theme="thisTheme"
-            :isBoxShadow="true"
+            border-color="transparent"
             :background="getBackground(editor.isActive('codeBlock'))"
             :foreground="getForeground(editor.isActive('codeBlock'))"
             :title="getTitle('Code Block')"
@@ -443,7 +443,7 @@
                 <fv-button
                     class="power-editor-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     :background="getBackground(false)"
                     :foreground="getForeground(false)"
                     :title="getTitle('Image')"
@@ -464,7 +464,7 @@
                 <fv-button
                     class="power-editor-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     :background="getBackground(false)"
                     :foreground="getForeground(false)"
                     :title="getTitle('Link')"
@@ -485,7 +485,7 @@
                 <fv-button
                     class="power-editor-cmd-btn"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     :background="getBackground(false)"
                     :foreground="getForeground(false)"
                     :title="getTitle('Embed')"
@@ -604,8 +604,8 @@ export default {
         getBackground(state) {
             // state: true = active, false = inactive
             if (state) return this.highlightColor.b;
-            if (this.thisTheme === 'dark') return 'rgba(36, 36, 36, 1)';
-            return 'rgba(255, 255, 255, 1)';
+            if (this.thisTheme === 'dark') return 'rgba(36, 36, 36, 0)';
+            return 'rgba(255, 255, 255, 0)';
         },
         exec(cmd) {
             if (cmd) this.editor.chain().focus()[cmd]().run();
@@ -737,8 +737,9 @@ export default {
     top: 5px;
     width: calc(100% - 10px);
     height: 70px;
+    padding-left: 5px;
     padding-right: 5px;
-    padding-bottom: 6px;
+    padding-bottom: 2px;
     background: transparent;
     border: rgba(120, 120, 120, 0.1) solid thin;
     border-radius: 8px;
@@ -756,9 +757,9 @@ export default {
     }
 
     .power-editor-cmd-btn {
-        width: 35px;
-        height: 35px;
-        margin-left: 5px;
+        width: 40px;
+        height: 50px;
+        margin-left: 1px;
         flex-shrink: 0;
 
         i {
@@ -767,13 +768,14 @@ export default {
     }
 
     hr {
-        width: 1.5px;
-        margin-left: 5px;
+        width: 2px;
+        margin-left: 3px;
+        margin-right: 2px;
         margin-top: 0px;
-        margin-bottom: 0px;
-        height: 30px;
+        margin-bottom: 3px;
+        height: 40px;
         flex-shrink: 0;
-        background: rgba(90, 90, 90, 0.1);
+        background: rgba(160, 160, 160, 0.1);
         border: none;
         border-radius: 2px;
     }

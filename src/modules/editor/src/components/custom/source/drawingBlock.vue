@@ -1,13 +1,6 @@
 <template>
-    <node-view-wrapper
-        class="power-editor-drawing-block-container"
-        :class="[{ dark: thisTheme === 'dark' }]"
-        :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }"
-    >
-        <div
-            v-show="editor.isEditable"
-            class="power-editor-d-b-container"
-        >
+    <node-view-wrapper class="power-editor-drawing-block-container" :class="[{ dark: thisTheme === 'dark' }]" :style="{ 'justify-content': node.attrs.alignCenter ? 'center' : 'flex-start' }">
+        <div v-show="editor.isEditable" class="power-editor-d-b-container">
             <div class="power-editor-d-b-block l1">
                 <fv-button
                     :theme="thisTheme"
@@ -16,9 +9,10 @@
                     :disabled="size <= 1"
                     :background="thisTheme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'"
                     class="power-editor-d-b-btn __size"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     @click="size = size > 1 ? size - 1 : size"
-                ><i class="ms-Icon ms-Icon--Remove"></i></fv-button>
+                    ><i class="ms-Icon ms-Icon--Remove"></i
+                ></fv-button>
                 <fv-slider
                     v-model="size"
                     :theme="thisTheme"
@@ -27,7 +21,8 @@
                     icon="RadioBullet"
                     :showLabel="true"
                     :color="thisForeground"
-                    style="width: 150px; height: 100%; margin-left: 5px"
+                    background="rgba(245, 245, 245, 0.3)"
+                    style="width: 150px; height: 100%; margin-left: 5px; margin-right: 5px"
                 >
                     <template slot-scope="prop">
                         <span style="height: 100%; margin-left: 5px; font-size: 12px; display: flex; align-items: center">{{ prop.value }}</span>
@@ -40,9 +35,10 @@
                     :disabled="size >= 10"
                     :background="thisTheme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'"
                     class="power-editor-d-b-btn __size"
-                    :isBoxShadow="true"
-                    @click="size = size < 10 ? size + 1 : size"
-                ><i class="ms-Icon ms-Icon--Add"></i></fv-button>
+                    border-color="transparent"
+                    @click="size = size < 10 ? size / 1 + 1 : size"
+                    ><i class="ms-Icon ms-Icon--Add"></i
+                ></fv-button>
             </div>
             <div class="power-editor-d-b-block overlay">
                 <fv-button
@@ -55,18 +51,31 @@
                     :background="item.color"
                     :isBoxShadow="color !== item.color"
                     @click="color = item.color"
-                >{{ '' }}</fv-button>
+                    >{{ '' }}</fv-button
+                >
             </div>
             <div class="power-editor-d-b-block">
                 <fv-button
                     class="power-editor-d-b-btn __clear"
-                    :font-size="12"
+                    :font-size="10"
+                    :borderRadius="50"
+                    :background="eraseBackground"
+                    :theme="activeErase ? 'dark' : thisTheme"
+                    border-color="transparent"
+                    style="margin-right: 5px"
+                    @click="activeErase ^= true"
+                    ><i class="ms-Icon ms-Icon--EraseTool"></i
+                ></fv-button>
+                <fv-button
+                    class="power-editor-d-b-btn __clear"
+                    :font-size="10"
                     :borderRadius="50"
                     :background="thisTheme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)'"
                     :theme="thisTheme"
-                    :isBoxShadow="true"
+                    border-color="transparent"
                     @click="clear"
-                ><i class="ms-Icon ms-Icon--EraseTool"></i></fv-button>
+                    ><i class="ms-Icon ms-Icon--Refresh"></i
+                ></fv-button>
             </div>
         </div>
         <media-container
@@ -78,14 +87,9 @@
             :foreground="thisForeground"
             :node="node"
             :getPos="getPos"
-            @update:caption="updateAttributes({caption: $event})"
+            @update:caption="updateAttributes({ caption: $event })"
         >
-            <svg
-                class="canvas-svg"
-                viewBox="0 0 500 250"
-                ref="canvas"
-                :class="[{readonly: !editor.isEditable}]"
-            >
+            <svg class="canvas-svg" viewBox="0 0 500 250" ref="canvas" :class="[{ readonly: !editor.isEditable }]">
                 <template v-for="item in node.attrs.lines">
                     <path
                         v-if="item.id !== id"
@@ -94,6 +98,8 @@
                         :id="`id-${item.id}`"
                         :stroke="item.color"
                         :stroke-width="item.size"
+                        @mousemove="moveDelMe(item)"
+                        @click="delMe(item)"
                     />
                 </template>
             </svg>
@@ -183,6 +189,8 @@ export default {
                 { name: 'dark_blue', color: '#0c4a83' },
                 { name: 'fresh_green', color: '#55ddb6' },
             ],
+            activeErase: false,
+            mouseDown: false,
             thisTheme: this.editor.storage.defaultStorage.theme,
             thisForeground: this.editor.storage.defaultStorage.foreground,
         };
@@ -197,9 +205,17 @@ export default {
         },
     },
 
+    computed: {
+        eraseBackground() {
+            return this.activeErase ? this.thisForeground : this.thisTheme === 'dark' ? 'rgba(0, 0, 0, 1)' : 'rgba(255, 255, 255, 1)';
+        },
+    },
+
     methods: {
         onStartDrawing(event) {
+            this.mouseDown = true;
             if (!this.editor.isEditable) return;
+            if (this.activeErase) return;
             this.drawing = true;
             this.points = [];
             this.path = this.svg.append('path').data([this.points]).attr('id', `id-${this.id}`).attr('stroke', this.color).attr('stroke-width', this.size);
@@ -211,13 +227,16 @@ export default {
 
         onMove(event) {
             if (!this.editor.isEditable) return;
+            if (this.activeErase) return;
             event.preventDefault();
             this.points.push(d3.pointers(event)[0]);
             this.tick();
         },
 
         onEndDrawing() {
+            this.mouseDown = false;
             if (!this.editor.isEditable) return;
+            if (this.activeErase) return;
             this.svg.on('mousemove', null);
             this.svg.on('touchmove', null);
 
@@ -228,6 +247,21 @@ export default {
             this.drawing = false;
             this.svg.select(`#id-${this.id}`).remove();
             this.id = this.$SUtility.Guid();
+        },
+
+        delMe(item) {
+            if (!this.activeErase) return;
+            this.updateAttributes({
+                lines: this.node.attrs.lines.filter((line) => line.id !== item.id),
+            });
+        },
+
+        moveDelMe (item) {
+            if (!this.mouseDown) return;
+            if (!this.activeErase) return;
+            this.updateAttributes({
+                lines: this.node.attrs.lines.filter((line) => line.id !== item.id),
+            });
         },
 
         simplifyPoints(points) {
