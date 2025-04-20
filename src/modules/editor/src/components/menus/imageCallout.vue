@@ -46,6 +46,7 @@
                     :is-box-shadow="true"
                     :border-color="'rgba(200, 200, 200, 0.1)'"
                     :focus-border-color="foreground"
+                    :background="theme === 'dark' ? '#1a1a1a' : '#fff'"
                     style="width: 90%; border: thin; outline: none"
                     ref="img_link"
                 />

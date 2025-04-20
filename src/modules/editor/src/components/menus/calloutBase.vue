@@ -13,7 +13,7 @@
             :space="0"
             :theme="theme"
             :popperClass="[...popperClass, 'power-editor-callout-base-pc-container']"
-            :popper-style="{background: theme === 'dark' ? 'rgba(56, 56, 56, 1)' : 'rgba(255, 255, 255, 1)'}"
+            :popper-style="{background: theme === 'dark' ? 'rgba(56, 56, 56, 1)' : 'rgba(250, 250, 250, 1)'}"
         >
             <slot
                 name="trigger"

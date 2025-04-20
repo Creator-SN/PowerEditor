@@ -78,7 +78,7 @@
             :class="[{ 'read-only': !editable || !showToolBar }]"
             class="tip-tap-editor-container"
             ref="container"
-            :style="{ 'padding-top': editable && showToolBar ? `${editablePaddingTop ? editablePaddingTop : toolbarHeight + 10}px` : `${readOnlyPaddingTop}px`, background: editorOutSideBackground }"
+            :style="{ 'padding-top': editable && showToolBar ? `${editablePaddingTop ? editablePaddingTop : toolbarHeight + 10}px` : `${readOnlyPaddingTop}px`, background: editorOutSideBackground, '--link-color': linkColor, '--selection-background': selectionBackground, '--selection-color': selectionForeground, '--table-drag-color': tableDragColor, '--code-color': codeColor }"
         >
             <slot name="front-content"></slot>
             <editor-content
@@ -171,6 +171,21 @@ export default {
         },
         foreground: {
             default: '#958DF1',
+        },
+        linkColor: {
+            default: '#958DF1',
+        },
+        selectionBackground: {
+            default: 'rgba(144, 145, 234, 0.3)',
+        },
+        selectionForeground: {
+            default: ''
+        },
+        tableDragColor: {
+            default: 'rgba(144, 145, 234, 0.6)',
+        },
+        codeColor: {
+            default: ''
         },
         editorBackground: {
             default: '',
@@ -617,8 +632,8 @@ export default {
         top: 5px;
         width: calc(100% - 10px);
         height: 70px;
-        background: rgba(240, 240, 240, 0.6);
-        border: rgba(36, 36, 36, 0.1) thin solid;
+        background: rgba(250, 250, 250, 0.6);
+        border: rgba(200, 200, 200, 0.1) thin solid;
         border-radius: 8px;
         box-sizing: border-box;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
@@ -639,9 +654,25 @@ export default {
         overflow: overlay;
         overflow-x: hidden;
 
+        --link-color: rgba(0, 153, 204, 1);
+        --selection-background: rgba(0, 153, 204, 0.3);
+        --selection-color: none;
+        --table-drag-color: rgba(145, 191, 209, 1);
+        --code-color: rgba(235, 87, 87, 1);
+
         &.read-only {
             padding-top: 5px;
             padding-bottom: 5px;
+        }
+
+        &::selection {
+            background-color: var(--selection-background);
+            color: var(--selection-color);
+        }
+
+        &::-moz-selection {
+            background-color: var(--selection-background);
+            color: var(--selection-color);
         }
 
         .power-editor-drop-cursor-custom
@@ -693,7 +724,7 @@ export default {
             }
 
             a {
-                color: rgba(0, 153, 204, 1);
+                color: var(--link-color);
                 text-decoration: none;
                 cursor: pointer;
             }
@@ -729,7 +760,7 @@ export default {
                 background-color: rgba(#616161, 0.1);
                 font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
                 font-size: 1rem;
-                color: rgba(235, 87, 87, 1);
+                color: var(--code-color);
                 border-radius: 3px;
             }
 
@@ -810,7 +841,7 @@ export default {
 
             hr {
                 border: none;
-                border-top: 2px solid rgba(#0d0d0d, 0.1);
+                border-top: 1.5px solid rgba(180, 180, 180, 0.1);
                 margin: 1rem 0;
             }
 
@@ -869,7 +900,7 @@ export default {
                     top: 0;
                     bottom: -2px;
                     width: 4px;
-                    background-color: rgba(145, 191, 209, 1);
+                    background-color: var(--table-drag-color);
                     pointer-events: none;
                 }
 

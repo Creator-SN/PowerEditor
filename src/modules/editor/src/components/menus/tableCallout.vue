@@ -22,6 +22,7 @@
                     :border-width="2"
                     :is-box-shadow="true"
                     :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :background="theme === 'dark' ? '#1a1a1a' : '#fff'"
                     :focus-border-color="foreground"
                 ></fv-text-box>
                 <fv-text-box
@@ -33,6 +34,7 @@
                     :border-width="2"
                     :is-box-shadow="true"
                     :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :background="theme === 'dark' ? '#1a1a1a' : '#fff'"
                     :focus-border-color="foreground"
                 ></fv-text-box>
                 <fv-button

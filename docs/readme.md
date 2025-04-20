@@ -94,6 +94,11 @@ export default {
 |  mdDecNodeFuncsPlugins  |     [object]     |       No       |                      N/A                       |        Markdown 解码器自定义配置         |
 |         mdFlags         |     [object]     |       No       |                      N/A                       |      Markdown 解码器自定义层级标记       |
 |       foreground        | [string(color)]  |       No       |                    #958DF1                     |               编辑器前景色               |
+|        linkColor        | [string(color)]  |       No       |                    #958DF1                     |               编辑器链接色               |
+|   selectionBackground   | [string(color)]  |       No       |            rgba(144, 145, 234, 0.3)            |               编辑器选中色               |
+|   selectionForeground   | [string(color)]  |       No       |                      N/A                       |               编辑器选中色               |
+|     tableDragColor      | [string(color)]  |       No       |            rgba(144, 145, 234, 0.6)            |               编辑器选中色               |
+|        codeColor        | [string(color)]  |       No       |                      N/A                       |               编辑器选中色               |
 |       imgPreview        |      [bool]      |       No       |                      true                      |             是否显示图片预览             |
 |       imgLazyLoad       |      [bool]      |       No       |                     false                      |                图片懒加载                |
 |          theme          | ['light','dark'] |       No       |                     light                      |               明暗主题风格               |

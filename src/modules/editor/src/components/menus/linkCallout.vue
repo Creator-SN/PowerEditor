@@ -29,6 +29,7 @@
                     :border-width="2"
                     :is-box-shadow="true"
                     :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :background="theme === 'dark' ? '#1a1a1a' : '#fff'"
                     :focus-border-color="foreground"
                     style="width: 100%; margin-top: 5px"
                 />
@@ -41,8 +42,9 @@
                     :border-width="2"
                     :is-box-shadow="true"
                     :border-color="'rgba(200, 200, 200, 0.1)'"
+                    :background="theme === 'dark' ? '#1a1a1a' : '#fff'"
                     :focus-border-color="foreground"
-                    style="width: 100%; margin-top: 5px"
+                    style="width: 100%; margin-top: 15px"
                 />
             </div>
             <div class="power-editor-l-c-control-block">
@@ -154,7 +156,7 @@ export default {
         .power-editor-l-c-control-block {
             position: relative;
             width: 300px;
-            margin-top: 15px;
+            margin-top: 25px;
             flex-shrink: 0;
             display: flex;
             justify-content: space-around;

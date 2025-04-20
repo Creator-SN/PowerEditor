@@ -4,7 +4,7 @@
         as="span"
         class="power-editor-mention-container"
         :class="{ dark: thisTheme === 'dark', selected: selected }"
-        :style="{'--selected-bg': thisForeground}"
+        :style="{'--selected-bg': focusForeground, '--selected-bg-hover': hoverForeground, '--selected-bg-active': activeForeground}"
     >
         <transition name="power-editor-mention-popper-fade">
             <div
@@ -74,6 +74,7 @@
                 :style="{color: valueTrigger(node.attrs.currentItem.iconColor)}"
             ></i>
             <input
+                v-show="!node.attrs.freeze"
                 v-model="node.attrs.value"
                 class="power-editor-mention-input"
                 :placeholder="node.attrs.placeholder"
@@ -88,6 +89,8 @@
             <p
                 :title="node.attrs.value"
                 class="power-editor-mention-placeholder"
+                :class="[{show: node.attrs.freeze}]"
+                :style="{color: node.attrs.currentItem.color}"
             >{{node.attrs.value ? node.attrs.value : node.attrs.placeholder}}</p>
         </span>
     </node-view-wrapper>
@@ -95,6 +98,7 @@
 
 <script>
 import { NodeViewWrapper } from '@tiptap/vue-2';
+import onecolor from 'onecolor';
 
 export default {
     components: {
@@ -182,7 +186,35 @@ export default {
             this.thisForeground = this.editor.storage.defaultStorage.mentionItemTools.headerForeground();
         },
     },
-    computed: {},
+    computed: {
+        focusForeground() {
+            try {
+                let color = onecolor(this.thisForeground);
+                color = color.alpha(0.2);
+                return color.cssa();
+            } catch (e) {
+                return '';
+            }
+        },
+        hoverForeground() {
+            try {
+                let color = onecolor(this.thisForeground);
+                color = color.alpha(0.3);
+                return color.cssa();
+            } catch (e) {
+                return '';
+            }
+        },
+        activeForeground() {
+            try {
+                let color = onecolor(this.thisForeground);
+                color = color.alpha(0.4);
+                return color.cssa();
+            } catch (e) {
+                return '';
+            }
+        }
+    },
     mounted() {
         this.outSideClickInit();
         this.windowEventInit();
@@ -275,8 +307,8 @@ export default {
 .power-editor-mention-container {
     position: relative;
     width: auto;
-    height: 30px;
-    padding: 3px 3px 1px 3px;
+    height: auto;
+    padding: 0px 3px 0px 3px;
     background: rgba(250, 250, 250, 1);
     font-size: 16px;
     border-radius: 5px;
@@ -286,26 +318,37 @@ export default {
     align-items: center;
     cursor: pointer;
 
-    --selected-bg: rgba(45, 170, 219, 1);
+    --selected-bg: rgba(45, 170, 219, 0.2);
+    --selected-bg-hover: rgba(45, 170, 219, 0.3);
+    --selected-bg-active: rgba(45, 170, 219, 0.4);
 
     &.selected {
-        background: var(--selected-bg, rgba(45, 170, 219, 1));
+        background: var(--selected-bg, rgba(45, 170, 219, 0.2));
     }
 
     &:hover {
-        background: rgba(200, 200, 200, 0.6);
+        background: var(--selected-bg-hover);
         box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    &:active
+    {
+        background: var(--selected-bg-active);
     }
 
     &.dark {
         background: rgba(36, 36, 36, 1);
+
+        &.selected {
+            background: var(--selected-bg, rgba(45, 170, 219, 0.2));
+        }
 
         &:hover {
             background: rgba(75, 75, 75, 0.6);
         }
 
         .power-editor-mention-popper-container {
-            background: black;
+            background: rgba(56, 56, 56, 1);
         }
 
         .power-editor-mention-display-block {
@@ -381,9 +424,11 @@ export default {
             left: 23px;
             width: calc(100% - 23px);
             height: 100%;
+            padding: 0px;
             padding-right: 0px;
             background: transparent;
-            font-size: 13.8px;
+            font-size: 0.8rem;
+            font-weight: bold;
             border: none;
             box-sizing: border-box;
             outline: none;
@@ -401,11 +446,20 @@ export default {
             height: 100%;
             margin: 0px;
             background: transparent;
-            font-size: 18px;
+            font-size: 0.81rem;
+            font-weight: bold;
             border: none;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             opacity: 0;
             user-select: none;
+            overflow: hidden;
             z-index: -1;
+
+            &.show {
+                opacity: 1;
+                z-index: 1;
+            }
         }
     }
 

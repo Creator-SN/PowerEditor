@@ -361,7 +361,7 @@ export default {
         border-radius: 3px;
         box-sizing: border-box;
         overflow-x: auto;
-        overflow-y: visible;
+        overflow-y: hidden;
         user-select: all;
 
         &.empty {
