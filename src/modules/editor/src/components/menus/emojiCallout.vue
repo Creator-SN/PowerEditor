@@ -17,6 +17,7 @@
                 <p style="font-size: 13.8px">{{ getTitle(x.title) }}</p>
                 <fv-button
                     :theme="theme"
+                    :background="theme === 'dark' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.3)'"
                     :isBoxShadow="true"
                     @click="insertRandom"
                 >{{getTitle('Random')}}</fv-button>

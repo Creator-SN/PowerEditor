@@ -89,12 +89,25 @@ export default Node.create({
                 let state = this.editor.view.state;
                 let selection = this.editor.view.state.selection;
                 let text = state.doc.textBetween(selection.from, selection.to, ' ');
+                let isInline = true;
                 // if text is $...$ then remove $ from start and end
-                if (text.startsWith('$') && text.endsWith('$')) {
+                if (text.startsWith('$$') && text.endsWith('$$')) {
+                    text = text.slice(2, -2);
+                    isInline = false;
+                }
+                else if (text.startsWith('$') && text.endsWith('$')) {
                     text = text.slice(1, -1);
                 }
+                else if (text.startsWith('\\(') && text.endsWith('\\)')) {
+                    text = text.slice(2, -2);
+                } else if (text.startsWith('\\[') && text.endsWith('\\]')) {
+                    text = text.slice(2, -2);
+                    isInline = false;
+                }
+                text = text.trim();
                 if (text.length > 0) {
-                    return this.editor.chain().focus().insertContent(`<inline-equation theme="${this.editor.storage.defaultStorage.theme}" value="${text}"></inline-equation>`).run();
+                    if (isInline) return this.editor.chain().focus().insertContent(`<inline-equation theme="${this.editor.storage.defaultStorage.theme}" value="${text}"></inline-equation>`).run();
+                    else return this.editor.chain().focus().insertContent(`<equation-block theme="${this.editor.storage.defaultStorage.theme}" value="${text}"></equation-block><p></p>`).run();
                 } else return;
             },
         };

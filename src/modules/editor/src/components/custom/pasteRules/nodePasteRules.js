@@ -23,14 +23,28 @@ export function nodePasteRule({
                 const { from, to } = range;
                 // const content = match[2]; // 提取公式内容
 
-                chain()
-                    .deleteRange(range)
-                    .insertContentAt(from, [
-                        {
-                            type: type.name,
-                            attrs: attributes,
-                        },
-                    ])
+                if (attributes.powerContent) { // 如果有 powerContent 属性，则插入段落
+                    chain()
+                        .deleteRange(range)
+                        .insertContentAt(from, [
+                            {
+                                type: type.name,
+                                attrs: attributes,
+                                content: attributes.powerContent
+                            },
+                        ])
+
+                }
+                else {
+                    chain()
+                        .deleteRange(range)
+                        .insertContentAt(from, [
+                            {
+                                type: type.name,
+                                attrs: attributes,
+                            },
+                        ])
+                }
             }
         },
     })

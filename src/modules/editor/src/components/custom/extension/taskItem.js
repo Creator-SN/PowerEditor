@@ -1,9 +1,11 @@
 import { Node, mergeAttributes, wrappingInputRule } from '@tiptap/core';
 import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import { nodeInputWithContentRule } from '../inputRules/nodeInputWithContentRules';
+import { nodePasteRule } from '../pasteRules/nodePasteRules';
 import taskItem from '../source/taskItem.vue';
 
 const inputRegex = /^\s*(\[([ |x])\])\s$/;
+const pasteRegex = /^(\s*)(\[([ |x])\])\s+(.*)/g;
 
 export default Node.create({
     name: 'powerTaskItem',
@@ -86,6 +88,28 @@ export default Node.create({
                         theme: this.editor.storage.defaultStorage.theme,
                     };
                 }
+            }),
+        ];
+    },
+
+    addPasteRules() {
+        return [
+            nodePasteRule({
+                find: pasteRegex,
+                type: this.type,
+                getAttributes: (match) => {
+                    return {
+                        powerContent: [{ // 自定义插入节点内容
+                            type: 'paragraph',
+                            content: [{
+                                type: 'text',
+                                text: match[4],
+                            }],
+                        }],
+                        checked: match[3] === 'x',
+                        theme: this.editor.storage.defaultStorage.theme,
+                    };
+                },
             }),
         ];
     },

@@ -1,13 +1,5 @@
 <template>
-    <callout-base
-        :show.sync="show"
-        :mobileMode="mobileMode"
-        :title="getTitle('Table')"
-        :foreground="foreground"
-        :theme="theme"
-        :language="language"
-        :popperClass="['power-editor-table-callout']"
-    >
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="getTitle('Table')" :foreground="foreground" :theme="theme" :language="language" :popperClass="['power-editor-table-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
@@ -24,6 +16,13 @@
                     :border-color="'rgba(200, 200, 200, 0.1)'"
                     :background="theme === 'dark' ? '#1a1a1a' : '#fff'"
                     :focus-border-color="foreground"
+                    @keydown.enter="
+                        execMoreX('insertTable', {
+                            rows: parseInt(row),
+                            cols: parseInt(column),
+                            withHeaderRow: true,
+                        })
+                    "
                 ></fv-text-box>
                 <fv-text-box
                     v-model="column"
@@ -36,6 +35,13 @@
                     :border-color="'rgba(200, 200, 200, 0.1)'"
                     :background="theme === 'dark' ? '#1a1a1a' : '#fff'"
                     :focus-border-color="foreground"
+                    @keydown.enter="
+                        execMoreX('insertTable', {
+                            rows: parseInt(row),
+                            cols: parseInt(column),
+                            withHeaderRow: true,
+                        })
+                    "
                 ></fv-text-box>
                 <fv-button
                     theme="dark"
@@ -43,12 +49,14 @@
                     :is-box-shadow="true"
                     :background="foreground"
                     :border-radius="6"
-                    style="width: 40px; height: 40px;"
-                    @click="execMoreX('insertTable', {
-                        rows: parseInt(row),
-                        cols: parseInt(column),
-                        withHeaderRow: true
-                    })"
+                    style="width: 40px; height: 40px"
+                    @click="
+                        execMoreX('insertTable', {
+                            rows: parseInt(row),
+                            cols: parseInt(column),
+                            withHeaderRow: true,
+                        })
+                    "
                 >
                     <i class="ms-Icon ms-Icon--AddBold"></i>
                 </fv-button>
@@ -64,83 +72,27 @@
                 >
                     <i class="ms-Icon ms-Icon--DockLeft"></i>
                 </fv-button>
-                <fv-button
-                    theme="dark"
-                    class="power-editor-table-control-item"
-                    background="rgba(212, 78, 82, 1)"
-                    :is-box-shadow="true"
-                    :title="getTitle('Delete Row')"
-                    @click="execX('deleteRow')"
-                >
+                <fv-button theme="dark" class="power-editor-table-control-item" background="rgba(212, 78, 82, 1)" :is-box-shadow="true" :title="getTitle('Delete Row')" @click="execX('deleteRow')">
                     <i class="ms-Icon ms-Icon--DockBottom"></i>
                 </fv-button>
-                <hr>
-                <fv-button
-                    theme="dark"
-                    class="power-editor-table-control-item"
-                    :background="foreground"
-                    :is-box-shadow="true"
-                    :title="getTitle('Add Row Before')"
-                    @click="execX('addRowBefore')"
-                >
+                <hr />
+                <fv-button theme="dark" class="power-editor-table-control-item" :background="foreground" :is-box-shadow="true" :title="getTitle('Add Row Before')" @click="execX('addRowBefore')">
                     <i class="ms-Icon ms-Icon--UpArrowShiftKey"></i>
                 </fv-button>
-                <fv-button
-                    theme="dark"
-                    class="power-editor-table-control-item"
-                    :background="foreground"
-                    :is-box-shadow="true"
-                    :title="getTitle('Add Row After')"
-                    @click="execX('addRowAfter')"
-                >
-                    <i
-                        class="ms-Icon ms-Icon--UpArrowShiftKey"
-                        style="transform: rotate(180deg);"
-                    ></i>
+                <fv-button theme="dark" class="power-editor-table-control-item" :background="foreground" :is-box-shadow="true" :title="getTitle('Add Row After')" @click="execX('addRowAfter')">
+                    <i class="ms-Icon ms-Icon--UpArrowShiftKey" style="transform: rotate(180deg)"></i>
                 </fv-button>
-                <fv-button
-                    theme="dark"
-                    class="power-editor-table-control-item"
-                    :background="foreground"
-                    :is-box-shadow="true"
-                    :title="getTitle('Add Column Before')"
-                    @click="execX('addColumnBefore')"
-                >
-                    <i
-                        class="ms-Icon ms-Icon--UpArrowShiftKey"
-                        style="transform: rotate(-90deg);"
-                    ></i>
+                <fv-button theme="dark" class="power-editor-table-control-item" :background="foreground" :is-box-shadow="true" :title="getTitle('Add Column Before')" @click="execX('addColumnBefore')">
+                    <i class="ms-Icon ms-Icon--UpArrowShiftKey" style="transform: rotate(-90deg)"></i>
                 </fv-button>
-                <fv-button
-                    theme="dark"
-                    class="power-editor-table-control-item"
-                    :background="foreground"
-                    :is-box-shadow="true"
-                    :title="getTitle('Add Column After')"
-                    @click="execX('addColumnAfter')"
-                >
-                    <i
-                        class="ms-Icon ms-Icon--UpArrowShiftKey"
-                        style="transform: rotate(90deg);"
-                    ></i>
+                <fv-button theme="dark" class="power-editor-table-control-item" :background="foreground" :is-box-shadow="true" :title="getTitle('Add Column After')" @click="execX('addColumnAfter')">
+                    <i class="ms-Icon ms-Icon--UpArrowShiftKey" style="transform: rotate(90deg)"></i>
                 </fv-button>
-                <hr>
-                <fv-button
-                    :theme="theme"
-                    class="power-editor-table-control-item"
-                    :is-box-shadow="true"
-                    :title="getTitle('Merge Cells')"
-                    @click="execX('mergeCells')"
-                >
+                <hr />
+                <fv-button :theme="theme" class="power-editor-table-control-item" :is-box-shadow="true" :title="getTitle('Merge Cells')" @click="execX('mergeCells')">
                     <i class="ms-Icon ms-Icon--PPSOneLandscape"></i>
                 </fv-button>
-                <fv-button
-                    :theme="theme"
-                    class="power-editor-table-control-item"
-                    :is-box-shadow="true"
-                    :title="getTitle('Split Cell')"
-                    @click="execX('splitCell')"
-                >
+                <fv-button :theme="theme" class="power-editor-table-control-item" :is-box-shadow="true" :title="getTitle('Split Cell')" @click="execX('splitCell')">
                     <i class="ms-Icon ms-Icon--PPSTwoPortrait"></i>
                 </fv-button>
             </div>

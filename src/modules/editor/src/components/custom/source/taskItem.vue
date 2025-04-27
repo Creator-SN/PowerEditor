@@ -110,6 +110,11 @@ export default {
         min-width: 10px;
         margin-left: 5px;
         white-space: nowrap;
+
+        p
+        {
+            margin: 0px;
+        }
     }
 
     .power-editor-task-item-placeholder {

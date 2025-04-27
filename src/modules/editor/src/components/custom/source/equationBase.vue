@@ -4,32 +4,22 @@
         :as="node.attrs.tag"
         class="power-editor-equation-container"
         :class="{ dark: thisTheme === 'dark', div: node.attrs.tag == 'div', selected: selected }"
-        :style="{'--selected-bg': focusForeground}"
+        :style="{ '--selected-bg': focusForeground }"
     >
         <transition name="power-editor-equation-popper-fade">
-            <div
-                v-show="showPopper"
-                class="power-editor-equation-popper-container"
-                :style="{ left: `${left}px`, top: `${top}%` }"
-                @keyup.enter="!lock ? close() : ''"
-            >
+            <div v-show="showPopper" class="power-editor-equation-popper-container" :style="{ left: `${left}px`, top: `${top}%` }" @keyup.enter="!lock ? close() : ''">
                 <textarea
                     v-model="thisValue"
                     class="power-editor-equation-popper-input"
                     :placeholder="node.attrs.placeholder"
                     ref="input"
-                    :style="{height: `${inputHight}px`}"
+                    :style="{ height: `${inputHight}px` }"
                     @keydown.enter="$event.preventDefault()"
+                    @keydown="closeWithLeftRight($event)"
                 ></textarea>
-                <fv-button
-                    class="power-editor-equation-popper-btn"
-                    :theme="'dark'"
-                    :disabled="lock"
-                    icon="AcceptMedium"
-                    :background="thisForeground"
-                    :is-box-shadow="true"
-                    @click="close"
-                >{{getTitle('Done')}}</fv-button>
+                <fv-button class="power-editor-equation-popper-btn" :theme="'dark'" :disabled="lock" icon="AcceptMedium" :background="thisForeground" :is-box-shadow="true" @click="close">{{
+                    getTitle('Done')
+                }}</fv-button>
             </div>
         </transition>
         <div
@@ -172,9 +162,9 @@ export default {
             } catch (e) {
                 return '';
             }
-        }
+        },
     },
-    
+
     mounted() {
         this.outSideClickInit();
         this.render();
@@ -188,7 +178,8 @@ export default {
         },
         render() {
             try {
-                this.equationString = this.$katex.renderToString(this.thisValue, {
+                // replace /tag{xxx} with ''
+                this.equationString = this.$katex.renderToString(this.thisValue.replace(/\\tag\{.*?\}/g, ''), {
                     throwOnError: true,
                 });
                 this.lock = false;
@@ -224,9 +215,28 @@ export default {
             else this.thisValue = this.node.attrs.value;
             this.editor.commands.focus();
             const { tr } = this.editor.view.state;
-            const selection = TextSelection.near(tr.doc.resolve(this.getPos() + this.node.nodeSize));
+            let selection = null;
+            if (this.$refs.input.selectionEnd === 0) selection = TextSelection.near(tr.doc.resolve(this.getPos()));
+            else selection = TextSelection.near(tr.doc.resolve(this.getPos() + this.node.nodeSize));
             tr.setSelection(selection);
             this.editor.view.dispatch(tr);
+        },
+        closeWithLeftRight(event) {
+            let startPos = this.$refs.input.selectionStart;
+            let endPos = this.$refs.input.selectionEnd;
+            if (startPos !== endPos) {
+                return;
+            }
+            if (event.key === 'ArrowLeft') {
+                if (startPos === 0) {
+                    this.close(false);
+                }
+            }
+            if (event.key === 'ArrowRight') {
+                if (startPos === this.$refs.input.value.length) {
+                    this.close(false);
+                }
+            }
         },
     },
     beforeDestroy() {

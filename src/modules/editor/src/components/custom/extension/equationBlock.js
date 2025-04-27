@@ -3,8 +3,8 @@ import { VueNodeViewRenderer } from '@tiptap/vue-2';
 import equationBlock from '../source/equationBase.vue';
 import { nodePasteRule } from '../pasteRules/nodePasteRules';
 
-const inputRegex = /^\${2}\s$/;
-const pasteRegex = /^\${2}(.+)\${2}/g;
+const inputRegex = /(\${2}\s|\\\[\s)$/;
+const pasteRegex = /(\s*\${2}|\\\[)([\s\S]+?)(\${2}|\\\])/g;
 
 export default Node.create({
     name: 'equationBlock',
@@ -71,7 +71,7 @@ export default Node.create({
                 getAttributes: match => {
                     // return some attrs, if any.
                     return {
-                        value: match[1],
+                        value: match[2],
                         theme: this.editor.storage.defaultStorage.theme,
                     };
                 },

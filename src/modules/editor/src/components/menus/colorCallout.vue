@@ -1,60 +1,38 @@
 <template>
-    <callout-base
-        :show.sync="show"
-        :mobileMode="mobileMode"
-        :title="getTitle('Text Color')"
-        :foreground="foreground"
-        :theme="theme"
-        :language="language"
-        :popperClass="['power-editor-color-callout']"
-    >
+    <callout-base :show.sync="show" :mobileMode="mobileMode" :title="getTitle('Text Color')" :foreground="foreground" :theme="theme" :language="language" :popperClass="['power-editor-color-callout']">
         <template v-slot:trigger="x">
             <slot :show="x.show"></slot>
         </template>
         <template v-slot:content>
-            <p style="width: 100%; font-size: 12px;">{{getTitle('Foreground')}}</p>
-            <div
-                class="power-editor-color-item"
-                :class="[{dark : theme == 'dark'}]"
-                @click="execX('unsetColor')"
-            >
+            <p class="power-menu-sec-title" :style="{ '--power-menu-sec-title-background': foreground }">{{ getTitle('Foreground') }}</p>
+            <div class="power-editor-color-item" :class="[{ dark: theme == 'dark' }]" @click="execX('unsetColor')">
                 <p class="peci-example">A</p>
-                <p class="peci-comment">{{getTitle(`removeColor`)}}</p>
+                <p class="peci-comment">{{ getTitle(`removeColor`) }}</p>
             </div>
             <div
                 v-for="(item, index) in colorList"
                 class="power-editor-color-item"
-                :class="[{dark : theme == 'dark', choosen: editor.isActive('textStyle', { color: item.color })}]"
+                :class="[{ dark: theme == 'dark', choosen: editor.isActive('textStyle', { color: item.color }) }]"
                 :key="'color:' + index"
                 @click="execMoreX('setColor', item.color)"
             >
-                <p
-                    class="peci-example"
-                    :style="{color: item.color}"
-                >A</p>
-                <p class="peci-comment">{{getTitle(item.name)}}</p>
+                <p class="peci-example" :style="{ color: item.color }">A</p>
+                <p class="peci-comment">{{ getTitle(item.name) }}</p>
             </div>
-            <p style="width: 100%; font-size: 12px;">{{getTitle('Highlight Background')}}</p>
-            <div
-                class="power-editor-color-item"
-                :class="[{dark : theme == 'dark'}]"
-                @click="execX('unsetHighlight')"
-            >
+            <p class="power-menu-sec-title" :style="{ '--power-menu-sec-title-background': foreground }">{{ getTitle('Highlight Background') }}</p>
+            <div class="power-editor-color-item" :class="[{ dark: theme == 'dark' }]" @click="execX('unsetHighlight')">
                 <p class="peci-example">A</p>
-                <p class="peci-comment">{{getTitle(`removeHighlight`)}}</p>
+                <p class="peci-comment">{{ getTitle(`removeHighlight`) }}</p>
             </div>
             <div
                 v-for="(item, index) in highlightList"
                 class="power-editor-color-item"
-                :class="[{dark : theme == 'dark', choosen: editor.isActive('highlight', { color: item.color })}]"
+                :class="[{ dark: theme == 'dark', choosen: editor.isActive('highlight', { color: item.color }) }]"
                 :key="'highlight:' + index"
                 @click="execMoreX('setHighlight', { color: item.color })"
             >
-                <p
-                    class="peci-example"
-                    :style="{background: item.color}"
-                >A</p>
-                <p class="peci-comment">{{getTitle(item.name)}}</p>
+                <p class="peci-example" :style="{ background: item.color }">A</p>
+                <p class="peci-comment">{{ getTitle(item.name) }}</p>
             </div>
         </template>
     </callout-base>
@@ -162,9 +140,28 @@ export default {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         overflow: overlay;
         overflow-x: hidden;
+
+        --power-menu-sec-title-background: rgba(200, 200, 200, 0.1);
+
+        .power-menu-sec-title {
+            width: auto;
+            height: 25px;
+            margin-left: 3px;
+            flex-shrink: 0;
+            padding: 0px 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: whitesmoke;
+            border-radius: 12px;
+            background: var(--power-menu-sec-title-background);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+        }
 
         .power-editor-cmd-btn {
             width: 50px;
