@@ -206,7 +206,7 @@ export default {
             if (!this.editor.isEditable) return;
             this.showPopper = true;
             setTimeout(() => {
-                this.$refs.input.focus();
+                if (this.$refs.input) this.$refs.input.focus();
             }, 300);
         },
         close(confirm = true) {
@@ -233,6 +233,16 @@ export default {
                 }
             }
             if (event.key === 'ArrowRight') {
+                if (startPos === this.$refs.input.value.length) {
+                    this.close(false);
+                }
+            }
+            if (event.key === 'ArrowUp') {
+                if (startPos === 0) {
+                    this.close(false);
+                }
+            }
+            if (event.key === 'ArrowDown') {
                 if (startPos === this.$refs.input.value.length) {
                     this.close(false);
                 }

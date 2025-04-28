@@ -90,6 +90,7 @@ export default Node.create({
                 let selection = this.editor.view.state.selection;
                 let text = state.doc.textBetween(selection.from, selection.to, ' ');
                 let isInline = true;
+                text = text.trim();
                 // if text is $...$ then remove $ from start and end
                 if (text.startsWith('$$') && text.endsWith('$$')) {
                     text = text.slice(2, -2);
