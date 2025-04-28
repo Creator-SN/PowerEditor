@@ -51,7 +51,7 @@ import onecolor from 'onecolor';
 import { NodeViewWrapper } from '@tiptap/vue-2';
 import { TextSelection } from 'prosemirror-state';
 
-import 'katex/dist/katex.min.css';
+// import 'katex/dist/katex.min.css';
 
 export default {
     components: {
@@ -256,6 +256,10 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+@import url("~katex/dist/katex.min.css");
+</style>
 
 <style lang="scss">
 .power-editor-equation-container {
