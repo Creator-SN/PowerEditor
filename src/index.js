@@ -4,7 +4,6 @@ import pkg from "../package.json";
 
 import katex from 'katex';
 import "vfluentdesign/lib/index.css"
-import 'katex/dist/katex.min.css';
 
 let components = [Editor];
 
