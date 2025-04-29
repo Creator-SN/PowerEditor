@@ -700,6 +700,8 @@ export default {
         }
 
         .ProseMirror {
+            -webkit-touch-callout: none;
+            
             > * + * {
                 margin-top: 0.75em;
             }
