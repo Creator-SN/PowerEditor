@@ -257,6 +257,10 @@ export default {
 };
 </script>
 
+<style scoped>
+@import url("~katex/dist/katex.min.css");
+</style>
+
 <style lang="scss">
 .power-editor-equation-container {
     position: relative;
