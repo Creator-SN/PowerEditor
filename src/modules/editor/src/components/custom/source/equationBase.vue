@@ -183,6 +183,7 @@ export default {
                 // replace /tag{xxx} with ''
                 this.equationString = this.$katex.renderToString(this.thisValue.replace(/\\tag\{.*?\}/g, ''), {
                     throwOnError: true,
+                    globalGroup: "my-katex-"
                 });
                 this.lock = false;
             } catch (e) {
@@ -257,11 +258,11 @@ export default {
 };
 </script>
 
-<style scoped>
-@import url("~katex/dist/katex.min.css");
-</style>
+
 
 <style lang="scss">
+@import url("~katex/dist/katex.min.css");
+
 .power-editor-equation-container {
     position: relative;
     width: auto;
